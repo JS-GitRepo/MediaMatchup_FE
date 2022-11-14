@@ -6,12 +6,14 @@ import NavFooter from "./NavFooter";
 import NavHeader from "./NavHeader";
 import NavFriends from "./NavFriends";
 import NavCommunity from "./NavCommunity";
+import { animated } from "react-spring";
 
 interface Props {
   currentDisplay: string;
+  style: any;
 }
 
-const NavPage = ({ currentDisplay }: Props) => {
+const NavPage = ({ currentDisplay, style }: Props) => {
   const { user } = useContext(SocialContext);
   const [centerDisplayJSX, setCenterDisplayJSX] = useState<JSX.Element>(
     <MatchupFeed currentDisplay={currentDisplay} userID={user?.uid} />
@@ -34,11 +36,11 @@ const NavPage = ({ currentDisplay }: Props) => {
   }, [currentDisplay]);
 
   return (
-    <div className="NavPage">
+    <animated.div style={style} className='NavPage'>
       <NavHeader currentDisplay={currentDisplay} />
       {centerDisplayJSX}
       <NavFooter currentDisplay={currentDisplay} />
-    </div>
+    </animated.div>
   );
 };
 

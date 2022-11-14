@@ -1,10 +1,10 @@
 import axios from "axios";
 import MediaItem from "../models/MediaItem";
 
-// const baseURL: string = `${process.env.REACT_APP_API_URL}` || "";
-const tmdbKey: string = `${process.env.REACT_APP_TMDB_KEY}` || "";
-const lastFMKey: string = `${process.env.REACT_APP_LASTFM_KEY}` || "";
-const rawGKey: string = `${process.env.REACT_APP_RAWG_KEY}` || "";
+// const baseURL: string = `${import.meta.env.VITE_API_URL}` || "";
+const tmdbKey: string = `${import.meta.env.VITE_TMDB_KEY}` || "";
+const lastFMKey: string = `${import.meta.env.VITE_LASTFM_KEY}` || "";
+const rawGKey: string = `${import.meta.env.VITE_RAWG_KEY}` || "";
 
 // Searches for a list of popular movies,then picks a random page, then a specific result at random
 export const getMovie = (): Promise<MediaItem> => {

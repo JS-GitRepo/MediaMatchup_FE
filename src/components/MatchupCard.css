@@ -158,27 +158,6 @@
   font-size: 22px;
 }
 
-/* - - - - - MatchupCard Navigation Link - - - - - */
-.MatchupCard .nav-menu {
-  position: absolute;
-  bottom: 3%;
-  width: 100%;
-  z-index: 1;
-}
-
-.MatchupCard .nav-chevron {
-  width: 90%;
-  text-decoration: none;
-  opacity: 0.9;
-}
-
-.nav-animation {
-  transform: translateY(-120vh);
-  transition: 0.6s;
-}
-
-/* - - - - Hover States - - - - - */
-
 /* >>>>>>>>>>>>>>>>>>>> Animations <<<<<<<<<<<<<<<<<<<<*/
 
 /* - - - - - - Winner Animation - - - - - - */
@@ -305,10 +284,5 @@
 
   .MatchupCard .crownAnimation2 {
     left: 70%;
-  }
-
-  .MatchupCard .nav-chevron {
-    height: 25px;
-    width: 125px;
   }
 }

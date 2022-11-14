@@ -20,8 +20,15 @@ import { getUserById, updateUserDailiesByID } from "../services/UserService";
 import "./Homepage.css";
 import MatchupCard from "./MatchupCard";
 import StatsCard from "./StatsCard";
+import chevron from "../images/wide_chevron.png";
+import { animated, useTransition } from "react-spring";
 
-const Homepage = () => {
+interface Props {
+  style: any;
+}
+
+const Homepage = ({ style }: Props) => {
+  //  = = = = = = VARIABLES = = = = =
   const defaultMatchup: Matchup = {
     media1: {
       title: "",
@@ -45,6 +52,7 @@ const Homepage = () => {
     "https://apollo.imgix.net/content/uploads/2018/02/LEADPablo-Picasso-Femme-au-beret-et-a-la-robe-quadrillee-Marie-Therese-Walter-December-1937.jpg?auto=compress,format&crop=faces,entropy,edges&fit=crop&w=900&h=600";
 
   const { user } = useContext(SocialContext);
+  const navigate = useNavigate();
   const getMediaArray = [
     // getAlbum,
     getArtpiece,
@@ -52,8 +60,11 @@ const Homepage = () => {
     getTVShow,
     getVideoGame,
   ];
+  // - - - Animations - - -
+  const [navAnimation, setNavAnimation] = useState<boolean>(false);
+  const navTransition = useTransition(navAnimation, {});
 
-  // >>>>>>>>>>>>>>>>>>>>> GENERATOR FUNCTIONS <<<<<<<<<<<<<<<<<<<<<
+  // = = = = = =  GENERATOR FUNCTIONS = = = = = =
   const generateDateInfo = () => {
     const currentDate: Date = new Date();
     const detailedDate: number = Date.now();
@@ -115,9 +126,9 @@ const Homepage = () => {
       media2 = await generateMedia(randSelection2);
     }
     const endTime = Date.now() - startTime;
-    // console.log(
-    //   `The 'generateMatchup' function took ${endTime} ms to complete.`
-    // );
+    console.log(
+      `The 'generateMatchup' function took ${endTime} ms to complete.`
+    );
     // console.log(media1, media2);
     // setMatchup({
     //   media1,
@@ -125,17 +136,6 @@ const Homepage = () => {
     // });
     return { media1, media2 };
   };
-
-  // const generateMultipleMatchups = async (
-  //   quantity: number
-  // ): Promise<Matchup[]> => {
-  //   let matchupArray: Matchup[] = [];
-  //   for (let i = 0; i < quantity; i++) {
-  //     const matchup = await generateMatchup();
-  //     matchupArray.push(matchup);
-  //   }
-  //   return matchupArray;
-  // };
 
   const generateMultipleMatchups = (quantity: number): Promise<Matchup[]> => {
     let matchupArray: Promise<Matchup>[] = [];
@@ -263,18 +263,26 @@ const Homepage = () => {
     // console.log("Daily Matchups Status: ", dailyMatchups);
     checkAndSetMatchups();
   };
-  const matchupCardJSX = (
-    <MatchupCard
-      matchup={matchup}
-      onSubmitMatchup={submitUserMatchupHandler}
-      checkAndSetMatchups={checkAndSetMatchups}
-    />
-  );
-  const statsCardJSX = <StatsCard />;
-  const [cardType, setCardType] = useState<JSX.Element>(matchupCardJSX);
+
+  const cardComponents = {
+    matchupCard: (
+      <MatchupCard
+        matchup={matchup}
+        onSubmitMatchup={submitUserMatchupHandler}
+        checkAndSetMatchups={checkAndSetMatchups}
+      />
+    ),
+    statsCard: <StatsCard />,
+  };
+
+  const navMenuTransition = () => {
+    setNavAnimation(true);
+    setTimeout(() => {
+      navigate("/nav/myfeed");
+    }, 400);
+  };
 
   useEffect(() => {
-    setCardType(matchupCardJSX);
     setIsInitialRender(false);
   }, []);
 
@@ -292,9 +300,19 @@ const Homepage = () => {
   }, [matchup]);
 
   return (
-    <div className={`Homepage`}>
+    <animated.div style={style} className={`Homepage`}>
       {user ? (
-        <div>{matchupCardJSX}</div>
+        <div>
+          {cardComponents.matchupCard}
+          <div className='nav-menu'>
+            <img
+              className='nav-chevron'
+              onClick={() => navMenuTransition()}
+              src={chevron}
+              alt='navigation icon'
+            />
+          </div>
+        </div>
       ) : (
         <div className='sign-in-container'>
           <p onClick={signInWithGoogle}>Sign In With Google</p>
@@ -305,7 +323,7 @@ const Homepage = () => {
           />
         </div>
       )}
-    </div>
+    </animated.div>
   );
 };
 
