@@ -62,15 +62,29 @@
   padding: 5px;
 }
 
-/* >>>>>>>>>>>>>>>>>> Animations <<<<<<<<<<<<<<<<<< */
-/* .Homepage .fa-angle-up {
-  color: white;
-  font-size: 100px;
+/* - - - - - MatchupCard Navigation Link - - - - - */
+.Homepage .nav-menu {
+  position: absolute;
+  bottom: 3%;
+  width: 100%;
+  z-index: 1;
+}
+
+.Homepage .nav-chevron {
+  width: 90%;
   text-decoration: none;
-  transform: scale(4.5, 0.8);
-  opacity: 0.4;
-} */
+  opacity: 0.9;
+}
+
+.Homepage .nav-animation {
+  transform: translateY(-120vh);
+  transition: 0.6s;
+}
 
 /* >>>>>>>>>>>>>>>>>> Media Queries <<<<<<<<<<<<<<<<<< */
 @media only screen and (min-width: 768px) {
+  .Homepage .nav-chevron {
+    height: 25px;
+    width: 125px;
+  }
 }

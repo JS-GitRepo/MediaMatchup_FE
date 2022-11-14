@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-const firebaseKey: string = `${process.env.REACT_APP_FIREBASE_KEY}` || "";
+const firebaseKey: string = `${import.meta.env.VITE_FIREBASE_KEY}` || "";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: firebaseKey as string,

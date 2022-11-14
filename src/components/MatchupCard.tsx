@@ -3,9 +3,6 @@ import Matchup from "../models/Matchup";
 import MediaItem from "../models/MediaItem";
 import "./MatchupCard.css";
 import loading from "../images/loading.svg";
-import "./MatchupCardLoading.css";
-import chevron from "../images/wide_chevron.png";
-import { useNavigate } from "react-router-dom";
 
 interface Props {
   matchup: Matchup;
@@ -46,7 +43,6 @@ const MatchupCard = ({
   const [imagesAreLoaded, setImagesAreLoaded] = useState<boolean>(false);
   const [triggerRefreshMsg, setTriggerRefreshMsg] = useState<boolean>(false);
   const imageLoadedCounter = useRef(0);
-  const navigation = useNavigate();
 
   const constructMedia = async () => {
     setTitle1(matchup.media1.title);
@@ -121,13 +117,6 @@ const MatchupCard = ({
 
   const loadingRefreshPrompt = () => {
     setTimeout(() => setTriggerRefreshMsg(true), 10000);
-  };
-
-  const navMenuTransition = () => {
-    setNavAnimation(true);
-    setTimeout(() => {
-      navigation("/nav/myfeed");
-    }, 400);
   };
 
   useEffect(() => {
@@ -285,14 +274,6 @@ const MatchupCard = ({
               src={imagesAreLoaded ? bgImg2 : ""}
               alt={`Background Image 2: ${title2}`}
               // onLoad={imageLoaded}
-            />
-          </div>
-          <div className='nav-menu'>
-            <img
-              className='nav-chevron'
-              onClick={() => navMenuTransition()}
-              src={chevron}
-              alt='navigation icon'
             />
           </div>
         </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import DailyMatchupCollection from "../models/DailyMatchupCollection";
 
-const baseURL: string = `${process.env.REACT_APP_API_URL}/dailymatchups` || "";
+const baseURL: string = `${import.meta.env.VITE_API_URL}/dailymatchups` || "";
 
 export const getDailyMatchupCollection = async (
   simpleDate: number
