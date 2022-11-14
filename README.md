@@ -1,5 +1,5 @@
 # Media Matchup
-A fun and odd  comparison app where various forms of media battle for your vote. Comparisons are quite "apples to oranges," pitting different categories of media against one another such as film, musical albums, video games, artwork, and television. 
+A fun and odd  comparison app where various forms of media battle for your vote. Comparisons are "apples to oranges," pitting different categories of media against one another such as film, musical albums, video games, artwork, and television. 
 
 ## The Game
 Two forms of media are generated after being filtered by general popularity and current pop-culture relevance. These are compared side by side, allowing the user to decide which they think is better. This decision is then logged to their profile, where friends can view ( and in the future interact ) with these choices.
