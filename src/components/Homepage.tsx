@@ -1,3 +1,4 @@
+import "./styles/Homepage.css";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
@@ -17,7 +18,6 @@ import {
 } from "../services/ExternalAPIService";
 import { submitMatchup } from "../services/MatchupService";
 import { getUserById, updateUserDailiesByID } from "../services/UserService";
-import "./Homepage.css";
 import MatchupCard from "./MatchupCard";
 import StatsCard from "./StatsCard";
 import chevron from "../images/wide_chevron.png";
@@ -300,7 +300,7 @@ const Homepage = ({ style }: Props) => {
   }, [matchup]);
 
   return (
-    <animated.div style={style} className={`Homepage`}>
+    <animated.div className={`Homepage`}>
       {user ? (
         <div>
           {cardComponents.matchupCard}

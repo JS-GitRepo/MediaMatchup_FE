@@ -1,7 +1,7 @@
+import "./styles/NavPage.css";
 import { useContext, useEffect, useState } from "react";
 import SocialContext from "../context/SocialContext";
 import MatchupFeed from "./MatchupFeed";
-import "./NavPage.css";
 import NavFooter from "./NavFooter";
 import NavHeader from "./NavHeader";
 import NavFriends from "./NavFriends";
@@ -36,7 +36,7 @@ const NavPage = ({ currentDisplay, style }: Props) => {
   }, [currentDisplay]);
 
   return (
-    <animated.div style={style} className='NavPage'>
+    <animated.div className='NavPage'>
       <NavHeader currentDisplay={currentDisplay} />
       {centerDisplayJSX}
       <NavFooter currentDisplay={currentDisplay} />

@@ -1,7 +1,7 @@
+import "./styles/MatchupFeedCard.css";
 import { useContext } from "react";
 import SocialContext from "../context/SocialContext";
 import Matchup from "../models/Matchup";
-import "./MatchupFeedCard.css";
 
 interface Props {
   matchup: Matchup;
@@ -36,42 +36,42 @@ const MatchupFeedCard = ({ matchup }: Props) => {
   }
 
   return (
-    <div className="MatchupFeedCard">
-      <div className="media1-container">
-        <div className="image-subcontainer">
+    <div className='MatchupFeedCard'>
+      <div className='media1-container'>
+        <div className='image-subcontainer'>
           <img
             className={`media1-main-img main-img ${isWinner1}`}
             src={matchup?.media1.artImg}
             alt={`Main Image 1: ${matchup?.media1.title}`}
           />
         </div>
-        <div className="text-subcontainer">
-          <p className="media1-title">{matchup?.media1.title}</p>
+        <div className='text-subcontainer'>
+          <p className='media1-title'>{matchup?.media1.title}</p>
           {/* <p className="media1-subtitle">{subtitle1}</p>
           <p className="media1-category">{`(${matchup?.media1.category})`}</p> */}
         </div>
         <img
-          className="media1-bg-img bg-img"
+          className='media1-bg-img bg-img'
           src={backgroundImg1}
           alt={`Background Image 1: ${matchup?.media1.title}`}
         />
       </div>
-      <p className="vs">VS</p>
-      <div className="media2-container">
-        <div className="image-subcontainer">
+      <p className='vs'>VS</p>
+      <div className='media2-container'>
+        <div className='image-subcontainer'>
           <img
             className={`media2-main-img main-img ${isWinner2}`}
             src={matchup?.media2.artImg}
             alt={`Main Image 2: ${matchup?.media2.title}`}
           />
         </div>
-        <div className="text-subcontainer">
-          <p className="media2-title">{matchup?.media2.title}</p>
+        <div className='text-subcontainer'>
+          <p className='media2-title'>{matchup?.media2.title}</p>
           {/* <p className="media2-subtitle">{subtitle2}</p>
           <p className="media2-category">{`(${matchup?.media2.category})`}</p> */}
         </div>
         <img
-          className="media2-bg-img bg-img"
+          className='media2-bg-img bg-img'
           src={backgroundImg2}
           alt={`Background Image 2: ${matchup?.media2.title}`}
         />

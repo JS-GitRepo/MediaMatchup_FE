@@ -1,3 +1,4 @@
+import "./styles/NavFriendListForm.css";
 import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import SocialContext from "../context/SocialContext";
 import Friend from "../models/Friend";
@@ -6,7 +7,6 @@ import {
   getUserByEmail,
   getUserById,
 } from "../services/UserService";
-import "./NavFriendListForm.css";
 import { signInWithGoogle } from "../firebaseConfig";
 import { Link } from "react-router-dom";
 
@@ -65,19 +65,19 @@ const NavFriendListForm = () => {
   }, [user, friendStatusMsg]);
 
   return (
-    <div className="NavFriendListForm">
+    <div className='NavFriendListForm'>
       {user ? (
         <div>
           <form
             ref={formRef}
-            className="add-friend-form"
+            className='add-friend-form'
             onSubmit={(e) => submitHandler(e)}>
-            <label htmlFor="addFriend"></label>
+            <label htmlFor='addFriend'></label>
             <input
-              type="email"
-              name="addFriend"
-              id="addFriend"
-              placeholder="yourfriend@email.com"
+              type='email'
+              name='addFriend'
+              id='addFriend'
+              placeholder='yourfriend@email.com'
               required
               onChange={(e) => setFriendEmail(e.target.value)}
             />
@@ -91,7 +91,7 @@ const NavFriendListForm = () => {
             {friendStatusMsg}
           </p>
 
-          <div className="nav-friends-list">
+          <div className='nav-friends-list'>
             <h2>Your Friends</h2>
             <ul>
               {friends.map((friend, i) => {

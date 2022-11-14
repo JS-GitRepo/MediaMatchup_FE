@@ -1,3 +1,4 @@
+import "./styles/MatchupFeed.css";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
@@ -5,7 +6,6 @@ import Matchup from "../models/Matchup";
 import UserAccount from "../models/UserAccount";
 import { getMatchupsByUID } from "../services/MatchupService";
 import { getUserById } from "../services/UserService";
-import "./MatchupFeed.css";
 import MatchupFeedCard from "./MatchupFeedCard";
 
 interface Props {
@@ -48,12 +48,12 @@ const MatchupFeed = ({ userID, currentDisplay }: Props) => {
   }, [userID]);
 
   return (
-    <div className="MatchupFeed">
-      <div className="matchup-feed-heading">
-        <h1 className="title">
+    <div className='MatchupFeed'>
+      <div className='matchup-feed-heading'>
+        <h1 className='title'>
           {!isPersonalFeed ? (
-            <Link className="left-nav" to={`/nav/friends`}>
-              <span className="material-icons">chevron_left</span>
+            <Link className='left-nav' to={`/nav/friends`}>
+              <span className='material-icons'>chevron_left</span>
             </Link>
           ) : (
             <div></div>
@@ -61,7 +61,7 @@ const MatchupFeed = ({ userID, currentDisplay }: Props) => {
           {`${currentUser?.name}'s Feed`}
         </h1>
       </div>
-      <ul className="matchup-feed-list">
+      <ul className='matchup-feed-list'>
         {userMatchups.map((matchupCard, i) => {
           return (
             <MatchupFeedCard key={`Matchup: ${i}`} matchup={matchupCard} />
