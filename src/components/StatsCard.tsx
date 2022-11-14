@@ -1,7 +1,7 @@
-import "./StatsCard.css";
+import "./styles/StatsCard.css";
 
 const StatsCard = () => {
-  return <div className="StatsCard">StatsCard works</div>;
+  return <div className='StatsCard'>StatsCard works</div>;
 };
 
 export default StatsCard;

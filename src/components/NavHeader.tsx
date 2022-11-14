@@ -1,4 +1,4 @@
-import "./NavHeader.css";
+import "./styles/NavHeader.css";
 
 interface Props {
   currentDisplay: string;
@@ -6,7 +6,7 @@ interface Props {
 
 const NavHeader = ({ currentDisplay }: Props) => {
   return (
-    <div className="NavHeader">
+    <div className='NavHeader'>
       <p>{currentDisplay}</p>
     </div>
   );

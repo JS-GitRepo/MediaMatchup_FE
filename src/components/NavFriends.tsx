@@ -1,4 +1,4 @@
-import "./NavFriends.css";
+import "./styles/NavFriends.css";
 import NavFriendListForm from "./NavFriendListForm";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -23,7 +23,7 @@ const NavFriends = () => {
     }
   }, [location]);
 
-  return <div className="NavFriends">{displayJSX}</div>;
+  return <div className='NavFriends'>{displayJSX}</div>;
 };
 
 export default NavFriends;

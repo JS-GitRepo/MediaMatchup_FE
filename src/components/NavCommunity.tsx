@@ -1,6 +1,6 @@
+import "./styles/NavCommunity.css";
 import { useState } from "react";
 import Matchup from "../models/Matchup";
-import "./NavCommunity.css";
 
 const NavCommunity = () => {
   const [daily1, setDaily1] = useState<Matchup[]>();
@@ -18,15 +18,15 @@ const NavCommunity = () => {
     "https://upload.wikimedia.org/wikipedia/en/a/a3/Kanyewest_collegedropout.jpg";
 
   return (
-    <div className="NavCommunity">
-      <img className="bg-img" src={bgImgURL} alt="Winner: College Dropout" />
-      <div className="daily-stats">
-        <ul className="daily-list">
+    <div className='NavCommunity'>
+      <img className='bg-img' src={bgImgURL} alt='Winner: College Dropout' />
+      <div className='daily-stats'>
+        <ul className='daily-list'>
           <li>
-            <p className="todays-winner">Today's Winner:</p>
+            <p className='todays-winner'>Today's Winner:</p>
             <img
-              src="https://upload.wikimedia.org/wikipedia/en/a/a3/Kanyewest_collegedropout.jpg"
-              alt=""
+              src='https://upload.wikimedia.org/wikipedia/en/a/a3/Kanyewest_collegedropout.jpg'
+              alt=''
             />
           </li>
         </ul>

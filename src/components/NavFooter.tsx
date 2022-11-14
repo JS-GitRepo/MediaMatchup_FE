@@ -1,8 +1,8 @@
+import "./styles/NavFooter.css";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
 import { signInWithGoogle, signOut } from "../firebaseConfig";
-import "./NavFooter.css";
 
 interface Props {
   currentDisplay: string;
@@ -31,20 +31,20 @@ const NavFooter = ({ currentDisplay }: Props) => {
   };
 
   return (
-    <div className="NavFooter">
-      <div className="nav-container">
+    <div className='NavFooter'>
+      <div className='nav-container'>
         <p>
           {currentDisplay === "My Feed" || currentDisplay === "Friends" ? (
-            <Link className="left-nav angle-btns" to={leftNav()}>
-              <span className="material-icons">chevron_left</span>
+            <Link className='left-nav angle-btns' to={leftNav()}>
+              <span className='material-icons'>chevron_left</span>
             </Link>
           ) : (
             <div></div>
           )}
           {currentDisplay}
           {currentDisplay === "My Feed" || currentDisplay === "Community" ? (
-            <Link className="right-nav angle-btns" to={rightNav()}>
-              <span className="material-icons">chevron_right</span>
+            <Link className='right-nav angle-btns' to={rightNav()}>
+              <span className='material-icons'>chevron_right</span>
             </Link>
           ) : (
             <div></div>
@@ -52,12 +52,12 @@ const NavFooter = ({ currentDisplay }: Props) => {
         </p>
       </div>
       {/* <p>{user.email}</p> */}
-      <div className="buttons-container">
-        <button onClick={() => navigate("/")} className="return button">
+      <div className='buttons-container'>
+        <button onClick={() => navigate("/")} className='return button'>
           Return to Matchups
         </button>
         <button
-          className="signout button"
+          className='signout button'
           onClick={() => {
             signOut();
             navigate("/");
