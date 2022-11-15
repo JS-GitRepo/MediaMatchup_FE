@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { animated, useTransition } from "react-spring";
-import Homepage from "./Homepage";
-import NavPage from "./NavPage";
+import Homeview from "./Homeview";
+import NavModal from "./NavModal";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -15,22 +15,22 @@ const AnimatedRoutes = () => {
   return navTransition((style, item) => (
     <animated.div style={style} className={"full-h-w"}>
       <Routes location={item}>
-        <Route path='/' element={<Homepage style={style} />} />
+        <Route path='/' element={<Homeview style={style} />} />
         <Route
-          path='/nav/myfeed'
-          element={<NavPage style={style} currentDisplay='My Feed' />}
+          path='/nav/My Feed'
+          element={<NavModal style={style} currentDisplay='My Feed' />}
         />
         <Route
           path='/nav/friends'
-          element={<NavPage currentDisplay='Friends' style={undefined} />}
+          element={<NavModal currentDisplay='Friends' style={undefined} />}
         />
         <Route
           path='/nav/friends/:id'
-          element={<NavPage currentDisplay='Friends' style={undefined} />}
+          element={<NavModal currentDisplay='Friends' style={undefined} />}
         />
         <Route
           path='/nav/community'
-          element={<NavPage currentDisplay='Community' style={undefined} />}
+          element={<NavModal currentDisplay='Community' style={undefined} />}
         />
       </Routes>
     </animated.div>

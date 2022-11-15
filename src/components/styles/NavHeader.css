@@ -1,11 +1,13 @@
 .NavHeader {
+  /* display */
+  /* position */
+  /* style */
   display: flex;
   align-items: center;
   justify-content: center;
   width: 98vw;
   height: 10%;
   background-color: rgba(3, 123, 73, 0.611);
-  z-index: 2;
   box-sizing: border-box;
   border-radius: 10px;
   margin: 2px;

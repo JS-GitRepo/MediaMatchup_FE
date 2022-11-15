@@ -1,4 +1,4 @@
-import "./styles/NavPage.css";
+import "./styles/NavModal.css";
 import { useContext, useEffect, useState } from "react";
 import SocialContext from "../context/SocialContext";
 import MatchupFeed from "./MatchupFeed";
@@ -13,35 +13,35 @@ interface Props {
   style: any;
 }
 
-const NavPage = ({ currentDisplay, style }: Props) => {
+const NavModal = ({ currentDisplay, style }: Props) => {
   const { user } = useContext(SocialContext);
-  const [centerDisplayJSX, setCenterDisplayJSX] = useState<JSX.Element>(
-    <MatchupFeed currentDisplay={currentDisplay} userID={user?.uid} />
-  );
-
-  const matchupFeedJSX = (
-    <MatchupFeed currentDisplay={currentDisplay} userID={user?.uid} />
-  );
-  const navFriendsJSX = <NavFriends />;
-  const navCommunityJSX = <NavCommunity />;
+  // const [currentDisplay, setCurrentDisplay] = useState("My Feed");
+  const centerDisplay = {
+    matchupFeed: (
+      <MatchupFeed currentDisplay={currentDisplay} userID={user?.uid} />
+    ),
+    navFriends: <NavFriends />,
+    navCommunity: <NavCommunity />,
+  };
+  const [pageName, setPageName] = useState<string>("matchupFeed");
 
   useEffect(() => {
     if (currentDisplay === "My Feed") {
-      setCenterDisplayJSX(matchupFeedJSX);
+      setPageName("matchupFeed");
     } else if (currentDisplay === "Friends") {
-      setCenterDisplayJSX(navFriendsJSX);
+      setPageName("navFriends");
     } else if (currentDisplay === "Community") {
-      setCenterDisplayJSX(navCommunityJSX);
+      setPageName("navCommunity");
     }
   }, [currentDisplay]);
 
   return (
-    <animated.div className='NavPage'>
+    <animated.div className='NavModal'>
       <NavHeader currentDisplay={currentDisplay} />
-      {centerDisplayJSX}
+      {centerDisplay[pageName as keyof typeof centerDisplay]}
       <NavFooter currentDisplay={currentDisplay} />
     </animated.div>
   );
 };
 
-export default NavPage;
+export default NavModal;

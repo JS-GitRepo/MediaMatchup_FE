@@ -56,7 +56,7 @@ const MatchupFeed = ({ userID, currentDisplay }: Props) => {
               <span className='material-icons'>chevron_left</span>
             </Link>
           ) : (
-            <div></div>
+            ""
           )}
           {`${currentUser?.name}'s Feed`}
         </h1>

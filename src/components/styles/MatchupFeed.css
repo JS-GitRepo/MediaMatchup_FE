@@ -6,13 +6,17 @@
 
 /* SPECIFICS */
 .MatchupFeed {
+  /* display */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 75%;
+  /* position */
+  height: 100%;
+  width: 100%;
   box-sizing: border-box;
+  overflow: scroll;
+  /* style */
 }
 
 .MatchupFeed .matchup-feed-list {
@@ -26,6 +30,7 @@
 }
 
 .MatchupFeed .matchup-feed-heading {
+  color: rgb(48, 48, 48);
   max-width: 75%;
 }
 
@@ -38,7 +43,7 @@
 
 .MatchupFeed .material-icons {
   text-decoration: none;
-  color: black;
+  color: rgb(48, 48, 48);
   position: absolute;
   font-size: 42px;
   left: -35px;
