@@ -36,7 +36,7 @@ const NavModal = ({ currentDisplay, style }: Props) => {
   }, [currentDisplay]);
 
   return (
-    <animated.div className='NavModal'>
+    <animated.div style={style} className='NavModal'>
       <NavHeader currentDisplay={currentDisplay} />
       {centerDisplay[pageName as keyof typeof centerDisplay]}
       <NavFooter currentDisplay={currentDisplay} />
