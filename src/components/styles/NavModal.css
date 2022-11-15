@@ -1,0 +1,13 @@
+.NavModal {
+  /* display */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* position */
+  position: absolute;
+  height: 100%;
+  z-index: 3;
+  /* style */
+  background-color: white;
+}

@@ -1,7 +1,10 @@
 .NavFooter {
+  /* display */
+  /* position */
   width: 98vw;
   height: 15%;
   box-sizing: border-box;
+  /* style */
   border-radius: 10px;
   margin: 2px;
   background-color: rgba(3, 123, 73, 0.611);

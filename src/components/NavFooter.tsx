@@ -11,7 +11,8 @@ interface Props {
 const NavFooter = ({ currentDisplay }: Props) => {
   const { user } = useContext(SocialContext);
   const navigate = useNavigate();
-  const leftNav = () => {
+
+  const handleLeftNav = () => {
     if (currentDisplay === "My Feed") {
       return "/nav/community";
     } else if (currentDisplay === "Friends") {
@@ -20,7 +21,7 @@ const NavFooter = ({ currentDisplay }: Props) => {
       return "";
     }
   };
-  const rightNav = () => {
+  const handleRightNav = () => {
     if (currentDisplay === "My Feed") {
       return "/nav/friends";
     } else if (currentDisplay === "Community") {
@@ -35,19 +36,19 @@ const NavFooter = ({ currentDisplay }: Props) => {
       <div className='nav-container'>
         <p>
           {currentDisplay === "My Feed" || currentDisplay === "Friends" ? (
-            <Link className='left-nav angle-btns' to={leftNav()}>
+            <Link className='left-nav angle-btns' to={handleLeftNav()}>
               <span className='material-icons'>chevron_left</span>
             </Link>
           ) : (
-            <div></div>
+            <></>
           )}
           {currentDisplay}
           {currentDisplay === "My Feed" || currentDisplay === "Community" ? (
-            <Link className='right-nav angle-btns' to={rightNav()}>
+            <Link className='right-nav angle-btns' to={handleRightNav()}>
               <span className='material-icons'>chevron_right</span>
             </Link>
           ) : (
-            <div></div>
+            <></>
           )}
         </p>
       </div>

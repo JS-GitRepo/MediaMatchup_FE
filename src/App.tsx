@@ -1,15 +1,35 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import AnimatedRoutes from "./components/AnimatedRoutes";
+import Homeview from "./components/Homeview";
 
 function App() {
-  // const location = useLocation();
-  // const homeToNavTrans = useTransition(location, {});
-
   return (
     <div className='App full-h-w'>
       <Router>
-        <AnimatedRoutes />
+        <Routes>
+          <Route
+            path='/'
+            element={<Homeview style={undefined} currentDisplay={"My Feed"} />}
+          />
+          <Route
+            path='/nav/myfeed'
+            element={<Homeview style={undefined} currentDisplay={"My Feed"} />}
+          />
+          <Route
+            path='/nav/friends'
+            element={<Homeview style={undefined} currentDisplay={"Friends"} />}
+          />
+          <Route
+            path='/nav/friends/:id'
+            element={<Homeview style={undefined} currentDisplay={"Friends"} />}
+          />
+          <Route
+            path='/nav/community'
+            element={
+              <Homeview style={undefined} currentDisplay={"Community"} />
+            }
+          />
+        </Routes>
       </Router>
     </div>
   );

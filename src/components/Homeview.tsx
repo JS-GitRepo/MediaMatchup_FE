@@ -1,6 +1,6 @@
-import "./styles/Homepage.css";
+import "./styles/Homeview.css";
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
 import { signInWithGoogle } from "../firebaseConfig";
 import Matchup from "../models/Matchup";
@@ -22,14 +22,27 @@ import MatchupCard from "./MatchupCard";
 import StatsCard from "./StatsCard";
 import chevron from "../images/wide_chevron.png";
 import { animated, useTransition } from "react-spring";
+import NavModal from "./NavModal";
 
 interface Props {
+  currentDisplay: string;
   style: any;
 }
 
-const Homepage = ({ style }: Props) => {
+const Homeview = ({ currentDisplay, style }: Props) => {
   //  = = = = = = VARIABLES = = = = =
-  const defaultMatchup: Matchup = {
+  // - - - General - - -
+  const [isInitialRender, setIsInitialRender] = useState<boolean>(true);
+  const { user } = useContext(SocialContext);
+  let { nav } = useParams();
+  const navigate = useNavigate();
+  const bgImgURL =
+    "https://apollo.imgix.net/content/uploads/2018/02/LEADPablo-Picasso-Femme-au-beret-et-a-la-robe-quadrillee-Marie-Therese-Walter-December-1937.jpg?auto=compress,format&crop=faces,entropy,edges&fit=crop&w=900&h=600";
+  // - - - Matchups - - -
+  const [dailyMatchups, setDailyMatchups] = useState<Matchup[]>([]);
+  const [dailyIsComplete, setDailyIsComplete] = useState<Boolean>(false);
+  const [bufferedMatchups, setBufferedMatchups] = useState<Matchup[]>([]);
+  const [matchup, setMatchup] = useState<Matchup>({
     media1: {
       title: "",
       subtitle: "",
@@ -42,17 +55,7 @@ const Homepage = ({ style }: Props) => {
       artImg: "",
       category: "",
     },
-  };
-  const [dailyMatchups, setDailyMatchups] = useState<Matchup[]>([]);
-  const [dailyIsComplete, setDailyIsComplete] = useState<Boolean>(false);
-  const [bufferedMatchups, setBufferedMatchups] = useState<Matchup[]>([]);
-  const [isInitialRender, setIsInitialRender] = useState<boolean>(true);
-  const [matchup, setMatchup] = useState<Matchup>(defaultMatchup);
-  const bgImgURL =
-    "https://apollo.imgix.net/content/uploads/2018/02/LEADPablo-Picasso-Femme-au-beret-et-a-la-robe-quadrillee-Marie-Therese-Walter-December-1937.jpg?auto=compress,format&crop=faces,entropy,edges&fit=crop&w=900&h=600";
-
-  const { user } = useContext(SocialContext);
-  const navigate = useNavigate();
+  });
   const getMediaArray = [
     // getAlbum,
     getArtpiece,
@@ -61,8 +64,14 @@ const Homepage = ({ style }: Props) => {
     getVideoGame,
   ];
   // - - - Animations - - -
-  const [navAnimation, setNavAnimation] = useState<boolean>(false);
-  const navTransition = useTransition(navAnimation, {});
+  const location = useLocation();
+  const [navModalIsActive, setNavModalIsActive] = useState<boolean>(false);
+  const navModalTransition = useTransition(location, {
+    from: { transform: "translateY(100%)" },
+    enter: { transform: "translateY(0%)" },
+    leave: { transform: "translateY(-100%)" },
+    exitBeforeEnter: false,
+  });
 
   // = = = = = =  GENERATOR FUNCTIONS = = = = = =
   const generateDateInfo = () => {
@@ -126,9 +135,9 @@ const Homepage = ({ style }: Props) => {
       media2 = await generateMedia(randSelection2);
     }
     const endTime = Date.now() - startTime;
-    console.log(
-      `The 'generateMatchup' function took ${endTime} ms to complete.`
-    );
+    // console.log(
+    //   `The 'generateMatchup' function took ${endTime} ms to complete.`
+    // );
     // console.log(media1, media2);
     // setMatchup({
     //   media1,
@@ -179,7 +188,7 @@ const Homepage = ({ style }: Props) => {
     const simpleDate = dateInfo.simpleDate;
     let todaysCollection = await getDailyMatchupCollection(simpleDate);
     let tempDailyIsComplete = dailyIsComplete;
-    console.log(tempUserDate);
+    // console.log(tempUserDate);
 
     if (todaysCollection) {
       if (tempUserDate === todaysCollection.simpleDate) {
@@ -257,7 +266,7 @@ const Homepage = ({ style }: Props) => {
         dailyMatchupsDate: matchup!.dailyMatchupsDate!,
         dailyMatchupsIndex: matchup!.dailyMatchupsIndex!,
       };
-      console.log(updatesObj);
+      // console.log(updatesObj);
       await updateUserDailiesByID(user!.uid as string, updatesObj);
     }
     // console.log("Daily Matchups Status: ", dailyMatchups);
@@ -276,10 +285,8 @@ const Homepage = ({ style }: Props) => {
   };
 
   const navMenuTransition = () => {
-    setNavAnimation(true);
-    setTimeout(() => {
-      navigate("/nav/myfeed");
-    }, 400);
+    navigate("/nav/myfeed");
+    setNavModalIsActive(true);
   };
 
   useEffect(() => {
@@ -292,17 +299,32 @@ const Homepage = ({ style }: Props) => {
     }
   }, [user]);
 
-  //  Logs bufferedMatchups whenever the current matchup changes (to make sure the buffer is updating)
   useEffect(() => {
-    if (!isInitialRender && bufferedMatchups.length > 0) {
-      console.log("Current Matchup Buffer: ", bufferedMatchups);
+    if (location.pathname === "/") {
+      setNavModalIsActive(false);
     }
-  }, [matchup]);
+  }, [location]);
+
+  useEffect(() => {
+    console.log(currentDisplay);
+  }, [currentDisplay]);
+
+  //  Logs bufferedMatchups whenever the current matchup changes (to make sure the buffer is updating)
+  // useEffect(() => {
+  //   if (!isInitialRender && bufferedMatchups.length > 0) {
+  //     console.log("Current Matchup Buffer: ", bufferedMatchups);
+  //   }
+  // }, [matchup]);
 
   return (
-    <animated.div className={`Homepage`}>
+    <animated.div className={`Homeview`}>
       {user ? (
         <div>
+          {navModalIsActive ? (
+            <NavModal style={undefined} currentDisplay={currentDisplay} />
+          ) : (
+            ""
+          )}
           {cardComponents.matchupCard}
           <div className='nav-menu'>
             <img
@@ -327,4 +349,4 @@ const Homepage = ({ style }: Props) => {
   );
 };
 
-export default Homepage;
+export default Homeview;

@@ -149,10 +149,10 @@ const MatchupCard = ({
     ) {
       setMatchupDefined(false);
     }
-    if (!isInitialRender) {
-      console.log(imageLoadedCounter);
-      console.log(imagesAreLoaded);
-    }
+    // if (!isInitialRender) {
+    //   console.log(imageLoadedCounter);
+    //   console.log(imagesAreLoaded);
+    // }
   }, [matchup]);
 
   useEffect(() => {
