@@ -66,10 +66,10 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   // - - - Animations - - -
   const location = useLocation();
   const [navModalIsActive, setNavModalIsActive] = useState<boolean>(false);
-  const navModalTransition = useTransition(location, {
+  const navModalTransition = useTransition(navModalIsActive, {
     from: { transform: "translateY(100%)" },
     enter: { transform: "translateY(0%)" },
-    leave: { transform: "translateY(-100%)" },
+    leave: { transform: "translateY(100%)" },
     exitBeforeEnter: false,
   });
 
@@ -305,10 +305,6 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     }
   }, [location]);
 
-  useEffect(() => {
-    console.log(currentDisplay);
-  }, [currentDisplay]);
-
   //  Logs bufferedMatchups whenever the current matchup changes (to make sure the buffer is updating)
   // useEffect(() => {
   //   if (!isInitialRender && bufferedMatchups.length > 0) {
@@ -320,11 +316,18 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     <animated.div className={`Homeview`}>
       {user ? (
         <div>
-          {navModalIsActive ? (
+          {navModalTransition((style, item) =>
+            item ? (
+              <NavModal style={style} currentDisplay={currentDisplay} />
+            ) : (
+              ""
+            )
+          )}
+          {/* {navModalIsActive ? (
             <NavModal style={undefined} currentDisplay={currentDisplay} />
           ) : (
             ""
-          )}
+          )} */}
           {cardComponents.matchupCard}
           <div className='nav-menu'>
             <img
