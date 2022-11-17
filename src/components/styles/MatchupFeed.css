@@ -15,13 +15,13 @@
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  overflow: scroll;
+  padding-top: 100px;
+  overflow: visible scroll;
   /* style */
 }
 
 .MatchupFeed .matchup-feed-list {
   box-sizing: border-box;
-  overflow-y: scroll;
   max-height: 100%;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .MatchupFeed .matchup-feed-heading {
-  color: rgb(48, 48, 48);
+  /* color: rgb(48, 48, 48); */
   max-width: 75%;
 }
 
@@ -38,7 +38,8 @@
   display: flex;
   position: relative;
   font-size: 24px;
-  margin: 10px 0px;
+  font-weight: 400;
+  margin: 0px 0px 10px 0px;
 }
 
 .MatchupFeed .material-icons {

@@ -1,13 +1,28 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import SocialContext from "../context/SocialContext";
 import "./styles/NavHeader.css";
 
 interface Props {
-  currentDisplay: string;
+  currentTitle: string;
 }
 
-const NavHeader = ({ currentDisplay }: Props) => {
+const NavHeader = ({ currentTitle }: Props) => {
+  const { isFriendFeed, setIsFriendFeed } = useContext(SocialContext);
+
   return (
     <div className='NavHeader'>
-      <p>{currentDisplay}</p>
+      {isFriendFeed ? (
+        <Link
+          className='left-nav'
+          to={`/nav/friends`}
+          onClick={() => setIsFriendFeed(false)}>
+          <span className='material-icons'>chevron_left</span>
+        </Link>
+      ) : (
+        ""
+      )}
+      <p>{currentTitle}</p>
     </div>
   );
 };

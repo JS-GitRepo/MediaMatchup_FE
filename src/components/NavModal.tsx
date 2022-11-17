@@ -1,12 +1,15 @@
 import "./styles/NavModal.css";
-import { useContext, useEffect, useState } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 import SocialContext from "../context/SocialContext";
 import MatchupFeed from "./MatchupFeed";
 import NavFooter from "./NavFooter";
 import NavHeader from "./NavHeader";
 import NavFriends from "./NavFriends";
 import NavCommunity from "./NavCommunity";
-import { animated } from "react-spring";
+import { animated } from "@react-spring/web";
+import { getUserById } from "../services/UserService";
+import UserAccount from "../models/UserAccount";
+import { useLocation } from "react-router-dom";
 
 interface Props {
   currentDisplay: string;
@@ -14,18 +17,22 @@ interface Props {
 }
 
 const NavModal = ({ currentDisplay, style }: Props) => {
+  const [currentTitle, setCurrentTitle] = useState<string>("");
+  const [isFriendFeed, setisFriendFeed] = useState<boolean>(false);
   const { user } = useContext(SocialContext);
+  const location = useLocation();
   // const [currentDisplay, setCurrentDisplay] = useState("My Feed");
   const centerDisplay = {
     matchupFeed: (
-      <MatchupFeed currentDisplay={currentDisplay} userID={user?.uid} />
+      <MatchupFeed userID={user?.uid} setCurrentTitle={setCurrentTitle} />
     ),
-    navFriends: <NavFriends />,
+    navFriends: <NavFriends setCurrentTitle={setCurrentTitle} />,
     navCommunity: <NavCommunity />,
   };
   const [pageName, setPageName] = useState<string>("matchupFeed");
 
   useEffect(() => {
+    setCurrentTitle(currentDisplay);
     if (currentDisplay === "My Feed") {
       setPageName("matchupFeed");
     } else if (currentDisplay === "Friends") {
@@ -33,11 +40,11 @@ const NavModal = ({ currentDisplay, style }: Props) => {
     } else if (currentDisplay === "Community") {
       setPageName("navCommunity");
     }
-  }, [currentDisplay]);
+  }, [location]);
 
   return (
     <animated.div style={style} className='NavModal'>
-      <NavHeader currentDisplay={currentDisplay} />
+      <NavHeader currentTitle={currentTitle} />
       {centerDisplay[pageName as keyof typeof centerDisplay]}
       <NavFooter currentDisplay={currentDisplay} />
     </animated.div>

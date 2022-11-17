@@ -2,12 +2,14 @@
   /* display */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   /* position */
   position: absolute;
   height: 100%;
+  width: 100%;
   z-index: 3;
   /* style */
-  background-color: white;
+  background-color: rgba(75, 75, 75, 0.4);
+  backdrop-filter: blur(20px);
 }

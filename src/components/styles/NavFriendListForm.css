@@ -1,8 +1,14 @@
 .NavFriendListForm {
+  /* display */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* position */
+  height: 75%;
+  margin: 5% 0%;
+  /* style */
   font-family: "Segoe UI";
   text-decoration: none;
-  height: 100%;
-  margin: 5% 0%;
 }
 
 .NavFriendListForm ul {
@@ -25,4 +31,8 @@
 .NavFriendListForm .add-friend-status {
   margin: 0px;
   font-size: 12px;
+}
+
+.NavFriendListForm .nav-friends-list {
+  overflow-y: scroll;
 }

@@ -1,6 +1,6 @@
 import "./styles/MatchupFeed.css";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
 import Matchup from "../models/Matchup";
 import UserAccount from "../models/UserAccount";
@@ -9,15 +9,15 @@ import { getUserById } from "../services/UserService";
 import MatchupFeedCard from "./MatchupFeedCard";
 
 interface Props {
+  setCurrentTitle: React.Dispatch<React.SetStateAction<string>>;
   userID: string | undefined;
-  currentDisplay: string;
 }
 
-const MatchupFeed = ({ userID, currentDisplay }: Props) => {
+const MatchupFeed = ({ setCurrentTitle, userID }: Props) => {
   const [userMatchups, setUserMatchups] = useState<Matchup[]>([]);
   const [currentUser, setCurrentUser] = useState<UserAccount>();
-  const [isPersonalFeed, setIsPersonalFeed] = useState<Boolean>(false);
-  const { user } = useContext(SocialContext);
+  const { user, setIsFriendFeed } = useContext(SocialContext);
+  const location = useLocation();
 
   const getAndSetFeedUserInfo = async () => {
     getUserById(userID!).then((response) => {
@@ -33,9 +33,9 @@ const MatchupFeed = ({ userID, currentDisplay }: Props) => {
 
   const checkIsPersonalFeed = () => {
     if (user!.uid === userID) {
-      setIsPersonalFeed(true);
+      setIsFriendFeed(false);
     } else {
-      setIsPersonalFeed(false);
+      setIsFriendFeed(true);
     }
   };
 
@@ -47,22 +47,14 @@ const MatchupFeed = ({ userID, currentDisplay }: Props) => {
     }
   }, [userID]);
 
+  useEffect(() => {
+    setCurrentTitle(`${currentUser?.name}'s Feed`);
+  }, [currentUser]);
+
   return (
     <div className='MatchupFeed'>
-      <div className='matchup-feed-heading'>
-        <h1 className='title'>
-          {!isPersonalFeed ? (
-            <Link className='left-nav' to={`/nav/friends`}>
-              <span className='material-icons'>chevron_left</span>
-            </Link>
-          ) : (
-            ""
-          )}
-          {`${currentUser?.name}'s Feed`}
-        </h1>
-      </div>
       <ul className='matchup-feed-list'>
-        {userMatchups.map((matchupCard, i) => {
+        {userMatchups.splice(0, 20).map((matchupCard, i) => {
           return (
             <MatchupFeedCard key={`Matchup: ${i}`} matchup={matchupCard} />
           );

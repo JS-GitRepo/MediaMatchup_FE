@@ -1,19 +1,27 @@
 .NavHeader {
   /* display */
-  /* position */
-  /* style */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 98vw;
-  height: 10%;
-  background-color: rgba(3, 123, 73, 0.611);
+  /* position */
+  position: absolute;
+  top: 20px;
+  width: 75vw;
+  height: 8%;
+  z-index: 2;
+  /* style */
+  background-color: rgba(56, 48, 60, 0.8);
+  backdrop-filter: blur(5px);
+  border: 2px white solid;
   box-sizing: border-box;
   border-radius: 10px;
-  margin: 2px;
 }
 
 .NavHeader p {
   color: white;
   font-size: 28px;
+}
+
+.NavHeader .material-icons {
+  color: white;
 }

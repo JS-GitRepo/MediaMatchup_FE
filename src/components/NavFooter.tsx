@@ -55,16 +55,16 @@ const NavFooter = ({ currentDisplay }: Props) => {
       {/* <p>{user.email}</p> */}
       <div className='buttons-container'>
         <button onClick={() => navigate("/")} className='return button'>
-          Return to Matchups
+          Return
         </button>
-        <button
+        {/* <button
           className='signout button'
           onClick={() => {
             signOut();
             navigate("/");
           }}>
           SignOut
-        </button>
+        </button> */}
       </div>
     </div>
   );
