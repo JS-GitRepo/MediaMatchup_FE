@@ -1,13 +1,18 @@
 .NavFooter {
   /* display */
   /* position */
-  width: 98vw;
-  height: 15%;
+  position: absolute;
+  bottom: 20px;
+  width: 75vw;
+  height: 12%;
   box-sizing: border-box;
+  z-index: 2;
   /* style */
   border-radius: 10px;
   margin: 2px;
-  background-color: rgba(3, 123, 73, 0.611);
+  background-color: rgba(56, 48, 60, 0.8);
+  backdrop-filter: blur(5px);
+  border: 2px white solid;
 }
 
 .NavFooter p {
@@ -46,8 +51,9 @@
 
 .NavFooter .buttons-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-evenly;
 }
 
 .NavFooter .button {
@@ -55,7 +61,8 @@
   border-radius: 15px;
   background-color: rgba(75, 184, 139, 0);
   color: white;
-  width: 40%;
+  height: 30px;
+  width: 100px;
   padding: 5px;
   margin: 3px 0px;
 }
@@ -63,8 +70,4 @@
 .NavFooter .button:hover {
   background-color: rgba(176, 247, 218, 0.864);
   cursor: pointer;
-}
-
-.NavFooter .signout {
-  width: 20%;
 }

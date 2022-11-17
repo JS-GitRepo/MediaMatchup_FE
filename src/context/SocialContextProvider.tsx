@@ -10,7 +10,9 @@ interface Props {
 }
 
 const SocialContextProvider = ({ children }: Props) => {
+  const [isFriendFeed, setIsFriendFeed] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
+
   useEffect(() => {
     // useEffect to only register once at start
     return auth.onAuthStateChanged((newUser) => {
@@ -35,7 +37,9 @@ const SocialContextProvider = ({ children }: Props) => {
   }, [user]);
 
   return (
-    <SocialContext.Provider value={{ user }}>{children}</SocialContext.Provider>
+    <SocialContext.Provider value={{ user, isFriendFeed, setIsFriendFeed }}>
+      {children}
+    </SocialContext.Provider>
   );
 };
 

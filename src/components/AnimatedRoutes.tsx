@@ -1,5 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { animated, useTransition } from "react-spring";
+import { animated, useTransition } from "@react-spring/web";
 import Homeview from "./Homeview";
 import NavModal from "./NavModal";
 
@@ -15,7 +15,10 @@ const AnimatedRoutes = () => {
   return navTransition((style, item) => (
     <animated.div style={style} className={"full-h-w"}>
       <Routes location={item}>
-        <Route path='/' element={<Homeview style={style} />} />
+        <Route
+          path='/'
+          element={<Homeview style={style} currentDisplay={"My Feed"} />}
+        />
         <Route
           path='/nav/My Feed'
           element={<NavModal style={style} currentDisplay='My Feed' />}

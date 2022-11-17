@@ -1,17 +1,21 @@
 import "./styles/NavFriends.css";
 import NavFriendListForm from "./NavFriendListForm";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import MatchupFeed from "./MatchupFeed";
 
-const NavFriends = () => {
+interface Props {
+  setCurrentTitle: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const NavFriends = ({ setCurrentTitle }: Props) => {
   const [displayJSX, setDisplayJSX] = useState<JSX.Element>();
   const location = useLocation();
   const pathNameEnding = location.pathname.split("/").pop();
 
   const navFriendListFormJSX = <NavFriendListForm />;
   const friendFeedByUID = (
-    <MatchupFeed userID={pathNameEnding} currentDisplay={"Friends"} />
+    <MatchupFeed userID={pathNameEnding} setCurrentTitle={setCurrentTitle} />
   );
 
   useEffect(() => {

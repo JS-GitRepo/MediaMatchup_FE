@@ -1,6 +1,6 @@
 import "./styles/Homeview.css";
 import { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
 import { signInWithGoogle } from "../firebaseConfig";
 import Matchup from "../models/Matchup";
@@ -21,8 +21,8 @@ import { getUserById, updateUserDailiesByID } from "../services/UserService";
 import MatchupCard from "./MatchupCard";
 import StatsCard from "./StatsCard";
 import chevron from "../images/wide_chevron.png";
-import { animated, useTransition } from "react-spring";
 import NavModal from "./NavModal";
+import { animated, useTransition } from "@react-spring/web";
 
 interface Props {
   currentDisplay: string;

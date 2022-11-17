@@ -4,7 +4,8 @@ import Matchup from "../models/Matchup";
 const baseURL: string = `${import.meta.env.VITE_API_URL}/matchups` || "";
 
 export const getMatchupsByUID = async (uid: string): Promise<Matchup[]> => {
-  return (await axios.get(baseURL, { params: { uid: uid } })).data;
+  let results = (await axios.get(baseURL, { params: { uid: uid } })).data;
+  return results;
 };
 
 export const submitMatchup = async (matchup: Matchup): Promise<Matchup> => {
