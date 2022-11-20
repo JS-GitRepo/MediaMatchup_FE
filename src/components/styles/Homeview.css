@@ -12,35 +12,6 @@
   color: white;
 }
 
-.Homeview .sign-in-btn {
-  width: 250px;
-}
-
-.Homeview .sign-in-container {
-  display: flex;
-  width: 100vw;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.9;
-}
-
-.Homeview .sign-in-container p {
-  padding: 15px 25px;
-  border: 4px solid rgb(255, 255, 255);
-  border-radius: 30px;
-  z-index: 1;
-}
-
-.Homeview .sign-in-container .sign-in-bg-img {
-  position: absolute;
-  z-index: 0;
-  height: 100vh;
-  background-position: center;
-  background-size: cover;
-  object-fit: cover;
-  filter: hue-rotate(15deg) brightness(60%) contrast(100%) blur(6px);
-}
-
 .Homeview .Homeview-buttons {
   display: flex;
   flex-direction: column;
@@ -68,13 +39,14 @@
 /* - - - - - MatchupCard Navigation Link - - - - - */
 .Homeview .nav-menu {
   position: absolute;
-  bottom: 3%;
+  bottom: 2%;
   width: 100%;
   z-index: 1;
 }
 
 .Homeview .nav-chevron {
-  width: 90%;
+  height: 20px;
+  width: 20%;
   text-decoration: none;
   opacity: 0.9;
 }

@@ -6,7 +6,11 @@ const baseURL: string = `${import.meta.env.VITE_API_URL}/dailymatchups` || "";
 export const getDailyMatchupCollection = async (
   simpleDate: number
 ): Promise<DailyMatchupCollection> => {
-  return (await axios.get(baseURL, { params: { date: simpleDate } })).data;
+  const data = (await axios.get(baseURL, { params: { date: simpleDate } }))
+    .data;
+  console.log(data);
+
+  return data;
 };
 
 export const postDailyMatchupCollection = async (

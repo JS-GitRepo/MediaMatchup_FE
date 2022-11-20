@@ -1,3 +1,7 @@
+/* display */
+/* position */
+/* style */
+
 /* RESETS */
 .MatchupFeed ul {
   margin: 0px;
@@ -7,22 +11,30 @@
 /* SPECIFICS */
 .MatchupFeed {
   /* display */
+  /* position */
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  /* style */
+}
+
+.MatchupFeed .loading-ctr {
+  /* display */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   /* position */
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  padding-top: 100px;
-  overflow: visible scroll;
   /* style */
 }
 
 .MatchupFeed .matchup-feed-list {
+  height: 100%;
+  padding-top: 12vh;
+  padding-bottom: 20vh;
+  margin-bottom: 100px;
   box-sizing: border-box;
-  max-height: 100%;
 }
 
 .MatchupFeed .matchup-feed-list .MatchupFeedCard {
@@ -49,6 +61,11 @@
   font-size: 42px;
   left: -35px;
   top: -30%;
+}
+
+.MatchupFeed .spacer {
+  height: 30%;
+  width: 100%;
 }
 
 /* >>>>>>>>>>>> Media Queries <<<<<<<<<<<< */

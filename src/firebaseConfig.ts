@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import * as firebaseui from "firebaseui";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 const firebaseKey: string = `${import.meta.env.VITE_FIREBASE_KEY}` || "";
@@ -15,12 +16,16 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-const authProvider = new GoogleAuthProvider();
 
-export function signInWithGoogle(): void {
-  signInWithPopup(auth, authProvider);
-}
-export function signOut(): void {
+export const auth = getAuth(app);
+
+export const firebaseUI = new firebaseui.auth.AuthUI(auth);
+
+export const googleAuthProvider = new GoogleAuthProvider();
+
+export const signInWithGoogle = (): void => {
+  signInWithPopup(auth, googleAuthProvider);
+};
+export const signOut = (): void => {
   auth.signOut();
-}
+};

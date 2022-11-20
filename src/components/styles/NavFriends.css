@@ -6,8 +6,8 @@
   align-items: center;
   width: 100vw;
   height: 100%;
-  max-height: 100vh;
-  overflow-y: scroll;
+  max-height: 100%;
+  margin: 30% 0% 35% 0%;
 }
 
 .NavFriends a {
@@ -26,4 +26,9 @@
 .NavFriends .is-red {
   color: rgb(207, 0, 0);
   font-weight: bold;
+}
+
+.NavFriends .nav-friends-list {
+  max-height: 50vh;
+  overflow: scroll;
 }

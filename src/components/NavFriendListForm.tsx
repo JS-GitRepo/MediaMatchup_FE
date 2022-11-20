@@ -9,12 +9,14 @@ import {
 } from "../services/UserService";
 import { signInWithGoogle } from "../firebaseConfig";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 const NavFriendListForm = () => {
   const [friendEmail, setFriendEmail] = useState<string>();
   const [friendStatusMsg, setFriendStatusMsg] = useState<string>("");
   const [statusIsGreen, setStatusIsGreen] = useState<boolean>(true);
-  const [friends, setFriends] = useState<any[]>([]);
+  const [friends, setFriends] = useState<any[] | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { user } = useContext(SocialContext);
   const formRef = useRef<HTMLFormElement>(null);
   const statusMsgTimeout = 5000;
@@ -64,6 +66,12 @@ const NavFriendListForm = () => {
     }
   }, [user, friendStatusMsg]);
 
+  useEffect(() => {
+    if (friends) {
+      setIsLoading(false);
+    }
+  }, [friends]);
+
   return (
     <div className='NavFriendListForm'>
       {user ? (
@@ -90,18 +98,21 @@ const NavFriendListForm = () => {
             }`}>
             {friendStatusMsg}
           </p>
-
+          <h2>Your Friends</h2>
           <div className='nav-friends-list'>
-            <h2>Your Friends</h2>
-            <ul>
-              {friends.map((friend, i) => {
-                return (
-                  <Link key={i} to={`/nav/friends/${friend.uid}`}>
-                    <p>{friend.name}</p>
-                  </Link>
-                );
-              })}
-            </ul>
+            {isLoading ? (
+              <Loading adtlClassName={""} />
+            ) : (
+              <ul>
+                {friends!.map((friend, i) => {
+                  return (
+                    <Link key={i} to={`/nav/friends/${friend.uid}`}>
+                      <p>{friend.name}</p>
+                    </Link>
+                  );
+                })}
+              </ul>
+            )}
           </div>
         </div>
       ) : (
