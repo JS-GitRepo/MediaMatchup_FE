@@ -1,0 +1,49 @@
+.SignIn {
+  /* display */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* position */
+  overflow: hidden;
+  /* style */
+  opacity: 0.9;
+}
+
+.SignIn h1 {
+  letter-spacing: 8px;
+}
+
+.SignIn p {
+  margin: 5px;
+  padding: 15px 25px;
+  border: 3.5px solid rgb(255, 255, 255);
+  border-radius: 15px;
+}
+
+.SignIn .content-ctr {
+  /* display */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* position */
+  z-index: 1;
+  /* style */
+}
+
+.SignIn .sign-in-btn {
+  width: 250px;
+}
+
+.SignIn .sign-in-bg-img {
+  /* display */
+
+  /* position */
+  position: absolute;
+  background-position: center;
+  background-size: cover;
+  object-fit: cover;
+  /* style */
+  filter: hue-rotate(15deg) brightness(60%) contrast(100%) blur(6px);
+}

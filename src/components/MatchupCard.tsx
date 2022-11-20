@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Matchup from "../models/Matchup";
 import MediaItem from "../models/MediaItem";
 import loading from "../images/loading.svg";
+import Loading from "./Loading";
 
 interface Props {
   matchup: Matchup;
@@ -41,7 +42,6 @@ const MatchupCard = ({
   // Wait for all images to load before showing them
   const [loadingImages, setLoadingImages] = useState<string[]>([]);
   const [imagesAreLoaded, setImagesAreLoaded] = useState<boolean>(false);
-  const [triggerRefreshMsg, setTriggerRefreshMsg] = useState<boolean>(false);
   const imageLoadedCounter = useRef(0);
 
   const constructMedia = async () => {
@@ -96,16 +96,14 @@ const MatchupCard = ({
 
   const checkAndSetDailyIndex = () => {
     let tempDailyIndex = matchup?.dailyMatchupsIndex!;
-    if (tempDailyIndex < 9 && tempDailyIndex >= 0) {
+    if (tempDailyIndex < 11 && tempDailyIndex >= 0) {
       setDailyIndex(tempDailyIndex);
       setShowGenerateButton(false);
     }
-    if (dailyIndex >= 8) {
-      setDailyIndex(dailyIndex + 1);
-    }
-    if (dailyIndex >= 12) {
+    if (dailyIndex > 10) {
       setShowGenerateButton(true);
     }
+    console.log(tempDailyIndex);
   };
 
   const imageLoaded = () => {
@@ -113,10 +111,6 @@ const MatchupCard = ({
     if (imageLoadedCounter.current >= 2) {
       setImagesAreLoaded(true);
     }
-  };
-
-  const loadingRefreshPrompt = () => {
-    setTimeout(() => setTriggerRefreshMsg(true), 10000);
   };
 
   useEffect(() => {
@@ -128,7 +122,7 @@ const MatchupCard = ({
     setImagesAreLoaded(false);
     setMatchupDefined(false);
     setLoadingImages([
-      matchup.media1.artImg!,
+      matchup.media1?.artImg!,
       matchup.media2.artImg!,
       matchup.media1.artImg2!,
       matchup.media2.artImg2!,
@@ -164,16 +158,10 @@ const MatchupCard = ({
   useEffect(() => {}, [imagesAreLoaded]);
 
   let dailyHeaderJSX = <div></div>;
-  if (dailyIndex <= 9 && dailyIndex >= 0) {
+  if (dailyIndex <= 10 && dailyIndex >= 0) {
     dailyHeaderJSX = (
       <div className='daily-header'>
-        <p>{`Daily Matchup: ${dailyIndex + 1}`}</p>
-      </div>
-    );
-  } else if (dailyIndex > 9 && dailyIndex < 13) {
-    dailyHeaderJSX = (
-      <div className='daily-header'>
-        <p>{`Daily Matchups Complete!`}</p>
+        <p>{`Daily Matchup: ${dailyIndex}`}</p>
       </div>
     );
   } else {
@@ -181,22 +169,9 @@ const MatchupCard = ({
   }
 
   return (
-    <div>
+    <>
       {!matchupDefined ? (
-        <div className='MatchupCardLoading'>
-          <p className='loading-text'>loading . . .</p>
-          <img
-            className='loading-defined-matchup'
-            src={loading}
-            alt='Loading Media Matchup'
-            onLoad={() => loadingRefreshPrompt()}
-          />
-          {triggerRefreshMsg ? (
-            <p className='loading-refresh'>( Try Refreshing )</p>
-          ) : (
-            <div></div>
-          )}
-        </div>
+        <Loading adtlClassName={""} />
       ) : (
         <div className={`MatchupCard ${navAnimation ? "nav-animation" : ""}`}>
           {dailyHeaderJSX}
@@ -278,7 +253,7 @@ const MatchupCard = ({
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

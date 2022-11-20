@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
 import { signInWithGoogle, signOut } from "../firebaseConfig";
+import chevron from "../images/wide_chevron.png";
 
 interface Props {
   currentDisplay: string;
@@ -54,18 +55,21 @@ const NavFooter = ({ currentDisplay }: Props) => {
       </div>
       {/* <p>{user.email}</p> */}
       <div className='buttons-container'>
-        <button onClick={() => navigate("/")} className='return button'>
-          Return
-        </button>
-        {/* <button
+        <button
           className='signout button'
           onClick={() => {
             signOut();
             navigate("/");
           }}>
           SignOut
-        </button> */}
+        </button>
       </div>
+      <img
+        className='return-chevron'
+        onClick={() => navigate("/")}
+        src={chevron}
+        alt="'return' navigation icon"
+      />
     </div>
   );
 };

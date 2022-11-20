@@ -1,0 +1,27 @@
+.Loading {
+  /* display */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* position */
+  position: relative;
+  z-index: 10;
+  /* style */
+}
+
+.Loading p {
+  margin: 0px;
+  font-size: 42px;
+}
+
+.Loading img {
+  margin: -60px 0px;
+}
+
+.Loading .loading-refresh {
+  font-size: 16px;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 400;
+  margin: 10px;
+}

@@ -2,7 +2,6 @@ import "./styles/Homeview.css";
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
-import { signInWithGoogle } from "../firebaseConfig";
 import Matchup from "../models/Matchup";
 import MediaItem from "../models/MediaItem";
 import {
@@ -23,6 +22,7 @@ import StatsCard from "./StatsCard";
 import chevron from "../images/wide_chevron.png";
 import NavModal from "./NavModal";
 import { animated, useTransition } from "@react-spring/web";
+import SignIn from "./SignIn";
 
 interface Props {
   currentDisplay: string;
@@ -36,8 +36,6 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   const { user } = useContext(SocialContext);
   let { nav } = useParams();
   const navigate = useNavigate();
-  const bgImgURL =
-    "https://apollo.imgix.net/content/uploads/2018/02/LEADPablo-Picasso-Femme-au-beret-et-a-la-robe-quadrillee-Marie-Therese-Walter-December-1937.jpg?auto=compress,format&crop=faces,entropy,edges&fit=crop&w=900&h=600";
   // - - - Matchups - - -
   const [dailyMatchups, setDailyMatchups] = useState<Matchup[]>([]);
   const [dailyIsComplete, setDailyIsComplete] = useState<Boolean>(false);
@@ -57,7 +55,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     },
   });
   const getMediaArray = [
-    // getAlbum,
+    getAlbum,
     getArtpiece,
     getMovie,
     getTVShow,
@@ -95,10 +93,10 @@ const Homeview = ({ currentDisplay, style }: Props) => {
 
   const generateMatchup = async (): Promise<Matchup> => {
     const startTime = Date.now();
-    let randSelection = Math.floor(Math.random() * 4);
-    let randSelection2 = Math.floor(Math.random() * 4);
+    let randSelection = Math.floor(Math.random() * 5);
+    let randSelection2 = Math.floor(Math.random() * 5);
     while (randSelection2 === randSelection) {
-      randSelection2 = Math.floor(Math.random() * 4);
+      randSelection2 = Math.floor(Math.random() * 5);
     }
 
     let [media1, media2] = await Promise.all([
@@ -106,7 +104,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
       generateMedia(randSelection2),
     ]);
 
-    if (
+    while (
       media1.title === null ||
       undefined ||
       "" ||
@@ -120,7 +118,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
       console.log(`Media1 generated again due to missing info.`);
       media1 = await generateMedia(randSelection);
     }
-    if (
+    while (
       media2.title === null ||
       undefined ||
       "" ||
@@ -192,11 +190,11 @@ const Homeview = ({ currentDisplay, style }: Props) => {
 
     if (todaysCollection) {
       if (tempUserDate === todaysCollection.simpleDate) {
-        if (tempUserIndex === 9) {
+        if (tempUserIndex! >= 10) {
           tempDailyIsComplete = true;
           setDailyIsComplete(true);
         }
-        todaysCollection.matchups.splice(0, tempUserIndex! + 1);
+        todaysCollection.matchups.splice(0, tempUserIndex!);
       }
 
       setDailyMatchups(todaysCollection.matchups);
@@ -210,7 +208,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
       let tempCollection = await generateMultipleMatchups(10);
       tempCollection = tempCollection.map((item, i) => ({
         ...item,
-        dailyMatchupsIndex: i,
+        dailyMatchupsIndex: i + 1,
         dailyMatchupsDate: simpleDate,
       }));
       let dailyMatchupCollection: any = {
@@ -227,7 +225,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   const checkAndSetMatchups = async () => {
     let tempDailyIsComplete = dailyIsComplete;
     if (matchup!.dailyMatchupsIndex) {
-      if (dailyMatchups[0].dailyMatchupsIndex === 9) {
+      if (dailyMatchups[0].dailyMatchupsIndex === 10) {
         tempDailyIsComplete = true;
         setDailyIsComplete(true);
         dailyMatchups?.shift();
@@ -262,9 +260,10 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     submitMatchup(matchup!);
 
     if (dailyMatchups.length > 0) {
+      let tempIndex = matchup!.dailyMatchupsIndex!;
       let updatesObj = {
         dailyMatchupsDate: matchup!.dailyMatchupsDate!,
-        dailyMatchupsIndex: matchup!.dailyMatchupsIndex!,
+        dailyMatchupsIndex: tempIndex,
       };
       // console.log(updatesObj);
       await updateUserDailiesByID(user!.uid as string, updatesObj);
@@ -315,7 +314,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   return (
     <animated.div className={`Homeview`}>
       {user ? (
-        <div>
+        <>
           {navModalTransition((style, item) =>
             item ? (
               <NavModal style={style} currentDisplay={currentDisplay} />
@@ -337,16 +336,9 @@ const Homeview = ({ currentDisplay, style }: Props) => {
               alt='navigation icon'
             />
           </div>
-        </div>
+        </>
       ) : (
-        <div className='sign-in-container'>
-          <p onClick={signInWithGoogle}>Sign In With Google</p>
-          <img
-            className='sign-in-bg-img'
-            src={bgImgURL}
-            alt='login background image'
-          />
-        </div>
+        <SignIn />
       )}
     </animated.div>
   );
