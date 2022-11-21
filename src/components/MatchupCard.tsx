@@ -43,6 +43,7 @@ const MatchupCard = ({
   const [loadingImages, setLoadingImages] = useState<string[]>([]);
   const [imagesAreLoaded, setImagesAreLoaded] = useState<boolean>(false);
   const imageLoadedCounter = useRef(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const constructMedia = async () => {
     setTitle1(matchup.media1.title);
@@ -95,15 +96,19 @@ const MatchupCard = ({
   };
 
   const checkAndSetDailyIndex = () => {
-    let tempDailyIndex = matchup?.dailyMatchupsIndex!;
-    if (tempDailyIndex < 11 && tempDailyIndex >= 0) {
-      setDailyIndex(tempDailyIndex);
+    let currentDailyIndex = matchup?.dailyMatchupsIndex!;
+    if (currentDailyIndex <= 9 && currentDailyIndex >= 0) {
+      setDailyIndex(currentDailyIndex);
       setShowGenerateButton(false);
-    }
-    if (dailyIndex > 10) {
+    } else if (currentDailyIndex === 10) {
+      setDailyIndex(currentDailyIndex);
+      setShowGenerateButton(false);
+    } else if (dailyIndex === 10) {
+      setShowGenerateButton(true);
+      setDailyIndex(dailyIndex + 1);
+    } else if (dailyIndex >= 10) {
       setShowGenerateButton(true);
     }
-    console.log(tempDailyIndex);
   };
 
   const imageLoaded = () => {
@@ -147,13 +152,16 @@ const MatchupCard = ({
     //   console.log(imageLoadedCounter);
     //   console.log(imagesAreLoaded);
     // }
-  }, [matchup]);
+    console.log(
+      `Current Matchup Is: ${matchup.media1.title} vs ${matchup.media2.title}`
+    );
+  }, [matchup, matchup?.dailyMatchupsIndex!]);
 
   useEffect(() => {
     if (bgImg1 && bgImg2) {
       setMatchupDefined(true);
     }
-  }, [bgImg1, bgImg2]);
+  }, [bgImg1, bgImg2, matchup]);
 
   useEffect(() => {}, [imagesAreLoaded]);
 

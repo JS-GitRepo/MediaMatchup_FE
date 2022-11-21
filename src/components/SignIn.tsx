@@ -68,7 +68,7 @@ const SignIn = () => {
         alt='login background image'
       />
       <div className='content-ctr'>
-        <h1>MediaMatchup</h1>
+        <h1>Media Matchup</h1>
         <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
       </div>
     </div>
