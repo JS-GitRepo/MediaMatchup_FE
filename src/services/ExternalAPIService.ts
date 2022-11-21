@@ -157,7 +157,7 @@ export const getAlbum = (): Promise<MediaItem> => {
       params: paramsObj,
     })
     .then((response) => {
-      console.log(response.data.artists.artist[randResultNum].name);
+      // console.log(response.data.artists.artist[randResultNum].name);
 
       let artistID = response.data.artists.artist[randResultNum].name;
       let paramsObj2 = {
@@ -219,8 +219,9 @@ export const getVideoGame = (): Promise<MediaItem> => {
           let selection: any = response.data;
           let imagePrefix = "https://media.rawg.io/media";
           let imageTailURL = selection.background_image.split(imagePrefix)[1];
-          let image2TailURL =
-            selection.background_image_additional.split(imagePrefix)[1];
+          let image2TailURL = selection.background_image_additional
+            ? selection.background_image_additional.split(imagePrefix)[1]
+            : imageTailURL;
           // console.log(image2TailURL);
           const videoGame: MediaItem = {
             title: selection.name,
