@@ -1,5 +1,5 @@
 import "./styles/Loading.css";
-import loading from "../images/loading.svg";
+import loading from "../media/loading.svg";
 import { useState } from "react";
 
 interface Props {

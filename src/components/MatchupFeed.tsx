@@ -67,7 +67,7 @@ const MatchupFeed = ({ setCurrentTitle, userID }: Props) => {
         </div>
       ) : (
         <ul className='matchup-feed-list'>
-          {userMatchups.map((matchupCard, i) => {
+          {userMatchups.slice(0, 20).map((matchupCard, i) => {
             return (
               <MatchupFeedCard key={`Matchup: ${i}`} matchup={matchupCard} />
             );
