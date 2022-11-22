@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
 import { signInWithGoogle, signOut } from "../firebaseConfig";
-import chevron from "../images/wide_chevron.png";
+import chevron from "../media/wide_chevron.png";
 
 interface Props {
   currentDisplay: string;

@@ -2,7 +2,7 @@ import "./styles/MatchupCard.css";
 import { useEffect, useRef, useState } from "react";
 import Matchup from "../models/Matchup";
 import MediaItem from "../models/MediaItem";
-import loading from "../images/loading.svg";
+import loading from "../media/loading.svg";
 import Loading from "./Loading";
 
 interface Props {

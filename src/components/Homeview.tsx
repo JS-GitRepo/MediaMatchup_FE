@@ -19,7 +19,7 @@ import { submitMatchup } from "../services/MatchupService";
 import { getUserById, updateUserDailiesByID } from "../services/UserService";
 import MatchupCard from "./MatchupCard";
 import StatsCard from "./StatsCard";
-import chevron from "../images/wide_chevron.png";
+import chevron from "../media/wide_chevron.png";
 import NavModal from "./NavModal";
 import { animated, useTransition } from "@react-spring/web";
 import SignIn from "./SignIn";
