@@ -54,7 +54,7 @@ const NavFooter = ({ currentDisplay }: Props) => {
         </p>
       </div>
       {/* <p>{user.email}</p> */}
-      <div className='buttons-container'>
+      {/* <div className='buttons-container'>
         <button
           className='signout button'
           onClick={() => {
@@ -63,7 +63,7 @@ const NavFooter = ({ currentDisplay }: Props) => {
           }}>
           SignOut
         </button>
-      </div>
+      </div> */}
       <img
         className='return-chevron'
         onClick={() => navigate("/")}
