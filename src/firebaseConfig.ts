@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import * as firebaseui from "firebaseui";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -12,6 +13,7 @@ const firebaseConfig = {
   storageBucket: "mediamatchup-ac7a9.appspot.com",
   messagingSenderId: "189212241219",
   appId: "1:189212241219:web:dde3668d395321834f53f6",
+  measurementId: "G-F9N1XKCF6K",
 };
 
 // Initialize Firebase

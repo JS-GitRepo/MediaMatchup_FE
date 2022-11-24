@@ -30,28 +30,16 @@
 }
 
 .MatchupFeed .matchup-feed-list {
-  height: 100%;
-  padding-top: 12vh;
-  padding-bottom: 20vh;
-  margin-bottom: 100px;
-  box-sizing: border-box;
-}
-
-.MatchupFeed .matchup-feed-list .MatchupFeedCard {
-  box-sizing: border-box;
-}
-
-.MatchupFeed .matchup-feed-heading {
-  /* color: rgb(48, 48, 48); */
-  max-width: 75%;
-}
-
-.MatchupFeed .matchup-feed-heading h1 {
+  /* display */
   display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  /* position */
   position: relative;
-  font-size: 24px;
-  font-weight: 400;
-  margin: 0px 0px 10px 0px;
+  height: 100%;
+  /* style */
+  overflow-y: scroll;
+  list-style: none;
 }
 
 .MatchupFeed .material-icons {
