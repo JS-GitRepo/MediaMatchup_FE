@@ -8,6 +8,7 @@ import { getMatchupsByUID } from "../services/MatchupService";
 import { getUserById } from "../services/UserService";
 import MatchupFeedCard from "./MatchupFeedCard";
 import Loading from "./Loading";
+import VirtualizedList from "./util/VirtualizedList";
 
 interface Props {
   setCurrentTitle: React.Dispatch<React.SetStateAction<string>>;
@@ -66,14 +67,26 @@ const MatchupFeed = ({ setCurrentTitle, userID }: Props) => {
           <Loading adtlClassName={"centered"} />
         </div>
       ) : (
-        <ul className='matchup-feed-list'>
-          {userMatchups.slice(0, 20).map((matchupCard, i) => {
-            return (
+        <VirtualizedList
+          className={"matchup-feed-list"}
+          rowHeight={250}
+          bufferedItems={2}
+          gap={15}
+          preListSpacer={100}
+          children={userMatchups.map((matchupCard, i) => (
+            <li className={`row`} key={i}>
               <MatchupFeedCard key={`Matchup: ${i}`} matchup={matchupCard} />
-            );
-          })}
-          <div className='spacer'></div>
-        </ul>
+            </li>
+          ))}
+        />
+        // <ul className='matchup-feed-list'>
+        //   {userMatchups.slice(0, 20).map((matchupCard, i) => {
+        //     return (
+        //       <MatchupFeedCard key={`Matchup: ${i}`} matchup={matchupCard} />
+        //     );
+        //   })}
+        //   <div className='spacer'></div>
+        // </ul>
       )}
     </div>
   );

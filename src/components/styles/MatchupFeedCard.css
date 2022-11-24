@@ -17,13 +17,13 @@
   box-sizing: border-box;
   /* position */
   position: relative;
-  min-height: 225px;
+  min-height: 250px;
   max-height: 250px;
   width: 93%;
   margin: 10px auto;
   padding: 10px 0px;
   /* style */
-  border: 2.5px solid rgb(255, 255, 255);
+  border: 3px solid rgb(255, 255, 255);
   border-radius: 10px;
 }
 
@@ -36,9 +36,8 @@
 
 .MatchupFeedCard .bg-img {
   /* display */
-  /* position */
-  /* style */
   display: block;
+  /* position */
   position: absolute;
   box-sizing: border-box;
   top: 0;
@@ -48,6 +47,7 @@
   height: 100%;
   width: 100%;
   background-position: center;
+  /* style */
   background-size: cover;
   object-fit: cover;
   filter: hue-rotate(15deg) brightness(70%) contrast(120%) blur(3px);
@@ -56,19 +56,25 @@
 .MatchupFeedCard .vs {
   /* display */
   /* position */
+  position: absolute;
+  text-align: center;
+  width: 50px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, 33%);
+  z-index: 1;
   /* style */
   font-family: "Bangers";
   font-weight: 400;
   font-size: 34px;
-  position: absolute;
-  text-align: center;
-  width: 50px;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, 33%);
-  z-index: 1;
   text-shadow: -2px 2px 0 #000, 2px 2px 0 #000, 2px -2px 0 #000,
     -2px -2px 0 #000;
+}
+
+.MatchupFeedCard .date {
+  position: absolute;
+  width: 100%;
+  top: 15px;
 }
 
 .MatchupFeedCard .media-container {
@@ -120,28 +126,25 @@
   border-radius: 5px;
 }
 
-.MatchupFeedCard .image-subcontainer .image-overlay p {
-  /* display */
-
-  /* position */
-
-  /* style */
-  margin: 5px;
-}
-
-.MatchupFeedCard .text-subcontainer {
+.MatchupFeedCard .image-subcontainer .image-overlay .text-container {
   /* display */
   display: flex;
-  flex: 1;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   /* position */
-  height: 30px;
-  width: 95%;
-  margin: 5px;
+  position: relative;
+  height: 100%;
+  width: 100%;
   /* style */
-  overflow: scroll;
+}
+
+.MatchupFeedCard .image-subcontainer .image-overlay .text-container p {
+  /* display */
+  /* position */
+  /* style */
+  margin: 5px;
 }
 
 .MatchupFeedCard .winner {

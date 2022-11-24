@@ -17,16 +17,6 @@ const MatchupFeedCard = ({ matchup }: Props) => {
   // - - - - - States - - - - -
   const [isOverlay1, setIsOverlay1] = useState<boolean>(false);
   const [isOverlay2, setIsOverlay2] = useState<boolean>(false);
-  const randTension = Math.floor(Math.random() * (390 - 300) + 300);
-  const randFriction = Math.floor(Math.random() * (60 - 30) + 30);
-  const randBSBlur_From = Math.floor(Math.random() * (12 - 8) + 8).toString();
-  const randBSBlur_To = Math.floor(Math.random() * (20 - 8) - 8).toString();
-  const randBSSpread_From = Math.floor(Math.random() * (4 - 1) - 1).toString();
-  const randBSSpread_To = Math.floor(Math.random() * (15 - 8) - 8).toString();
-  const boxShadowTo: string =
-    `0 0 ${randBSBlur_From}px ${randBSSpread_From}px rgb(203, 191, 31)` as string;
-  const boxShadowFrom: string =
-    `0 0 ${randBSBlur_From}px ${randBSSpread_From}px rgb(203, 191, 31)` as string;
   // - - - - - Animation - - - - -
   const overlayFadeConfig = {
     from: { opacity: "0%" },
@@ -34,16 +24,7 @@ const MatchupFeedCard = ({ matchup }: Props) => {
     leave: { opacity: "0%" },
     config: { mass: 0.5, tension: 270, friction: 18 },
   };
-  // const winnerAnimLayer1 = useSpring({
-  //   from: {
-  //     boxShadow: boxShadowFrom,
-  //   },
-  //   to: {
-  //     boxShadow: boxShadowTo,
-  //   },
-  //   loop: { reverse: true },
-  //   config: { mass: 1, tension: 380, friction: 60 },
-  // });
+
   const overlay1Fade = useTransition(isOverlay1, overlayFadeConfig);
   const overlay2Fade = useTransition(isOverlay2, overlayFadeConfig);
 
@@ -74,24 +55,55 @@ const MatchupFeedCard = ({ matchup }: Props) => {
     subtitle2 = matchup?.media2.subtitle.substring(0, 4);
   }
 
+  const parseDate = () => {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    let date = new Date(matchup.date!);
+    if (date.getFullYear() === 2022) {
+      return `${monthNames[date.getMonth()].slice(
+        0,
+        3
+      )} ${date.getDate()} ${date.getFullYear()}`;
+    } else {
+      return `${monthNames[date.getMonth()].slice(
+        0,
+        3
+      )} ${date.getDate()} ${date.getFullYear()} `;
+    }
+  };
+
   const handleOverlayClick = (
     setIsOverlay: React.Dispatch<React.SetStateAction<boolean>>,
     activate: boolean
   ) => {
-    let timeout1 = setTimeout(() => setIsOverlay1(false), 7000);
-    let timeout2 = setTimeout(() => setIsOverlay2(false), 7000);
+    let timeout1 = 0;
+    let timeout2 = 0;
     if (setIsOverlay === setIsOverlay1) {
+      setIsOverlay1(true);
       if (activate) {
+        timeout1 = setTimeout(() => setIsOverlay1(false), 7000);
         setIsOverlay1(true);
-        timeout1;
       } else {
         setIsOverlay1(false);
         clearTimeout(timeout1);
       }
     } else {
+      setIsOverlay2(true);
       if (activate) {
+        timeout2 = setTimeout(() => setIsOverlay2(false), 7000);
         setIsOverlay2(true);
-        timeout2;
       } else {
         setIsOverlay2(false);
         clearTimeout(timeout2);
@@ -106,7 +118,7 @@ const MatchupFeedCard = ({ matchup }: Props) => {
         src={matchup?.media1.winner ? backgroundImg1 : backgroundImg2}
         alt='winner background image'
       />
-
+      <p className='date'>{parseDate()}</p>
       <div className='media-container'>
         <div className='image-subcontainer'>
           <img
@@ -121,9 +133,11 @@ const MatchupFeedCard = ({ matchup }: Props) => {
                 className='image-overlay prevent-select'
                 style={style}
                 onClick={() => handleOverlayClick(setIsOverlay1, false)}>
-                <p className='media1-title'>{matchup?.media1.title}</p>
-                <p className='media1-subtitle'>{subtitle1}</p>
-                <p className='media1-category'>{`(${matchup?.media1.category})`}</p>
+                <div className='text-container prevent-select'>
+                  <p className='media-title'>{matchup?.media1.title}</p>
+                  <p className='media-subtitle'>{subtitle1}</p>
+                  <p className='media-category'>{`(${matchup?.media1.category})`}</p>
+                </div>
               </animated.div>
             ) : (
               <></>
@@ -148,9 +162,11 @@ const MatchupFeedCard = ({ matchup }: Props) => {
                 className='image-overlay prevent-select'
                 style={style}
                 onClick={() => handleOverlayClick(setIsOverlay2, false)}>
-                <p className='media2-title'>{matchup?.media2.title}</p>
-                <p className='media2-subtitle'>{subtitle2}</p>
-                <p className='media2-category'>{`(${matchup?.media2.category})`}</p>
+                <div className='text-container prevent-select'>
+                  <p className='media-title'>{matchup?.media2.title}</p>
+                  <p className='media-subtitle'>{subtitle2}</p>
+                  <p className='media-category'>{`(${matchup?.media2.category})`}</p>
+                </div>
               </animated.div>
             ) : (
               <></>
