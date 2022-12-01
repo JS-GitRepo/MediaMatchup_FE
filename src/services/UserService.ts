@@ -13,13 +13,19 @@ export const getUserByEmail = async (
   return (await axios.get(baseURL, { params: { email: email } })).data;
 };
 
+export const getUserByHandle = async (
+  handle: string
+): Promise<UserAccount | null> => {
+  return (await axios.get(baseURL, { params: { handle: handle } })).data;
+};
+
 export const createUserByID = async (
   user: UserAccount
 ): Promise<UserAccount> => {
   return (await axios.post(baseURL, user)).data;
 };
 
-export const updateUserDailiesByID = async (
+export const updateUserByID = async (
   uid: string,
   updateParams: any
 ): Promise<UserAccount> => {

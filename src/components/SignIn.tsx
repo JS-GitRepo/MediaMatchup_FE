@@ -1,9 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import { auth, googleAuthProvider } from "../firebaseConfig";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
 import "./styles/SignIn.css";
 import { onAuthStateChanged } from "firebase/auth";
+import SocialContext from "../context/SocialContext";
+import {
+  createUserByID,
+  getUserByHandle,
+  getUserById,
+  updateUserByID,
+} from "../services/UserService";
+import UserAccount from "../models/UserAccount";
 
 interface SFA_Props {
   uiConfig: firebaseui.auth.Config;
@@ -52,6 +60,9 @@ const StyledFirebaseAuth = ({
 };
 
 const SignIn = () => {
+  const [handle, setHandle] = useState<string>("");
+  const [statusMsg, setStatusMsg] = useState<string>("");
+  const { userAuth, userAccount, setUserAccount } = useContext(SocialContext);
   const bgImgURL =
     "https://apollo.imgix.net/content/uploads/2018/02/LEADPablo-Picasso-Femme-au-beret-et-a-la-robe-quadrillee-Marie-Therese-Walter-December-1937.jpg?auto=compress,format&crop=faces,entropy,edges&fit=crop&w=900&h=600";
 
@@ -59,6 +70,34 @@ const SignIn = () => {
     signInFlow: "popup",
     signInOptions: [googleAuthProvider.providerId],
   };
+
+  const submissionHandler = async (e: FormEvent) => {
+    e.preventDefault();
+    const foundUser = await getUserByHandle(handle);
+    if (!foundUser || foundUser?.handle?.length! < 1) {
+      let updatedHandle = {
+        handle: handle,
+      };
+      updateUserByID(userAccount!.uid as string, updatedHandle);
+      setStatusMsg("Handle created!");
+      setUserAccount({ ...updatedHandle });
+    } else {
+      setStatusMsg("Sorry, that handle is already taken!");
+    }
+  };
+
+  // useEffect(() => {
+  //   if (userAccount) {
+  //     getUserById(userAccount.uid).then((response) => {
+  //       if (!response) {
+  //         let updatedHandle = {
+  //           handle: ""
+  //         };
+  //         updateUserByID(userAccount.uid as string, updatedHandle);
+  //       }
+  //     });
+  //   }
+  // }, [userAccount]);
 
   return (
     <div className='SignIn full-h-w'>
@@ -68,8 +107,24 @@ const SignIn = () => {
         alt='login background image'
       />
       <div className='content-ctr'>
-        <h1>Media Matchup</h1>
-        <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
+        <h1>MediaMatchup</h1>
+        {auth.currentUser ? (
+          <form className={"handle-form"} onSubmit={submissionHandler}>
+            <h2>{`Hello ${userAuth?.displayName?.split(" ", 1)}!`}</h2>
+            <label htmlFor='handle'>Create Your Handle: </label>
+            <input
+              type='text'
+              name='handle'
+              id='handle'
+              placeholder='myHandle64'
+              value={handle}
+              onChange={(e) => setHandle(e.target.value)}
+            />
+            <button>Submit</button>
+          </form>
+        ) : (
+          <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
+        )}
       </div>
     </div>
   );

@@ -19,12 +19,12 @@ interface Props {
 const NavModal = ({ currentDisplay, style }: Props) => {
   const [currentTitle, setCurrentTitle] = useState<string>("");
   const [isFriendFeed, setisFriendFeed] = useState<boolean>(false);
-  const { user } = useContext(SocialContext);
+  const { userAuth } = useContext(SocialContext);
   const location = useLocation();
   // const [currentDisplay, setCurrentDisplay] = useState("My Feed");
   const centerDisplay = {
     matchupFeed: (
-      <MatchupFeed userID={user?.uid} setCurrentTitle={setCurrentTitle} />
+      <MatchupFeed userID={userAuth?.uid} setCurrentTitle={setCurrentTitle} />
     ),
     navFriends: <NavFriends setCurrentTitle={setCurrentTitle} />,
     navCommunity: <NavCommunity />,
@@ -40,7 +40,7 @@ const NavModal = ({ currentDisplay, style }: Props) => {
     } else if (currentDisplay === "Community") {
       setPageName("navCommunity");
     }
-  }, [location]);
+  }, [location.pathname]);
 
   return (
     <animated.div style={style} className='NavModal'>

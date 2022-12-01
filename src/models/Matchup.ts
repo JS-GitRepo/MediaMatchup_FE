@@ -9,13 +9,29 @@ interface Comment {
 }
 
 // "winner?" represents the title of the winning media item
-export default interface Matchup {
+export interface Matchup {
   _id?: string;
   media1: MediaItem;
   media2: MediaItem;
   uid?: string;
+  handle?: string;
   date?: number;
   winner?: string;
+  upvotes?: number;
+  downvotes?: number;
+  comments?: Comment[];
+  dailyMatchupsDate?: number;
+  dailyMatchupsIndex?: number;
+}
+
+export interface CompletedMatchup {
+  _id?: string;
+  media1: MediaItem;
+  media2: MediaItem;
+  uid: string;
+  handle: string;
+  date: number;
+  winner: string;
   upvotes?: number;
   downvotes?: number;
   comments?: Comment[];

@@ -1,13 +1,14 @@
 import "./styles/MatchupFeedCard.css";
 import { useContext, useEffect, useState } from "react";
 import SocialContext from "../context/SocialContext";
-import Matchup from "../models/Matchup";
+import { Matchup } from "../models/Matchup";
 import {
   animated,
   SpringValue,
   useSpring,
   useTransition,
 } from "@react-spring/web";
+import { Link } from "react-router-dom";
 
 interface Props {
   matchup: Matchup;
@@ -17,6 +18,7 @@ const MatchupFeedCard = ({ matchup }: Props) => {
   // - - - - - States - - - - -
   const [isOverlay1, setIsOverlay1] = useState<boolean>(false);
   const [isOverlay2, setIsOverlay2] = useState<boolean>(false);
+  const { userAccount } = useContext(SocialContext);
   // - - - - - Animation - - - - -
   const overlayFadeConfig = {
     from: { opacity: "0%" },
@@ -38,7 +40,6 @@ const MatchupFeedCard = ({ matchup }: Props) => {
     : matchup?.media2.artImg;
   let isWinner1 = matchup?.media1.winner ? "winner" : "";
   let isWinner2 = matchup?.media2.winner ? "winner" : "";
-  const { user } = useContext(SocialContext);
 
   if (
     matchup?.media1.category === "Video Game" ||
@@ -83,6 +84,7 @@ const MatchupFeedCard = ({ matchup }: Props) => {
       )} ${date.getDate()} ${date.getFullYear()} `;
     }
   };
+  const cardDate = parseDate();
 
   const handleOverlayClick = (
     setIsOverlay: React.Dispatch<React.SetStateAction<boolean>>,
@@ -118,7 +120,13 @@ const MatchupFeedCard = ({ matchup }: Props) => {
         src={matchup?.media1.winner ? backgroundImg1 : backgroundImg2}
         alt='winner background image'
       />
-      <p className='date'>{parseDate()}</p>
+      <div className='info-ctr'>
+        <Link to={`/nav/friends/${matchup.uid}`} className='info-handle'>
+          {matchup?.handle ? `@${matchup?.handle}` : `@${matchup.uid}`}
+        </Link>
+        <p>{` • `}</p>
+        <p className='info-date'>{`${cardDate}`}</p>
+      </div>
       <div className='media-container'>
         <div className='image-subcontainer'>
           <img

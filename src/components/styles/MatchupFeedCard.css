@@ -27,7 +27,8 @@
   border-radius: 10px;
 }
 
-.MatchupFeedCard p {
+.MatchupFeedCard p,
+.MatchupFeedCard a {
   font-family: "Lucida Console";
   font-weight: 400;
   color: white;
@@ -71,10 +72,19 @@
     -2px -2px 0 #000;
 }
 
-.MatchupFeedCard .date {
+.MatchupFeedCard .info-ctr {
+  display: flex;
+  justify-content: center;
   position: absolute;
   width: 100%;
   top: 15px;
+  white-space: pre-wrap;
+  z-index: 2;
+}
+
+.MatchupFeedCard .info-ctr .info-handle {
+  font-weight: 800;
+  text-decoration: none;
 }
 
 .MatchupFeedCard .media-container {

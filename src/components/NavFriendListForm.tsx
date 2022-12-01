@@ -17,14 +17,14 @@ const NavFriendListForm = () => {
   const [statusIsGreen, setStatusIsGreen] = useState<boolean>(true);
   const [friends, setFriends] = useState<any[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { user } = useContext(SocialContext);
+  const { userAuth } = useContext(SocialContext);
   const formRef = useRef<HTMLFormElement>(null);
   const statusMsgTimeout = 5000;
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
     const friend = await getUserByEmail(friendEmail!);
-    const currentUser = await getUserById(user?.uid!);
+    const currentUser = await getUserById(userAuth?.uid!);
     if (friend) {
       if (currentUser?.friends) {
         const isAlreadyFriend = currentUser?.friends!.find(
@@ -39,7 +39,7 @@ const NavFriendListForm = () => {
             uid: friend.uid,
             name: friend.name,
           };
-          await addFriend(user?.uid!, friendObj);
+          await addFriend(userAuth?.uid!, friendObj);
           setStatusIsGreen(true);
           setFriendStatusMsg(
             `${friend.email} has been added to your friends list!`
@@ -59,12 +59,12 @@ const NavFriendListForm = () => {
   };
 
   useEffect(() => {
-    if (user) {
-      getUserById(user!.uid!).then((response) => {
+    if (userAuth) {
+      getUserById(userAuth!.uid!).then((response) => {
         setFriends(response!.friends!);
       });
     }
-  }, [user, friendStatusMsg]);
+  }, [userAuth, friendStatusMsg]);
 
   useEffect(() => {
     if (friends) {
@@ -74,7 +74,7 @@ const NavFriendListForm = () => {
 
   return (
     <div className='NavFriendListForm'>
-      {user ? (
+      {userAuth ? (
         <div>
           <form
             ref={formRef}
