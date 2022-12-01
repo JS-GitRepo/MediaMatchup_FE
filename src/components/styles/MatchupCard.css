@@ -15,6 +15,14 @@
   height: 100%;
 }
 
+.MatchupCardLoading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: black;
+  z-index: 10;
+}
+
 .MatchupCard .daily-header {
   display: flex;
   top: 8%;

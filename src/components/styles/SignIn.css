@@ -47,3 +47,8 @@
   /* style */
   filter: hue-rotate(15deg) brightness(60%) contrast(100%) blur(6px);
 }
+
+.SignIn .handle-form {
+  display: flex;
+  flex-direction: column;
+}

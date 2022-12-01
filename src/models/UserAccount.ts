@@ -4,6 +4,7 @@ export default interface UserAccount {
   _id?: string;
   uid: string;
   name: string;
+  handle?: string;
   email: string;
   photoURL: string;
   friends?: Friend[];

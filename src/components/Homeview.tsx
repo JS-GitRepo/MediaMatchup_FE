@@ -2,7 +2,7 @@ import "./styles/Homeview.css";
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
-import Matchup from "../models/Matchup";
+import { Matchup } from "../models/Matchup";
 import MediaItem from "../models/MediaItem";
 import {
   getDailyMatchupCollection,
@@ -16,7 +16,7 @@ import {
   getVideoGame,
 } from "../services/ExternalAPIService";
 import { submitMatchup } from "../services/MatchupService";
-import { getUserById, updateUserDailiesByID } from "../services/UserService";
+import { getUserById, updateUserByID } from "../services/UserService";
 import MatchupCard from "./MatchupCard";
 import StatsCard from "./StatsCard";
 import chevron from "../media/wide_chevron.png";
@@ -33,7 +33,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   //  = = = = = = VARIABLES = = = = =
   // - - - General - - -
   const [isInitialRender, setIsInitialRender] = useState<boolean>(true);
-  const { user } = useContext(SocialContext);
+  const { userAuth, userAccount } = useContext(SocialContext);
   let { nav } = useParams();
   const navigate = useNavigate();
   // - - - Matchups - - -
@@ -178,7 +178,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   };
 
   const checkAndSetDailyMatchups = async (): Promise<void> => {
-    const tempUser = await getUserById(user!.uid);
+    const tempUser = await getUserById(userAuth!.uid);
     const tempUserIndex = tempUser!.dailyMatchupsIndex;
     const tempUserDate = tempUser!.dailyMatchupsDate;
     const dateInfo = generateDateInfo();
@@ -253,7 +253,8 @@ const Homeview = ({ currentDisplay, style }: Props) => {
       matchup.media2.winner = true;
       matchup.winner = matchup.media2.title;
     }
-    matchup!.uid = user?.uid;
+    matchup!.uid = userAuth?.uid;
+    matchup!.handle = userAccount?.handle;
     matchup!.date = Date.now();
     matchup!.upvotes = 0;
     matchup!.downvotes = 0;
@@ -266,7 +267,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
         dailyMatchupsIndex: tempIndex,
       };
       // console.log(updatesObj);
-      await updateUserDailiesByID(user!.uid as string, updatesObj);
+      await updateUserByID(userAuth!.uid as string, updatesObj);
     }
     // console.log("Daily Matchups Status: ", dailyMatchups);
     checkAndSetMatchups();
@@ -293,10 +294,10 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (user) {
+    if (userAuth) {
       checkAndSetDailyMatchups();
     }
-  }, [user]);
+  }, [userAuth]);
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -313,7 +314,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
 
   return (
     <animated.div className={`Homeview`}>
-      {user ? (
+      {userAccount?.handle ? (
         <>
           {navModalTransition((style, item) =>
             item ? (

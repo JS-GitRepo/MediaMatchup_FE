@@ -1,6 +1,6 @@
 import "./styles/NavCommunity.css";
 import { useState } from "react";
-import Matchup from "../models/Matchup";
+import { Matchup } from "../models/Matchup";
 
 const NavCommunity = () => {
   const [daily1, setDaily1] = useState<Matchup[]>();

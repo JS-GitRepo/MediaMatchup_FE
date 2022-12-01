@@ -1,6 +1,6 @@
 import "./styles/MatchupCard.css";
 import { useEffect, useRef, useState } from "react";
-import Matchup from "../models/Matchup";
+import { Matchup } from "../models/Matchup";
 import MediaItem from "../models/MediaItem";
 import loading from "../media/loading.svg";
 import Loading from "./Loading";
@@ -179,7 +179,9 @@ const MatchupCard = ({
   return (
     <>
       {!matchupDefined ? (
-        <Loading adtlClassName={""} />
+        <div className='MatchupCardLoading full-h-w'>
+          <Loading adtlClassName={""} />
+        </div>
       ) : (
         <div className={`MatchupCard ${navAnimation ? "nav-animation" : ""}`}>
           {dailyHeaderJSX}

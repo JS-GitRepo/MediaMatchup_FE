@@ -2,7 +2,7 @@ import "./styles/MatchupFeed.css";
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
-import Matchup from "../models/Matchup";
+import { Matchup } from "../models/Matchup";
 import UserAccount from "../models/UserAccount";
 import { getMatchupsByUID } from "../services/MatchupService";
 import { getUserById } from "../services/UserService";
@@ -19,7 +19,7 @@ const MatchupFeed = ({ setCurrentTitle, userID }: Props) => {
   const [userMatchups, setUserMatchups] = useState<Matchup[]>([]);
   const [currentUser, setCurrentUser] = useState<UserAccount>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { user, setIsFriendFeed } = useContext(SocialContext);
+  const { userAuth, setIsFriendFeed } = useContext(SocialContext);
   const location = useLocation();
 
   const getAndSetFeedUserInfo = async () => {
@@ -35,7 +35,7 @@ const MatchupFeed = ({ setCurrentTitle, userID }: Props) => {
   };
 
   const checkIsPersonalFeed = () => {
-    if (user!.uid === userID) {
+    if (userAuth!.uid === userID) {
       setIsFriendFeed(false);
     } else {
       setIsFriendFeed(true);

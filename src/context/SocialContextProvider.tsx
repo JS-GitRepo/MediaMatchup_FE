@@ -11,33 +11,48 @@ interface Props {
 
 const SocialContextProvider = ({ children }: Props) => {
   const [isFriendFeed, setIsFriendFeed] = useState<boolean>(false);
-  const [user, setUser] = useState<User | null>(null);
+  const [userAuth, setUserAuth] = useState<User | null>(null);
+  const [userAccount, setUserAccount] = useState<UserAccount | null>(null);
 
   useEffect(() => {
     // useEffect to only register once at start
     return auth.onAuthStateChanged((newUser) => {
-      setUser(newUser);
+      setUserAuth(newUser);
     });
   }, []);
 
   useEffect(() => {
-    if (user) {
-      getUserById(user.uid).then((response) => {
+    if (userAuth) {
+      getUserById(userAuth.uid).then((response) => {
         if (!response) {
-          let newUser: UserAccount = {
-            uid: user.uid,
-            name: user.displayName!,
-            email: user.email!,
-            photoURL: user.photoURL!,
+          let newUserAccount: UserAccount = {
+            uid: userAuth.uid,
+            name: userAuth.displayName!,
+            email: userAuth.email!,
+            photoURL: userAuth.photoURL!,
           };
-          createUserByID(newUser!);
+          createUserByID(newUserAccount!);
         }
+        setUserAccount(response);
       });
+    } else {
+      setUserAccount(null);
     }
-  }, [user]);
+  }, [userAuth]);
+
+  useEffect(() => {
+    console.log(userAccount);
+  }, [userAccount]);
 
   return (
-    <SocialContext.Provider value={{ user, isFriendFeed, setIsFriendFeed }}>
+    <SocialContext.Provider
+      value={{
+        userAuth,
+        isFriendFeed,
+        setIsFriendFeed,
+        userAccount,
+        setUserAccount,
+      }}>
       {children}
     </SocialContext.Provider>
   );
