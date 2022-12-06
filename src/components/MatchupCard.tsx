@@ -76,6 +76,34 @@ const MatchupCard = ({
     }
   };
 
+  const resetMatchup = () => {
+    imageLoadedCounter.current = 0;
+    setImagesAreLoaded(false);
+    setMatchupDefined(false);
+    setLoadingImages([
+      matchup.media1?.artImg!,
+      matchup.media2.artImg!,
+      matchup.media1.artImg2!,
+      matchup.media2.artImg2!,
+    ]);
+    checkAndSetDailyIndex();
+    constructMedia();
+    if (
+      !title1 ||
+      !title2 ||
+      !subtitle1 ||
+      !subtitle2 ||
+      !mainImg1 ||
+      !mainImg2 ||
+      !bgImg1 ||
+      !bgImg2 ||
+      !mediaCategory1 ||
+      !mediaCategory2
+    ) {
+      setMatchupDefined(false);
+    }
+  };
+
   const winnerAnimation = (
     whichMedia: number,
     winner: MediaItem,
@@ -123,31 +151,7 @@ const MatchupCard = ({
   }, []);
 
   useEffect(() => {
-    imageLoadedCounter.current = 0;
-    setImagesAreLoaded(false);
-    setMatchupDefined(false);
-    setLoadingImages([
-      matchup.media1?.artImg!,
-      matchup.media2.artImg!,
-      matchup.media1.artImg2!,
-      matchup.media2.artImg2!,
-    ]);
-    checkAndSetDailyIndex();
-    constructMedia();
-    if (
-      !title1 ||
-      !title2 ||
-      !subtitle1 ||
-      !subtitle2 ||
-      !mainImg1 ||
-      !mainImg2 ||
-      !bgImg1 ||
-      !bgImg2 ||
-      !mediaCategory1 ||
-      !mediaCategory2
-    ) {
-      setMatchupDefined(false);
-    }
+    resetMatchup();
     // if (!isInitialRender) {
     //   console.log(imageLoadedCounter);
     //   console.log(imagesAreLoaded);
