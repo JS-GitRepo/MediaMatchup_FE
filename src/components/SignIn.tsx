@@ -5,13 +5,7 @@ import "firebaseui/dist/firebaseui.css";
 import "./styles/SignIn.css";
 import { onAuthStateChanged } from "firebase/auth";
 import SocialContext from "../context/SocialContext";
-import {
-  createUserByID,
-  getUserByHandle,
-  getUserById,
-  updateUserByID,
-} from "../services/UserService";
-import UserAccount from "../models/UserAccount";
+import { getUserByHandle, updateUserByID } from "../services/UserService";
 
 interface SFA_Props {
   uiConfig: firebaseui.auth.Config;
@@ -85,19 +79,6 @@ const SignIn = () => {
       setStatusMsg("Sorry, that handle is already taken!");
     }
   };
-
-  // useEffect(() => {
-  //   if (userAccount) {
-  //     getUserById(userAccount.uid).then((response) => {
-  //       if (!response) {
-  //         let updatedHandle = {
-  //           handle: ""
-  //         };
-  //         updateUserByID(userAccount.uid as string, updatedHandle);
-  //       }
-  //     });
-  //   }
-  // }, [userAccount]);
 
   return (
     <div className='SignIn full-h-w'>
