@@ -67,7 +67,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   const navModalTransition = useTransition(navModalIsActive, {
     from: { transform: "translateY(100%)" },
     enter: { transform: "translateY(0%)" },
-    leave: { transform: "translateY(100%)" },
+    leave: { transform: "translateY(110%)" },
     exitBeforeEnter: false,
   });
 
@@ -316,19 +316,16 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     <animated.div className={`Homeview`}>
       {userAccount?.handle ? (
         <>
-          {navModalTransition((style, item) =>
-            item ? (
-              <NavModal style={style} currentDisplay={currentDisplay} />
-            ) : (
-              ""
-            )
-          )}
-          {/* {navModalIsActive ? (
-            <NavModal style={undefined} currentDisplay={currentDisplay} />
-          ) : (
-            ""
-          )} */}
-          {cardComponents.matchupCard}
+          <div className='card-ctr'>
+            {navModalTransition((style, item) =>
+              item ? (
+                <NavModal style={style} currentDisplay={currentDisplay} />
+              ) : (
+                ""
+              )
+            )}
+            {cardComponents.matchupCard}
+          </div>
           <div className='nav-menu'>
             <img
               className='nav-chevron'

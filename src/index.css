@@ -16,6 +16,13 @@ code {
     monospace;
 }
 
+/* = = = GENERAL / GLOBAL = = = */
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
 .full-h-w {
   width: 100%;
   height: 100%;

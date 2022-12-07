@@ -13,3 +13,12 @@
   background-color: rgba(75, 75, 75, 0.4);
   backdrop-filter: blur(20px);
 }
+
+/* >>>>>>>>>>>> Media Queries <<<<<<<<<<<< */
+
+@media only screen and (min-width: 1024px) {
+  .NavModal {
+    border-radius: 50px;
+    overflow: hidden;
+  }
+}

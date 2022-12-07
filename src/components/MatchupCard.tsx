@@ -152,10 +152,6 @@ const MatchupCard = ({
 
   useEffect(() => {
     resetMatchup();
-    // if (!isInitialRender) {
-    //   console.log(imageLoadedCounter);
-    //   console.log(imagesAreLoaded);
-    // }
     console.log(
       `Current Matchup Is: ${matchup.media1.title} vs ${matchup.media2.title}`
     );
@@ -168,6 +164,18 @@ const MatchupCard = ({
   }, [bgImg1, bgImg2, matchup]);
 
   useEffect(() => {}, [imagesAreLoaded]);
+
+  useEffect(() => {
+    if (!crown1Animation) {
+      setImagesAreLoaded(false);
+    }
+  }, [crown1Animation]);
+
+  useEffect(() => {
+    if (!crown2Animation) {
+      setImagesAreLoaded(false);
+    }
+  }, [crown2Animation]);
 
   let dailyHeaderJSX = <div></div>;
   if (dailyIndex <= 10 && dailyIndex >= 0) {
@@ -206,7 +214,9 @@ const MatchupCard = ({
 
           {/* - - - - - Media 1 Container - - - - - */}
           <div
-            className={`media1-container${media1Animation ? " animOut1" : ""}`}
+            className={`media-container media1-container${
+              media1Animation ? " animOut1" : ""
+            }`}
             onClick={() =>
               winnerAnimation(1, matchup?.media1!, matchup?.dailyMatchupsIndex)
             }>
@@ -241,7 +251,9 @@ const MatchupCard = ({
 
           {/* - - - - - Media 2 Container - - - - - */}
           <div
-            className={`media2-container${media2Animation ? " animOut2" : ""}`}
+            className={`media-container media2-container${
+              media2Animation ? " animOut2" : ""
+            }`}
             onClick={() =>
               winnerAnimation(2, matchup?.media2!, matchup?.dailyMatchupsIndex)
             }>

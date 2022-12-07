@@ -75,7 +75,7 @@ const NavFriendListForm = () => {
   return (
     <div className='NavFriendListForm'>
       {userAuth ? (
-        <div>
+        <>
           <form
             ref={formRef}
             className='add-friend-form'
@@ -114,7 +114,7 @@ const NavFriendListForm = () => {
               </ul>
             )}
           </div>
-        </div>
+        </>
       ) : (
         <div>
           <button onClick={signInWithGoogle}>

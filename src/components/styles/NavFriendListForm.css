@@ -1,6 +1,7 @@
 .NavFriendListForm {
   /* display */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   /* position */
@@ -28,11 +29,21 @@
   border-radius: 5px;
 }
 
+.NavFriendListForm h2 {
+  margin: 3px;
+}
+
 .NavFriendListForm .add-friend-status {
   margin: 0px;
   font-size: 12px;
 }
 
 .NavFriendListForm .nav-friends-list {
+  max-height: 50%;
   overflow-y: scroll;
+  padding-bottom: 50px;
+}
+
+.NavFriendListForm .nav-friends-list p {
+  margin: 5px 0px;
 }

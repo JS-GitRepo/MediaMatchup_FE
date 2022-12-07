@@ -1,3 +1,7 @@
+/* display */
+/* position */
+/* style */
+
 /* RESETS */
 .MatchupCard img {
   margin: 0px;
@@ -8,6 +12,9 @@
 
 /* - - - - - MatchupCard General - - - - - */
 .MatchupCard {
+  /* display */
+  /* position */
+  /* style */
   display: flex;
   position: relative;
   flex-direction: row;
@@ -24,9 +31,12 @@
 }
 
 .MatchupCard .daily-header {
+  /* display */
+  /* position */
+  /* style */
   display: flex;
   top: 8%;
-  width: 100vw;
+  width: 100%;
   position: absolute;
   align-items: center;
   justify-content: center;
@@ -41,9 +51,12 @@
 }
 
 .MatchupCard .generate-matchup {
+  /* display */
+  /* position */
+  /* style */
   display: flex;
   bottom: 10%;
-  width: 100vw;
+  width: 100%;
   position: absolute;
   align-items: center;
   justify-content: center;
@@ -61,6 +74,9 @@
 }
 
 .MatchupCard .vs {
+  /* display */
+  /* position */
+  /* style */
   font-size: 40px;
   position: absolute;
   text-align: center;
@@ -74,17 +90,10 @@
 }
 
 /* - - - - - MatchupCard Media Containers - - - - - */
-.MatchupCard .media1-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  flex: 1;
-  max-width: 100%;
-}
-
-.MatchupCard .media2-container {
+.MatchupCard .media-container {
+  /* display */
+  /* position */
+  /* style */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -95,6 +104,9 @@
 }
 
 .MatchupCard .image-subcontainer {
+  /* display */
+  /* position */
+  /* style */
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -114,18 +126,21 @@
 }
 
 .MatchupCard .bg-img {
+  /* display */
   display: block;
+  /* position */
   position: absolute;
-  box-sizing: border-box;
   top: 0;
   left: 0;
   right: 0;
   z-index: 0;
   min-height: 100%;
   width: 100%;
-  background-position: center;
-  background-size: cover;
   object-fit: cover;
+  background-position: center;
+  /* style */
+  box-sizing: border-box;
+  background-size: cover;
   filter: hue-rotate(15deg) brightness(50%) contrast(110%) blur(4px);
 }
 
@@ -144,13 +159,13 @@
 
 /* - - - - - - Winner Animation - - - - - - */
 .MatchupCard .animOut1 {
-  transform: translateX(-100vw);
+  transform: translateX(-100%);
   transition: 0.5s;
   z-index: 2;
 }
 
 .MatchupCard .animOut2 {
-  transform: translateX(100vw);
+  transform: translateX(100%);
   transition: 0.5s;
   z-index: 2;
 }
@@ -160,32 +175,36 @@
 }
 
 .MatchupCard .crownAnimation1 {
+  /* display */
   display: block;
-  color: #fff;
+  /* position */
   position: absolute;
   top: 35%;
   left: 15%;
   z-index: 3;
-  font-size: 75px;
   transform: translateY(50vh);
+  /* style */
+  color: #fff;
+  font-size: 70px;
   text-shadow: 0 0 30px #fbd035, 0 0 10px #fbd035, 0 0 20px #fbd035,
     0 0 35px #fbd035, 0 0 45px #fbd035;
-
   animation: flicker 0.51s ease-in-out infinite alternate, 0.5s floaty infinite;
 }
 
 .MatchupCard .crownAnimation2 {
+  /* display */
   display: block;
-  color: #fff;
+  /* position */
   position: absolute;
   top: 35%;
   left: 65%;
   z-index: 3;
-  font-size: 70px;
   transform: translateY(50vh);
+  /* style */
+  color: #fff;
+  font-size: 70px;
   text-shadow: 0 0 30px #fbd035, 0 0 10px #fbd035, 0 0 20px #fbd035,
     0 0 35px #fbd035, 0 0 45px #fbd035;
-
   animation: 0.5s floaty infinite;
 }
 
@@ -211,53 +230,26 @@
 }
 /* >>>>>>>>>>>>>>>>>>>>MEDIA QUERY<<<<<<<<<<<<<<<<<< */
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
   .MatchupCard {
-    width: 100vw;
+    width: 100%;
     height: 100%;
+    overflow: hidden;
+    border-radius: 50px;
   }
 
   .MatchupCard .daily-header p:hover {
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.2);
     cursor: pointer;
   }
 
-  .MatchupCard .main-img {
-    width: 275px;
-    height: 325px;
-  }
-
   .MatchupCard .bg-img {
-    display: block;
-    position: absolute;
+    /* display */
+    /* position */
+    /* style */
     box-sizing: border-box;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    height: 100%;
-    width: 100%;
-    background-position: center;
     background-size: cover;
-    object-fit: cover;
     filter: hue-rotate(15deg) brightness(50%) contrast(110%) blur(4px);
-  }
-
-  .MatchupCard .image-subcontainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    top: 30%;
-    height: 100%;
-    width: 100%;
-    flex: 3;
-    z-index: 1;
-  }
-
-  .MatchupCard .text-subcontainer {
-    width: 100%;
-    flex: 1;
-    z-index: 1;
   }
 
   .MatchupCard .crownAnimation1 {
