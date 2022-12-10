@@ -314,7 +314,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
 
   return (
     <animated.div className={`Homeview`}>
-      {userAccount?.handle ? (
+      {userAccount?.handle! ? (
         <>
           <div className='card-ctr'>
             {navModalTransition((style, item) =>

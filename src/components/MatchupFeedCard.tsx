@@ -2,23 +2,20 @@ import "./styles/MatchupFeedCard.css";
 import { useContext, useEffect, useState } from "react";
 import SocialContext from "../context/SocialContext";
 import { Matchup } from "../models/Matchup";
-import {
-  animated,
-  SpringValue,
-  useSpring,
-  useTransition,
-} from "@react-spring/web";
+import { animated, useTransition } from "@react-spring/web";
 import { Link } from "react-router-dom";
+import { truncateStringTail } from "../functions/utilityFunctions";
 
 interface Props {
   matchup: Matchup;
 }
 
 const MatchupFeedCard = ({ matchup }: Props) => {
-  // - - - - - States - - - - -
+  // - - - - - General - - - - -
   const [isOverlay1, setIsOverlay1] = useState<boolean>(false);
   const [isOverlay2, setIsOverlay2] = useState<boolean>(false);
   const { userAccount } = useContext(SocialContext);
+  const truncatedUID = truncateStringTail(matchup.uid!, 5);
   // - - - - - Animation - - - - -
   const overlayFadeConfig = {
     from: { opacity: "0%" },
@@ -30,6 +27,7 @@ const MatchupFeedCard = ({ matchup }: Props) => {
   const overlay1Fade = useTransition(isOverlay1, overlayFadeConfig);
   const overlay2Fade = useTransition(isOverlay2, overlayFadeConfig);
 
+  //  - - - - - Card Data Generation - - - - -
   let subtitle1 = matchup?.media1.subtitle;
   let subtitle2 = matchup?.media2.subtitle;
   let backgroundImg1 = matchup?.media1.artImg2
@@ -122,7 +120,7 @@ const MatchupFeedCard = ({ matchup }: Props) => {
       />
       <div className='info-ctr'>
         <Link to={`/nav/friends/${matchup.uid}`} className='info-handle'>
-          {matchup?.handle ? `@${matchup?.handle}` : `@${matchup.uid}`}
+          {matchup?.handle ? `@${matchup?.handle}` : `@${truncatedUID}`}
         </Link>
         <p>{` • `}</p>
         <p className='info-date'>{`${cardDate}`}</p>
