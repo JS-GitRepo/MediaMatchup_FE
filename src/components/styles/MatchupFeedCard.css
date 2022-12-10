@@ -82,6 +82,24 @@
   z-index: 2;
 }
 
+.MatchupFeedCard .bottom-info-ctr {
+  /* display */
+  box-sizing: border-box;
+  /* position */
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 15px 25px;
+  /* style */
+}
+
+.MatchupFeedCard .bottom-info-ctr p {
+  /* display */
+  /* position */
+  /* style */
+  font-weight: 600;
+}
+
 .MatchupFeedCard .info-ctr .info-handle {
   font-weight: 800;
   text-decoration: none;

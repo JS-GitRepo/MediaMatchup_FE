@@ -1,6 +1,5 @@
 import "./styles/MatchupFeedCard.css";
-import { useContext, useEffect, useState } from "react";
-import SocialContext from "../context/SocialContext";
+import { useState } from "react";
 import { Matchup } from "../models/Matchup";
 import { animated, useTransition } from "@react-spring/web";
 import { Link } from "react-router-dom";
@@ -14,7 +13,6 @@ const MatchupFeedCard = ({ matchup }: Props) => {
   // - - - - - General - - - - -
   const [isOverlay1, setIsOverlay1] = useState<boolean>(false);
   const [isOverlay2, setIsOverlay2] = useState<boolean>(false);
-  const { userAccount } = useContext(SocialContext);
   const truncatedUID = truncateStringTail(matchup.uid!, 5);
   // - - - - - Animation - - - - -
   const overlayFadeConfig = {
@@ -111,6 +109,16 @@ const MatchupFeedCard = ({ matchup }: Props) => {
     }
   };
 
+  const handleInfoClick = () => {
+    if (!isOverlay1 || !isOverlay2) {
+      handleOverlayClick(setIsOverlay1, true);
+      handleOverlayClick(setIsOverlay2, true);
+    } else if (isOverlay1 && isOverlay2) {
+      handleOverlayClick(setIsOverlay1, false);
+      handleOverlayClick(setIsOverlay2, false);
+    }
+  };
+
   return (
     <div className='MatchupFeedCard'>
       <img
@@ -179,6 +187,9 @@ const MatchupFeedCard = ({ matchup }: Props) => {
             )
           )}
         </div>
+      </div>
+      <div className='bottom-info-ctr' onClick={handleInfoClick}>
+        <p>i</p>
       </div>
     </div>
   );
