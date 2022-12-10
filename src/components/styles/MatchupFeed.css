@@ -58,5 +58,20 @@
 
 /* >>>>>>>>>>>> Media Queries <<<<<<<<<<<< */
 
-@media only screen and (min-width: 1024) {
+@media only screen and (min-width: 768px) {
+  .MatchupFeed {
+    /* display */
+    /* position */
+    width: 80%;
+    /* style */
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .MatchupFeed {
+    /* display */
+    /* position */
+    width: 100%;
+    /* style */
+  }
 }

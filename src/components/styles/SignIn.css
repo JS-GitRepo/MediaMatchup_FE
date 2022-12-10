@@ -12,13 +12,12 @@
 
 .SignIn h1 {
   letter-spacing: 7px;
+  font-weight: 400;
 }
 
-.SignIn p {
-  margin: 5px;
-  padding: 15px 25px;
-  border: 3.5px solid rgb(255, 255, 255);
-  border-radius: 15px;
+.SignIn h2 {
+  font-weight: 400;
+  margin: 10px;
 }
 
 .SignIn .content-ctr {
@@ -30,10 +29,6 @@
   /* position */
   z-index: 1;
   /* style */
-}
-
-.SignIn .sign-in-btn {
-  width: 250px;
 }
 
 .SignIn .sign-in-bg-img {
@@ -48,7 +43,74 @@
   filter: hue-rotate(15deg) brightness(60%) contrast(100%) blur(6px);
 }
 
+.SignIn .handle-label {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.SignIn .handle-ctr {
+  /* display */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* position */
+  width: 200px;
+  margin: 20px;
+  padding: 20px 0px 0px 0px;
+  /* style */
+  border: 3px solid white;
+  border-radius: 20px;
+}
+
 .SignIn .handle-form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.SignIn .handle-form .handle-input {
+  /* display */
+  /* position */
+  height: 25px;
+  width: 140px;
+  /* style */
+  text-align: center;
+  border-radius: 5px;
+  border-radius: 10px;
+  font-family: "Lucida Console";
+}
+
+.SignIn .handle-form button {
+  /* display */
+  /* position */
+  height: 30px;
+  width: 100px;
+  margin-top: 10px;
+  /* style */
+  border: 2.5px solid white;
+  border-radius: 10px;
+  font-family: "bangers";
+  font-size: 20px;
+  color: white;
+  background-color: transparent;
+}
+
+.SignIn .status-msg {
+  /* display */
+  /* position */
+  /* style */
+  font-family: "Lucida Console";
+  font-size: 12px;
+  font-weight: 800;
+  color: rgb(255, 115, 115);
+}
+
+@media only screen and (min-width: 1024px) {
+  .SignIn {
+    /* display */
+    /* position */
+    /* style */
+    background-color: black;
+  }
 }

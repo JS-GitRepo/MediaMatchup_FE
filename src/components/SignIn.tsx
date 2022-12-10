@@ -6,6 +6,8 @@ import "./styles/SignIn.css";
 import { onAuthStateChanged } from "firebase/auth";
 import SocialContext from "../context/SocialContext";
 import { getUserByHandle, updateUserByID } from "../services/UserService";
+import { profanityCheck } from "../functions/utilityFunctions";
+import { updateAllMatchupsByUID } from "../services/MatchupService";
 
 interface SFA_Props {
   uiConfig: firebaseui.auth.Config;
@@ -68,11 +70,14 @@ const SignIn = () => {
   const submissionHandler = async (e: FormEvent) => {
     e.preventDefault();
     const foundUser = await getUserByHandle(handle);
-    if (!foundUser || foundUser?.handle?.length! < 1) {
+    if (profanityCheck(handle)) {
+      setStatusMsg("Try removing profanity!");
+    } else if (!foundUser || foundUser?.handle?.length! < 1) {
       let updatedHandle = {
         handle: handle,
       };
       updateUserByID(userAccount!.uid as string, updatedHandle);
+      updateAllMatchupsByUID(userAccount!.uid as string, updatedHandle);
       setStatusMsg("Handle created!");
       setUserAccount({ ...updatedHandle });
     } else {
@@ -92,16 +97,26 @@ const SignIn = () => {
         {auth.currentUser ? (
           <form className={"handle-form"} onSubmit={submissionHandler}>
             <h2>{`Hello ${userAuth?.displayName?.split(" ", 1)}!`}</h2>
-            <label htmlFor='handle'>Create Your Handle: </label>
-            <input
-              type='text'
-              name='handle'
-              id='handle'
-              placeholder='myHandle64'
-              value={handle}
-              onChange={(e) => setHandle(e.target.value)}
-            />
-            <button>Submit</button>
+            <div className='handle-ctr'>
+              <label className='handle-label' htmlFor='handle'>
+                Create Your Handle:
+              </label>
+              <input
+                title='Handle must be 3-15 characters, containing only letters and numbers.'
+                className='handle-input'
+                type='text'
+                name='handle'
+                id='handle'
+                placeholder='myHandle64'
+                minLength={3}
+                maxLength={15}
+                pattern={"[A-Za-z0-9]+"}
+                value={handle}
+                onChange={(e) => setHandle(e.target.value)}
+              />{" "}
+              <button>Submit</button>
+              <p className='status-msg'>{statusMsg}</p>
+            </div>
           </form>
         ) : (
           <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />

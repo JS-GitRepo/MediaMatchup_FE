@@ -15,7 +15,7 @@ const NavCommunity = () => {
   const [daily10, setDaily10] = useState<Matchup[]>();
 
   let bgImgURL =
-    "https://upload.wikimedia.org/wikipedia/en/a/a3/Kanyewest_collegedropout.jpg";
+    "https://apollo.imgix.net/content/uploads/2018/02/LEADPablo-Picasso-Femme-au-beret-et-a-la-robe-quadrillee-Marie-Therese-Walter-December-1937.jpg?auto=compress,format&crop=faces,entropy,edges&fit=crop&w=900&h=600";
 
   return (
     <div className='NavCommunity'>
@@ -23,11 +23,7 @@ const NavCommunity = () => {
       <div className='daily-stats'>
         <ul className='daily-list'>
           <li>
-            <p className='todays-winner'>Today's Winner:</p>
-            <img
-              src='https://upload.wikimedia.org/wikipedia/en/a/a3/Kanyewest_collegedropout.jpg'
-              alt=''
-            />
+            <p className='todays-winner'>Community Tab Coming Soon!</p>
           </li>
         </ul>
       </div>

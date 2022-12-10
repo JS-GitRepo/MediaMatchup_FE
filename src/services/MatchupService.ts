@@ -1,5 +1,5 @@
 import axios from "axios";
-import Matchup from "../models/Matchup";
+import { Matchup } from "../models/Matchup";
 
 const baseURL: string = `${import.meta.env.VITE_API_URL}/matchups` || "";
 
@@ -10,4 +10,11 @@ export const getMatchupsByUID = async (uid: string): Promise<Matchup[]> => {
 
 export const submitMatchup = async (matchup: Matchup): Promise<Matchup> => {
   return (await axios.post(baseURL, matchup)).data;
+};
+
+export const updateAllMatchupsByUID = async (
+  uid: string,
+  updateParams: any
+) => {
+  return await axios.put(`${baseURL}/${uid}/updateall`, updateParams);
 };

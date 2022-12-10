@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@2toad/profanity@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@2toad/profanity/-/profanity-2.2.0.tgz#bb3232c1dbdd31d7f3bf0a5ff3b69437f9e5cbaf"
+  integrity sha512-EDoqDFFkw3g11xIHMQI4L91G+PT6OHrAHvwi+oxbYBH06G7EFrWVva+r604uscEPDZR4h+GrvVqkTD0g8JzZgg==
+
 "@adobe/css-tools@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@adobe/css-tools/-/css-tools-4.0.1.tgz#b38b444ad3aa5fedbb15f2f746dcd934226a12dd"
@@ -1770,6 +1775,10 @@
   integrity sha512-5Kwtbo3Y/NowpkbRuSepbyMFkZmHgD+vPzYB/RJ4oxt5Gj/avFFBYjhw27cqSVPVw/3a67NK1PbiIr9k4Gwmdg==
   dependencies:
     "@babel/runtime" "^7.12.5"
+
+"@types/@2toad/profanity":
+  version "2.2.0"
+  resolved "https://codeload.github.com/2toad/profanity/tar.gz/6bb9f3606056c5c5a3183dc402a8fdb2eb13962a"
 
 "@types/aria-query@^4.2.0":
   version "4.2.2"

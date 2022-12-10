@@ -31,13 +31,19 @@ const SocialContextProvider = ({ children }: Props) => {
             email: userAuth.email!,
             photoURL: userAuth.photoURL!,
           };
-          createUserByID(newUserAccount!);
+          setUserAccount(newUserAccount);
+          createUserByID(newUserAccount);
+        } else {
+          setUserAccount(response);
         }
-        setUserAccount(response);
       });
     } else {
       setUserAccount(null);
     }
+  }, [userAuth]);
+
+  useEffect(() => {
+    console.log(userAuth);
   }, [userAuth]);
 
   useEffect(() => {

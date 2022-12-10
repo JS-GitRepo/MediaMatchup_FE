@@ -4,10 +4,12 @@
   "type": "module",
   "private": true,
   "dependencies": {
+    "@2toad/profanity": "^2.2.0",
     "@react-spring/web": "^9.5.5",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "@types/": "2toad/profanity",
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.189",
     "@types/node": "^16.11.26",
