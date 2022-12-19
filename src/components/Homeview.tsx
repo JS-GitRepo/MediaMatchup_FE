@@ -8,13 +8,6 @@ import {
   getDailyMatchupCollection,
   postDailyMatchupCollection,
 } from "../services/DailyMatchupService";
-import {
-  getAlbum,
-  getArtpiece,
-  getMovie,
-  getTVShow,
-  getVideoGame,
-} from "../services/ExternalAPIService";
 import { submitMatchup } from "../services/MatchupService";
 import { getUserById, updateUserByID } from "../services/UserService";
 import MatchupCard from "./MatchupCard";
@@ -23,6 +16,7 @@ import chevron from "../media/wide_chevron.png";
 import NavModal from "./NavModal";
 import { animated, useTransition } from "@react-spring/web";
 import SignIn from "./SignIn";
+import { generateMultipleMatchups } from "../functions/generateMatchups";
 
 interface Props {
   currentDisplay: string;
@@ -31,11 +25,8 @@ interface Props {
 
 const Homeview = ({ currentDisplay, style }: Props) => {
   //  = = = = = = VARIABLES = = = = =
+
   // - - - General - - -
-  // const generateMatchupWorker = useMemo(() => {
-  //   new Worker("src/webworkers/generateMatchupWorker.ts", { type: "module" });
-  // }, []);
-  const [isInitialRender, setIsInitialRender] = useState<boolean>(true);
   const { userAuth, userAccount } = useContext(SocialContext);
   let { nav } = useParams();
   const navigate = useNavigate();
@@ -57,13 +48,6 @@ const Homeview = ({ currentDisplay, style }: Props) => {
       category: "",
     },
   });
-  const getMediaArray = [
-    getAlbum,
-    getArtpiece,
-    getMovie,
-    getTVShow,
-    getVideoGame,
-  ];
   // - - - Animations - - -
   const location = useLocation();
   const [navModalIsActive, setNavModalIsActive] = useState<boolean>(false);
@@ -79,6 +63,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     let matchupWorker = new Worker("src/webworkers/generateMatchupWorker.ts", {
       type: "module",
     });
+    matchupWorker.postMessage("");
     return matchupWorker;
   };
 
@@ -97,17 +82,6 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     return { currentDate, detailedDate, simpleDate };
   };
 
-  const generateMultipleMatchups = (quantity: number): Promise<Matchup[]> => {
-    let matchupArray: Promise<Matchup>[] = [];
-    for (let i = 0; i < quantity; i++) {
-      let matchupWorker = generateMatchupWorker();
-      matchupWorker.onmessage = (e) => {
-        matchupArray.push(e.data);
-      };
-    }
-    return Promise.all(matchupArray);
-  };
-
   // >>>>>>>>>>>>>>>>>>>>> 'CHECK AND SET' FUNCTIONS <<<<<<<<<<<<<<<<<<<<<
   const checkAndSetBufferedMatchups = async (): Promise<void> => {
     let tempBuffer = bufferedMatchups;
@@ -124,6 +98,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
         bufferLength = tempBuffer.length;
         for (let i = bufferLength; i < 3; i++) {
           let matchupWorker = generateMatchupWorker();
+
           matchupWorker.onmessage = (e) => {
             let newMatchup = e.data;
             tempBuffer.push(newMatchup);
@@ -262,10 +237,6 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   };
 
   useEffect(() => {
-    setIsInitialRender(false);
-  }, []);
-
-  useEffect(() => {
     if (userAuth) {
       checkAndSetDailyMatchups();
     }
@@ -281,17 +252,16 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     console.log(bufferedMatchups);
   }, [matchup]);
 
-  //  Logs bufferedMatchups whenever the current matchup changes (to make sure the buffer is updating)
-  // useEffect(() => {
-  //   if (!isInitialRender && bufferedMatchups.length > 0) {
-  //     console.log("Current Matchup Buffer: ", bufferedMatchups);
-  //   }
-  // }, [matchup]);
-
   return (
     <animated.div className={`Homeview`}>
       {userAccount?.handle! ? (
         <>
+          <div className='buffered-imgs'>
+            <img src={bufferedMatchups[1]?.media1?.artImg} alt='' />
+            <img src={bufferedMatchups[1]?.media2?.artImg} alt='' />
+            <img src={bufferedMatchups[1]?.media1?.artImg2} alt='' />
+            <img src={bufferedMatchups[1]?.media2?.artImg2} alt='' />
+          </div>
           <div className='card-ctr'>
             {navModalTransition((style, item) =>
               item ? (

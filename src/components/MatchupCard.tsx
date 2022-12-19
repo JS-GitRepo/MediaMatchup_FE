@@ -120,7 +120,7 @@ const MatchupCard = ({
       setCrown2Animation(true);
       setTimeout(() => setCrown2Animation(false), 500);
     }
-    setTimeout(() => onSubmitMatchup(winner, dailyMatchupIndex), 150);
+    setTimeout(() => onSubmitMatchup(winner, dailyMatchupIndex), 400);
   };
 
   const checkAndSetDailyIndex = () => {

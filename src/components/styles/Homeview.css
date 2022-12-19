@@ -12,6 +12,10 @@
   color: white;
 }
 
+.Homeview .buffered-imgs {
+  display: none;
+}
+
 .Homeview .card-ctr {
   position: relative;
   width: 100%;
