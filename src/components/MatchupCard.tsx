@@ -9,12 +9,14 @@ interface Props {
   matchup: Matchup;
   onSubmitMatchup: (winner: MediaItem, dailyMatchupIndex?: number) => void;
   checkAndSetMatchups: () => void;
+  setShowGenerateButton: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MatchupCard = ({
   matchup,
   onSubmitMatchup,
   checkAndSetMatchups,
+  setShowGenerateButton,
 }: Props) => {
   // Animation useStates
   const [media1Animation, setMedia1Animation] = useState<boolean>(false);
@@ -25,7 +27,6 @@ const MatchupCard = ({
   // General matchup funcionality use states
   const [isInitialRender, setIsInitialRender] = useState<boolean>(true);
   const [matchupDefined, setMatchupDefined] = useState<boolean>(false);
-  const [showGenerateButton, setShowGenerateButton] = useState(true);
   const [dailyIndex, setDailyIndex] = useState<number>(-1);
   const mediaDefinedCounter = useRef(0);
   //  Media and Matchup variable construction useStates
@@ -194,14 +195,6 @@ const MatchupCard = ({
       ) : (
         <div className={`MatchupCard ${navAnimation ? "nav-animation" : ""}`}>
           {dailyHeaderJSX}
-
-          {showGenerateButton ? (
-            <div onClick={checkAndSetMatchups} className='daily-header'>
-              <p>{`Generate New Matchup`}</p>
-            </div>
-          ) : (
-            <div></div>
-          )}
 
           {/* - - - - - Background "winner crown" animation behind each media item - - - - - */}
           <i
