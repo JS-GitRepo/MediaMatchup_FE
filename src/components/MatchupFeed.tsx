@@ -72,7 +72,7 @@ const MatchupFeed = ({ setCurrentTitle, userID }: Props) => {
           rowHeight={250}
           bufferedItems={2}
           gap={15}
-          preListSpacer={100}
+          preListSpacer={60}
           children={userMatchups.map((matchupCard, i) => (
             <li className={`row`} key={i}>
               <MatchupFeedCard key={`Matchup: ${i}`} matchup={matchupCard} />

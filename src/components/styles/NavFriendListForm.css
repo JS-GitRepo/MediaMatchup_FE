@@ -39,7 +39,7 @@
 }
 
 .NavFriendListForm .nav-friends-list {
-  max-height: 50%;
+  max-height: 60%;
   overflow-y: scroll;
   padding-bottom: 50px;
 }

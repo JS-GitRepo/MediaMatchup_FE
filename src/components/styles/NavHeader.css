@@ -5,19 +5,20 @@
   justify-content: center;
   /* position */
   position: absolute;
-  top: 20px;
-  width: 75%;
-  height: 8%;
+  top: 0px;
+  width: 80%;
+  height: 7%;
   min-height: 40px;
   max-height: 80px;
-  /* max-height: 100px; */
   z-index: 3;
   /* style */
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: rgba(28, 37, 49, 0.8);
   backdrop-filter: blur(15px);
-  border: 2px white solid;
+  border-bottom: 2px white solid;
+  border-right: 2px white solid;
+  border-left: 2px white solid;
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: 0px 0px 40px 40px;
 }
 
 .NavHeader p {
