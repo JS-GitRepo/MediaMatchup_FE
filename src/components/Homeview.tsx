@@ -1,5 +1,11 @@
 import "./styles/Homeview.css";
-import { useContext, useEffect, useMemo, useState } from "react";
+import {
+  SetStateAction,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
 import { Matchup } from "../models/Matchup";
@@ -12,7 +18,10 @@ import { submitMatchup } from "../services/MatchupService";
 import { getUserById, updateUserByID } from "../services/UserService";
 import MatchupCard from "./MatchupCard";
 import StatsCard from "./StatsCard";
-import chevron from "../media/wide_chevron.png";
+import shareIcon from "../media/navIcons/shareIcon.png";
+import commentsIcon from "../media/navIcons/commentsIcon.png";
+import generateIcon from "../media/navIcons/generateIcon.png";
+import navIcon from "../media/navIcons/navIcon.png";
 import NavModal from "./NavModal";
 import { animated, useTransition } from "@react-spring/web";
 import SignIn from "./SignIn";
@@ -28,6 +37,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
 
   // - - - General - - -
   const { userAuth, userAccount } = useContext(SocialContext);
+  const [showGenerateButton, setShowGenerateButton] = useState(true);
   let { nav } = useParams();
   const navigate = useNavigate();
   // - - - Matchups - - -
@@ -226,6 +236,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
         matchup={matchup}
         onSubmitMatchup={submitUserMatchupHandler}
         checkAndSetMatchups={checkAndSetMatchups}
+        setShowGenerateButton={setShowGenerateButton}
       />
     ),
     statsCard: <StatsCard />,
@@ -257,10 +268,16 @@ const Homeview = ({ currentDisplay, style }: Props) => {
       {userAccount?.handle! ? (
         <>
           <div className='buffered-imgs'>
-            <img src={bufferedMatchups[1]?.media1?.artImg} alt='' />
-            <img src={bufferedMatchups[1]?.media2?.artImg} alt='' />
-            <img src={bufferedMatchups[1]?.media1?.artImg2} alt='' />
-            <img src={bufferedMatchups[1]?.media2?.artImg2} alt='' />
+            <img src={bufferedMatchups[1]?.media1?.artImg} alt='buffered img' />
+            <img src={bufferedMatchups[1]?.media2?.artImg} alt='buffered img' />
+            <img
+              src={bufferedMatchups[1]?.media1?.artImg2}
+              alt='buffered bg img'
+            />
+            <img
+              src={bufferedMatchups[1]?.media2?.artImg2}
+              alt='buffered bg img'
+            />
           </div>
           <div className='card-ctr'>
             {navModalTransition((style, item) =>
@@ -273,12 +290,40 @@ const Homeview = ({ currentDisplay, style }: Props) => {
             {cardComponents.matchupCard}
           </div>
           <div className='nav-menu'>
-            <img
-              className='nav-chevron'
-              onClick={() => navMenuTransition()}
-              src={chevron}
-              alt='navigation icon'
-            />
+            <ul>
+              <li>
+                <button>
+                  <img className='shareIcon' src={shareIcon} alt='share' />
+                </button>
+              </li>
+              <li>
+                <button>
+                  <img
+                    className='commentsIcon'
+                    src={commentsIcon}
+                    alt='comments'
+                  />
+                </button>
+              </li>
+              {showGenerateButton ? (
+                <li>
+                  <button onClick={checkAndSetMatchups}>
+                    <img
+                      className='generateIcon'
+                      src={generateIcon}
+                      alt='generate'
+                    />
+                  </button>
+                </li>
+              ) : (
+                ""
+              )}
+              <li>
+                <button onClick={navMenuTransition}>
+                  <img className='navIcon' src={navIcon} alt='nav menu' />
+                </button>
+              </li>
+            </ul>
           </div>
         </>
       ) : (

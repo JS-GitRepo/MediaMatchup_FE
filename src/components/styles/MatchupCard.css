@@ -109,10 +109,10 @@
   flex-direction: column;
   justify-content: end;
   align-items: center;
-  flex: 4;
+  flex: 3;
   /* position */
   width: 100%;
-  min-height: 400px;
+  min-height: 390px;
   /* max-height: 530px; */
   z-index: 1;
   /* style */
