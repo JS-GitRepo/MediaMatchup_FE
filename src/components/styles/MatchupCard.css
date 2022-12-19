@@ -145,6 +145,8 @@
   box-sizing: border-box;
   background-size: cover;
   filter: hue-rotate(15deg) brightness(50%) contrast(110%) blur(4px);
+  /* Forces GPU acceleration on iOS for blur performance */
+  transform: translate3d(0, 0, 0);
 }
 
 .MatchupCard .text-subcontainer {
@@ -261,6 +263,8 @@
     box-sizing: border-box;
     background-size: cover;
     filter: hue-rotate(15deg) brightness(50%) contrast(110%) blur(4px);
+    /* Forces GPU acceleration on iOS for blur performance */
+    transform: translate3d(0, 0, 0);
   }
 
   .MatchupCard .crownAnimation1 {

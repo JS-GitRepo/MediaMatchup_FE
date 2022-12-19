@@ -1,3 +1,8 @@
+@font-face {
+  font-family: LucidaConsole;
+  src: url("./media/fonts/lucon.ttf");
+}
+
 #root {
   height: 100%;
   width: 100%;

@@ -29,7 +29,7 @@
 
 .MatchupFeedCard p,
 .MatchupFeedCard a {
-  font-family: "Lucida Console";
+  font-family: LucidaConsole;
   font-weight: 400;
   color: white;
   font-size: 12px;
@@ -52,6 +52,8 @@
   background-size: cover;
   object-fit: cover;
   filter: hue-rotate(15deg) brightness(70%) contrast(120%) blur(3px);
+  /* Forces GPU acceleration on iOS for blur performance */
+  transform: translate3d(0, 0, 0);
 }
 
 .MatchupFeedCard .vs {
@@ -87,9 +89,9 @@
   box-sizing: border-box;
   /* position */
   position: absolute;
-  right: 0;
+  right: 0%;
   bottom: 0;
-  padding: 15px 25px;
+  padding: 10px 20px;
   /* style */
 }
 
@@ -98,6 +100,7 @@
   /* position */
   /* style */
   font-weight: 600;
+  font-size: 14px;
 }
 
 .MatchupFeedCard .info-ctr .info-handle {
@@ -151,6 +154,8 @@
   /* style */
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
+  /* Forces GPU acceleration on iOS for blur performance */
+  transform: translate3d(0, 0, 0);
   border-radius: 5px;
 }
 

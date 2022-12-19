@@ -152,9 +152,6 @@ const MatchupCard = ({
 
   useEffect(() => {
     resetMatchup();
-    console.log(
-      `Current Matchup Is: ${matchup.media1.title} vs ${matchup.media2.title}`
-    );
   }, [matchup, matchup?.dailyMatchupsIndex!]);
 
   useEffect(() => {
@@ -228,7 +225,7 @@ const MatchupCard = ({
                 onLoad={imageLoaded}
               />
             </div>
-            <div className={`text-subcontainer`}>
+            <div className={`text-subcontainer prevent-select`}>
               <p className='media-title'>{title1}</p>
               <p className='media-subtitle'>{subtitle1}</p>
               <p className='media-category'>{`( ${mediaCategory1} )`}</p>
@@ -265,7 +262,7 @@ const MatchupCard = ({
                 onLoad={imageLoaded}
               />
             </div>
-            <div className='text-subcontainer'>
+            <div className='text-subcontainer prevent-select'>
               <p className='media-title'>{title2}</p>
               <p className='media-subtitle'>{subtitle2}</p>
               <p className='media-category'>{`( ${mediaCategory2} )`}</p>

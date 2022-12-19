@@ -13,8 +13,10 @@
   margin: 2px;
   z-index: 3;
   /* style */
-  background-color: rgba(28, 37, 49, 0.8);
+  background-color: rgba(32, 38, 46, 0.8);
   backdrop-filter: blur(15px);
+  /* Forces GPU acceleration on iOS for blur performance */
+  transform: translate3d(0, 0, 0);
   border-top: 2px white solid;
   border-right: 2px white solid;
   border-left: 2px white solid;
