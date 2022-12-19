@@ -1,4 +1,4 @@
-import Matchup from "./Matchup";
+import { Matchup } from "./Matchup";
 
 export default interface DailyMatchupCollection {
   _id?: string;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Matchup from "../models/Matchup";
+import { Matchup } from "../models/Matchup";
 
 export const useInfiniteScroll = (array: Matchup[]) => {
   const arrayLength = array.length;

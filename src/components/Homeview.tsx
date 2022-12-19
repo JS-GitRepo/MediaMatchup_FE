@@ -1,5 +1,5 @@
 import "./styles/Homeview.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
 import { Matchup } from "../models/Matchup";
@@ -32,6 +32,9 @@ interface Props {
 const Homeview = ({ currentDisplay, style }: Props) => {
   //  = = = = = = VARIABLES = = = = =
   // - - - General - - -
+  // const generateMatchupWorker = useMemo(() => {
+  //   new Worker("src/webworkers/generateMatchupWorker.ts", { type: "module" });
+  // }, []);
   const [isInitialRender, setIsInitialRender] = useState<boolean>(true);
   const { userAuth, userAccount } = useContext(SocialContext);
   let { nav } = useParams();
@@ -72,6 +75,13 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   });
 
   // = = = = = =  GENERATOR FUNCTIONS = = = = = =
+  const generateMatchupWorker = () => {
+    let matchupWorker = new Worker("src/webworkers/generateMatchupWorker.ts", {
+      type: "module",
+    });
+    return matchupWorker;
+  };
+
   const generateDateInfo = () => {
     const currentDate: Date = new Date();
     const detailedDate: number = Date.now();
@@ -87,67 +97,13 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     return { currentDate, detailedDate, simpleDate };
   };
 
-  const generateMedia = async (selection: number): Promise<MediaItem> => {
-    return await getMediaArray[selection]();
-  };
-
-  const generateMatchup = async (): Promise<Matchup> => {
-    const startTime = Date.now();
-    let randSelection = Math.floor(Math.random() * 5);
-    let randSelection2 = Math.floor(Math.random() * 5);
-    while (randSelection2 === randSelection) {
-      randSelection2 = Math.floor(Math.random() * 5);
-    }
-
-    let [media1, media2] = await Promise.all([
-      generateMedia(randSelection),
-      generateMedia(randSelection2),
-    ]);
-
-    while (
-      media1.title === null ||
-      undefined ||
-      "" ||
-      media1.subtitle === null ||
-      undefined ||
-      "" ||
-      media1.artImg === null ||
-      undefined ||
-      ""
-    ) {
-      console.log(`Media1 generated again due to missing info.`);
-      media1 = await generateMedia(randSelection);
-    }
-    while (
-      media2.title === null ||
-      undefined ||
-      "" ||
-      media2.subtitle === null ||
-      undefined ||
-      "" ||
-      media2.artImg === null ||
-      undefined ||
-      ""
-    ) {
-      console.log(`Media2 generated again due to missing info.`);
-      media2 = await generateMedia(randSelection2);
-    }
-    const endTime = Date.now() - startTime;
-    // console.log(
-    //   `The 'generateMatchup' function took ${endTime} ms to complete.`
-    // );
-    // console.log(media1, media2);
-    // setMatchup({
-    //   media1,
-    //   media2,
-    // });
-    return { media1, media2 };
-  };
-
   const generateMultipleMatchups = (quantity: number): Promise<Matchup[]> => {
     let matchupArray: Promise<Matchup>[] = [];
     for (let i = 0; i < quantity; i++) {
-      matchupArray.push(generateMatchup());
+      let matchupWorker = generateMatchupWorker();
+      matchupWorker.onmessage = (e) => {
+        matchupArray.push(e.data);
+      };
     }
     return Promise.all(matchupArray);
   };
@@ -156,23 +112,39 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   const checkAndSetBufferedMatchups = async (): Promise<void> => {
     let tempBuffer = bufferedMatchups;
     let bufferLength = tempBuffer.length;
-    // console.log(
-    //   `There are ${bufferLength} items in the buffer when generation started.`
-    // );
+    console.log(
+      `There are ${bufferLength} items in the buffer when generation started.`
+    );
     if (bufferLength < 3) {
-      let initialMatchup = await generateMatchup();
-      setMatchup(initialMatchup);
-      tempBuffer.push(initialMatchup);
-      bufferLength = tempBuffer.length;
-      for (bufferLength; bufferLength < 3; bufferLength++) {
-        let newMatchup = await generateMatchup();
-        tempBuffer.push(newMatchup);
-      }
+      let matchupWorker = generateMatchupWorker();
+      matchupWorker.onmessage = (e) => {
+        let initialMatchup = e.data;
+        setMatchup(initialMatchup);
+        tempBuffer.push(initialMatchup);
+        bufferLength = tempBuffer.length;
+        for (let i = bufferLength; i < 3; i++) {
+          let matchupWorker = generateMatchupWorker();
+          matchupWorker.onmessage = (e) => {
+            let newMatchup = e.data;
+            tempBuffer.push(newMatchup);
+            bufferLength = tempBuffer.length;
+            matchupWorker.terminate();
+          };
+        }
+        matchupWorker.terminate();
+      };
     } else {
+      if (bufferLength > 3) {
+        tempBuffer.splice(0, bufferLength - 3);
+      }
       tempBuffer.shift();
-      setMatchup(bufferedMatchups[0]);
-      let tempMatchup = await generateMatchup();
-      tempBuffer.push(tempMatchup);
+      setMatchup(tempBuffer[0]);
+      let matchupWorker = generateMatchupWorker();
+      matchupWorker.onmessage = (e) => {
+        let tempMatchup = e.data;
+        tempBuffer.push(tempMatchup);
+        matchupWorker.terminate();
+      };
     }
     setBufferedMatchups(tempBuffer);
   };
@@ -305,6 +277,10 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     }
   }, [location]);
 
+  useEffect(() => {
+    console.log(bufferedMatchups);
+  }, [matchup]);
+
   //  Logs bufferedMatchups whenever the current matchup changes (to make sure the buffer is updating)
   // useEffect(() => {
   //   if (!isInitialRender && bufferedMatchups.length > 0) {
@@ -338,6 +314,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
       ) : (
         <SignIn />
       )}
+      <p className='alpha'>ALPHA v0.25</p>
     </animated.div>
   );
 };

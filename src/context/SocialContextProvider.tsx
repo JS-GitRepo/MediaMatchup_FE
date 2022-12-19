@@ -42,13 +42,13 @@ const SocialContextProvider = ({ children }: Props) => {
     }
   }, [userAuth]);
 
-  useEffect(() => {
-    console.log(userAuth);
-  }, [userAuth]);
+  // useEffect(() => {
+  //   console.log(userAuth);
+  // }, [userAuth]);
 
-  useEffect(() => {
-    console.log(userAccount);
-  }, [userAccount]);
+  // useEffect(() => {
+  //   console.log(userAccount);
+  // }, [userAccount]);
 
   return (
     <SocialContext.Provider

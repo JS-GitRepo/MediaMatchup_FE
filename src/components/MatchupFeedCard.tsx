@@ -126,7 +126,7 @@ const MatchupFeedCard = ({ matchup }: Props) => {
         src={matchup?.media1.winner ? backgroundImg1 : backgroundImg2}
         alt='winner background image'
       />
-      <div className='info-ctr'>
+      <div className='info-ctr prevent-select'>
         <Link to={`/nav/friends/${matchup.uid}`} className='info-handle'>
           {matchup?.handle ? `@${matchup?.handle}` : `@${truncatedUID}`}
         </Link>
@@ -189,7 +189,7 @@ const MatchupFeedCard = ({ matchup }: Props) => {
         </div>
       </div>
       <div className='bottom-info-ctr' onClick={handleInfoClick}>
-        <p>i</p>
+        <p className='prevent-select'>i</p>
       </div>
     </div>
   );

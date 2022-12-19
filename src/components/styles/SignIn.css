@@ -41,6 +41,8 @@
   object-fit: cover;
   /* style */
   filter: hue-rotate(15deg) brightness(60%) contrast(100%) blur(6px);
+  /* Forces GPU acceleration on iOS for blur performance */
+  transform: translate3d(0, 0, 0);
 }
 
 .SignIn .handle-label {

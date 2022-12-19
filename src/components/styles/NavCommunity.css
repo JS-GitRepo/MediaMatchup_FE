@@ -38,6 +38,8 @@
   background-size: contain;
   object-fit: cover;
   filter: hue-rotate(15deg) brightness(50%) contrast(110%) blur(4px);
+  /* Forces GPU acceleration on iOS for blur performance */
+  transform: translate3d(0, 0, 0);
   border-radius: 20px;
 }
 
