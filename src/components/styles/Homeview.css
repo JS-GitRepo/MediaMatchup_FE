@@ -48,11 +48,61 @@
 }
 
 /* - - - - - MatchupCard Navigation Link - - - - - */
+
+.Homeview .generate-matchup-btn {
+  /* display */
+  box-sizing: content-box;
+  /* position */
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  bottom: 12%;
+  z-index: 3;
+  /* style */
+  width: 50px;
+  height: 50px;
+  padding: 20px;
+  border: none;
+  background-color: transparent;
+}
+
+.Homeview .generate-matchup-btn img {
+  /* display */
+  box-sizing: content-box;
+  /* position */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 3;
+  /* style */
+  filter: invert(100%);
+}
+
+.Homeview .generate-matchup-btn .generate-matchup-img {
+  /* display */
+  /* position */
+  /* style */
+  width: 37px;
+  height: 37px;
+  padding: 20px;
+}
+
+.Homeview .generate-matchup-btn .refresh-anim {
+  /* display */
+  /* position */
+  /* style */
+  width: 75px;
+  height: 75px;
+}
+
 .Homeview .nav-menu {
   display: flex;
   justify-content: center;
   position: absolute;
-  bottom: 3%;
+  bottom: 1%;
   width: 100%;
   z-index: 3;
 }
@@ -60,17 +110,18 @@
 .Homeview .nav-menu ul {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   padding: 0px;
-  width: 80%;
+  width: 60%;
+  background-color: rgba(20, 20, 20, 0.5);
+  /* box-shadow: 0 0 5px 5px rgba(101, 101, 101, 0.2); */
+  border-radius: 100px;
 }
 
 .Homeview .nav-menu ul li {
   list-style: none;
-  background-color: rgb(255, 255, 255, 0);
   /* border: 1px rgba(255, 255, 255) solid; */
-  border-radius: 5px;
 }
 
 .Homeview .nav-menu ul li button {
@@ -80,6 +131,7 @@
 
 .Homeview .nav-menu ul li button img {
   width: 30px;
+  height: 30px;
   padding: 10px;
   filter: invert(100%);
 }
@@ -109,9 +161,6 @@
 
 /* >>>>>>>>>>>>>>>>>> Media Queries <<<<<<<<<<<<<<<<<< */
 @media only screen and (min-width: 768px) {
-}
-
-@media only screen and (min-width: 1024px) {
   ::-webkit-scrollbar {
     display: none;
   }
@@ -127,7 +176,7 @@
     /* display */
     /* position */
     height: 85%;
-    width: 40%;
+    width: 75%;
     left: 0px;
     right: 0px;
     top: 0px;
@@ -137,11 +186,43 @@
     border-radius: 50px;
   }
 
+  .Homeview .generate-matchup-btn {
+    /* display */
+    /* position */
+    bottom: 18%;
+    padding: 20px;
+    width: 100px;
+    height: 100px;
+    /* style */
+  }
+
+  .Homeview .generate-matchup-btn .generate-matchup-img {
+    /* display */
+    /* position */
+    /* style */
+    width: 60px;
+    height: 60px;
+    padding: 20px;
+  }
+
+  .Homeview .generate-matchup-btn .refresh-anim {
+    /* display */
+    /* position */
+    /* style */
+    width: 115px;
+    height: 115px;
+  }
+
   .Homeview .nav-menu {
     position: absolute;
-    bottom: 6%;
-    width: 100%;
+    right: 0%;
+    transform: translateX(-75%);
+    bottom: 8%;
+    width: 40%;
     z-index: 1;
+  }
+  .Homeview .nav-menu ul {
+    width: 80%;
   }
 
   .Homeview .nav-chevron {
@@ -151,5 +232,29 @@
 
   .Homeview .alpha {
     color: rgb(195, 0, 0);
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .Homeview .card-ctr {
+    /* display */
+    /* position */
+    width: 50%;
+    /* style */
+  }
+  .Homeview .nav-menu ul {
+    width: 60%;
+  }
+
+  @media only screen and (min-width: 1350px) {
+    .Homeview .card-ctr {
+      /* display */
+      /* position */
+      width: 30%;
+      /* style */
+    }
+    .Homeview .nav-menu ul {
+      width: 40%;
+    }
   }
 }

@@ -30,6 +30,7 @@ const SocialContextProvider = ({ children }: Props) => {
             name: userAuth.displayName!,
             email: userAuth.email!,
             photoURL: userAuth.photoURL!,
+            friends: [],
           };
           setUserAccount(newUserAccount);
           createUserByID(newUserAccount);

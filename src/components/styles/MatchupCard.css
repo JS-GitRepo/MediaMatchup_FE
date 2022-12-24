@@ -35,7 +35,7 @@
   /* position */
   /* style */
   display: flex;
-  top: 8%;
+  top: 5%;
   width: 100%;
   position: absolute;
   align-items: center;
@@ -112,7 +112,7 @@
   flex: 3;
   /* position */
   width: 100%;
-  min-height: 390px;
+  min-height: 375px;
   /* max-height: 530px; */
   z-index: 1;
   /* style */
@@ -235,7 +235,7 @@
 }
 /* >>>>>>>>>>>>>>>>>>>>MEDIA QUERY<<<<<<<<<<<<<<<<<< */
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 768px) {
   .MatchupCard {
     width: 100%;
     height: 100%;

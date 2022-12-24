@@ -6,6 +6,7 @@ import {
   addFriend,
   getUserByEmail,
   getUserById,
+  updateUserByID,
 } from "../services/UserService";
 import { signInWithGoogle } from "../firebaseConfig";
 import { Link } from "react-router-dom";
@@ -26,27 +27,26 @@ const NavFriendListForm = () => {
     const friend = await getUserByEmail(friendEmail!);
     const currentUser = await getUserById(userAuth?.uid!);
     if (friend) {
-      if (currentUser?.friends) {
-        const isAlreadyFriend = currentUser?.friends!.find(
-          (item) => item.uid === friend.uid
+      const isAlreadyFriend = currentUser?.friends?.find(
+        (item) => item.uid === friend.uid
+      );
+      if (isAlreadyFriend) {
+        setStatusIsGreen(true);
+        setFriendStatusMsg(`${friend.name} is already your friend!`);
+        setTimeout(() => setFriendStatusMsg(""), statusMsgTimeout);
+      } else {
+        setFriendStatusMsg(`poop`);
+        let friendObj = {
+          uid: friend.uid,
+          name: friend.name,
+        };
+        await addFriend(userAuth?.uid!, friendObj);
+        setStatusIsGreen(true);
+        setFriendStatusMsg(
+          `${friend.email} has been added to your friends list!`
         );
-        if (isAlreadyFriend) {
-          setStatusIsGreen(true);
-          setFriendStatusMsg(`${friend.name} is already your friend!`);
-          setTimeout(() => setFriendStatusMsg(""), statusMsgTimeout);
-        } else {
-          let friendObj = {
-            uid: friend.uid,
-            name: friend.name,
-          };
-          await addFriend(userAuth?.uid!, friendObj);
-          setStatusIsGreen(true);
-          setFriendStatusMsg(
-            `${friend.email} has been added to your friends list!`
-          );
-          setTimeout(() => setFriendStatusMsg(""), statusMsgTimeout);
-          setFriends(currentUser?.friends);
-        }
+        setTimeout(() => setFriendStatusMsg(""), statusMsgTimeout);
+        setFriends(currentUser?.friends!);
       }
     } else {
       setStatusIsGreen(false);
