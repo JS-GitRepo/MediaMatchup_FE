@@ -23,7 +23,7 @@
   margin: 10px auto;
   padding: 10px 0px;
   /* style */
-  border: 3px solid rgb(255, 255, 255);
+  border: 2.5px solid rgba(255, 255, 255, 0.9);
   border-radius: 10px;
 }
 
@@ -136,8 +136,8 @@
   height: 150px;
   margin: 5px;
   object-fit: cover;
-  border-radius: 5px;
-  border: 2px rgba(255, 255, 255, 0.9) solid;
+  border-radius: 8px;
+  /* border: 2px rgba(255, 255, 255, 0) solid; */
 }
 
 .MatchupFeedCard .image-subcontainer .image-overlay {
