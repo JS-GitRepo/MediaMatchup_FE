@@ -82,7 +82,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
         transform: "rotate(0deg)",
       },
       to: {
-        transform: "rotate(-20deg)",
+        transform: "rotate(-10deg)",
       },
       reset: true,
       config: { mass: 1, tension: 170, friction: 26 },
@@ -134,16 +134,13 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     if (bufferLength < 3) {
       let matchupWorker = generateMatchupWorker();
       matchupWorker.onmessage = (e) => {
-        let initialMatchup = e.data;
-        setMatchup(initialMatchup);
-        tempBuffer.push(initialMatchup);
-        bufferLength = tempBuffer.length;
+        setMatchup(e.data);
+        tempBuffer.push(e.data);
+        bufferLength++;
         for (let i = bufferLength; i < 3; i++) {
           let matchupWorker = generateMatchupWorker();
-
           matchupWorker.onmessage = (e) => {
-            let newMatchup = e.data;
-            tempBuffer.push(newMatchup);
+            tempBuffer.push(e.data);
             bufferLength = tempBuffer.length;
             matchupWorker.terminate();
           };
@@ -222,7 +219,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
       }
     }
     if (tempDailyIsComplete) {
-      await checkAndSetBufferedMatchups();
+      checkAndSetBufferedMatchups();
     } else {
       dailyMatchups?.shift();
       setMatchup(dailyMatchups![0]);
@@ -311,6 +308,28 @@ const Homeview = ({ currentDisplay, style }: Props) => {
               src={bufferedMatchups[1]?.media2?.artImg2}
               alt='buffered bg img'
             />
+            {dailyMatchups.length > 0 ? (
+              <>
+                <img
+                  src={dailyMatchups[1]?.media1.artImg}
+                  alt={"buffered img"}
+                />
+                <img
+                  src={dailyMatchups[1]?.media2.artImg}
+                  alt={"buffered img"}
+                />
+                <img
+                  src={dailyMatchups[1]?.media1.artImg2}
+                  alt={"buffered bg img"}
+                />
+                <img
+                  src={dailyMatchups[1]?.media2.artImg2}
+                  alt={"buffered bg img"}
+                />
+              </>
+            ) : (
+              <></>
+            )}
           </div>
           <div className='card-ctr'>
             {navModalTransition((style, item) =>

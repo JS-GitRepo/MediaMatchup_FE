@@ -58,11 +58,11 @@
 
 /* >>>>>>>>>>>> Media Queries <<<<<<<<<<<< */
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 512px) {
   .MatchupFeed {
     /* display */
     /* position */
-    width: 80%;
+    width: 95%;
     /* style */
   }
 }
@@ -71,7 +71,6 @@
   .MatchupFeed {
     /* display */
     /* position */
-    width: 100%;
     /* style */
   }
 }

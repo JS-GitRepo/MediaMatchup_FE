@@ -17,14 +17,14 @@
   box-sizing: border-box;
   /* position */
   position: relative;
-  min-height: 250px;
-  max-height: 250px;
-  width: 93%;
+  width: 95%;
+  height: 230px;
   margin: 10px auto;
   padding: 10px 0px;
   /* style */
-  border: 2.5px solid rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
+  /* border: 2px solid rgba(255, 255, 255, 0.1); */
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 .MatchupFeedCard p,
@@ -41,19 +41,19 @@
   /* position */
   position: absolute;
   box-sizing: border-box;
-  top: 0;
+  top: -10px;
   left: 0;
   right: 0;
   z-index: -1;
-  height: 100%;
+  height: 110%;
   width: 100%;
   background-position: center;
   /* style */
-  background-size: cover;
-  object-fit: cover;
-  filter: hue-rotate(15deg) brightness(70%) contrast(120%) blur(3px);
+  filter: hue-rotate(15deg) brightness(70%) contrast(120%) blur(3px)
+    saturate(80%);
   /* Forces GPU acceleration on iOS for blur performance */
   transform: translate3d(0, 0, 0);
+  border-radius: 20px;
 }
 
 .MatchupFeedCard .vs {
@@ -137,7 +137,8 @@
   margin: 5px;
   object-fit: cover;
   border-radius: 8px;
-  /* border: 2px rgba(255, 255, 255, 0) solid; */
+  filter: brightness(105%);
+  /* border: 2px rgba(255, 255, 255, 0.7) solid; */
 }
 
 .MatchupFeedCard .image-subcontainer .image-overlay {
@@ -180,10 +181,9 @@
   margin: 5px;
 }
 
-.MatchupFeedCard .winner {
-  /* border: 5px solid rgb(255, 228, 90); */
-  /* box-shadow: 0px 0px 10px 11px rgb(203, 191, 31); */
+.MatchupFeedCard .image-subcontainer .winner {
   animation: 2s glow infinite;
+  /* border: 2px rgb(255, 238, 4) solid; */
 }
 
 @keyframes glow {

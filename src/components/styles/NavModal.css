@@ -11,14 +11,14 @@
   z-index: 5;
   /* style */
   background-color: rgba(75, 75, 75, 0.4);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px) brightness(100%);
   /* Forces GPU acceleration on iOS for blur performance */
   transform: translate3d(0, 0, 0);
 }
 
 /* >>>>>>>>>>>> Media Queries <<<<<<<<<<<< */
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 768px) {
   .NavModal {
     border-radius: 50px;
     overflow: hidden;

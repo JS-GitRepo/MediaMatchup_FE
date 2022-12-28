@@ -20,7 +20,6 @@ const MatchupFeed = ({ setCurrentTitle, userID }: Props) => {
   const [currentUser, setCurrentUser] = useState<UserAccount>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { userAuth, setIsFriendFeed } = useContext(SocialContext);
-  const location = useLocation();
 
   const getAndSetFeedUserInfo = async () => {
     getUserById(userID!).then((response) => {
@@ -69,8 +68,8 @@ const MatchupFeed = ({ setCurrentTitle, userID }: Props) => {
       ) : (
         <VirtualizedList
           className={"matchup-feed-list"}
-          rowHeight={250}
-          bufferedItems={2}
+          rowHeight={230}
+          bufferedItems={1}
           gap={15}
           preListSpacer={60}
           children={userMatchups.map((matchupCard, i) => (
