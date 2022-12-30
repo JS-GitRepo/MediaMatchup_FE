@@ -36,7 +36,6 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   let { nav } = useParams();
   const navigate = useNavigate();
   // - - - Matchups - - -
-  const [dailyMatchups, setDailyMatchups] = useState<Matchup[]>([]);
   const [dailyIsComplete, setDailyIsComplete] = useState<Boolean>(false);
   const [bufferedMatchups, setBufferedMatchups] = useState<Matchup[]>([]);
   const [matchup, setMatchup] = useState<Matchup>({
@@ -63,7 +62,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     leave: { transform: "translateY(110%)" },
     exitBeforeEnter: false,
   });
-  const [generateAnim, setGenerateAnim] = useSpring(
+  const [generateAnim] = useSpring(
     () => ({
       from: {
         transform: "rotate(0deg)",
@@ -76,7 +75,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     }),
     [toggleGenAnim]
   );
-  const [diceAnim, setDiceAnim] = useSpring(
+  const [diceAnim] = useSpring(
     () => ({
       from: {
         transform: "rotate(0deg)",
@@ -89,22 +88,15 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     }),
     [toggleGenAnim]
   );
-  // const generateAnim = useSpring({
-  //   from: {
-  //     transform: "rotate(0deg)",
-  //   },
-  //   to: {
-  //     transform: "rotate(180deg)",
-  //   },
-  //   reset: true,
-  //   config: { mass: 1, tension: 170, friction: 26 },
-  // });
 
   // = = = = = =  GENERATOR FUNCTIONS = = = = = =
   const generateMatchupWorker = () => {
-    let matchupWorker = new Worker("src/webworkers/generateMatchupWorker.ts", {
-      type: "module",
-    });
+    let matchupWorker = new Worker(
+      new URL("../webworkers/generateMatchupWorker.ts", import.meta.url),
+      {
+        type: "module",
+      }
+    );
     matchupWorker.postMessage("");
     return matchupWorker;
   };
@@ -132,11 +124,25 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     //   `There are ${bufferLength} items in the buffer when generation started.`
     // );
     if (bufferLength < 3) {
-      let matchupWorker = generateMatchupWorker();
-      matchupWorker.onmessage = (e) => {
-        setMatchup(e.data);
-        tempBuffer.push(e.data);
-        bufferLength++;
+      if (bufferLength === 0) {
+        let matchupWorker = generateMatchupWorker();
+        matchupWorker.onmessage = (e) => {
+          setMatchup(e.data);
+          tempBuffer.push(e.data);
+          bufferLength++;
+          for (let i = bufferLength; i < 3; i++) {
+            let matchupWorker = generateMatchupWorker();
+            matchupWorker.onmessage = (e) => {
+              tempBuffer.push(e.data);
+              bufferLength = tempBuffer.length;
+              matchupWorker.terminate();
+            };
+          }
+          matchupWorker.terminate();
+        };
+      } else {
+        tempBuffer.shift();
+        bufferLength = tempBuffer.length;
         for (let i = bufferLength; i < 3; i++) {
           let matchupWorker = generateMatchupWorker();
           matchupWorker.onmessage = (e) => {
@@ -145,12 +151,9 @@ const Homeview = ({ currentDisplay, style }: Props) => {
             matchupWorker.terminate();
           };
         }
-        matchupWorker.terminate();
-      };
-    } else {
-      if (bufferLength > 3) {
-        tempBuffer.splice(0, bufferLength - 3);
+        setMatchup(tempBuffer[0]);
       }
+    } else if (bufferLength === 3) {
       tempBuffer.shift();
       setMatchup(tempBuffer[0]);
       let matchupWorker = generateMatchupWorker();
@@ -159,6 +162,12 @@ const Homeview = ({ currentDisplay, style }: Props) => {
         tempBuffer.push(tempMatchup);
         matchupWorker.terminate();
       };
+    } else {
+      if (!tempBuffer[3].dailyMatchupsIndex) {
+        tempBuffer.splice(0, bufferLength - 3);
+      }
+      tempBuffer.shift();
+      setMatchup(tempBuffer[0]);
     }
     setBufferedMatchups(tempBuffer);
   };
@@ -183,7 +192,15 @@ const Homeview = ({ currentDisplay, style }: Props) => {
         todaysCollection.matchups.splice(0, tempUserIndex!);
       }
 
-      setDailyMatchups(todaysCollection.matchups);
+      if (todaysCollection.matchups.length === 1) {
+        let matchupWorker = generateMatchupWorker();
+        matchupWorker.onmessage = (e) => {
+          todaysCollection.matchups.push(e.data);
+          setBufferedMatchups(todaysCollection.matchups);
+        };
+      } else {
+        setBufferedMatchups(todaysCollection.matchups);
+      }
 
       if (tempDailyIsComplete === false) {
         setMatchup(todaysCollection.matchups[0]);
@@ -203,27 +220,20 @@ const Homeview = ({ currentDisplay, style }: Props) => {
         matchups: tempCollection,
       };
       postDailyMatchupCollection(dailyMatchupCollection);
-      setDailyMatchups(tempCollection);
+      setBufferedMatchups(tempCollection);
       setMatchup(tempCollection[0]);
     }
   };
 
   const checkAndSetMatchups = async () => {
     setToggleGenAnim(!toggleGenAnim);
-    let tempDailyIsComplete = dailyIsComplete;
-    if (matchup!.dailyMatchupsIndex) {
-      if (dailyMatchups[0].dailyMatchupsIndex === 10) {
-        tempDailyIsComplete = true;
+    if (matchup?.dailyMatchupsIndex) {
+      if (bufferedMatchups[0].dailyMatchupsIndex === 10) {
         setDailyIsComplete(true);
-        dailyMatchups?.shift();
       }
     }
-    if (tempDailyIsComplete) {
-      checkAndSetBufferedMatchups();
-    } else {
-      dailyMatchups?.shift();
-      setMatchup(dailyMatchups![0]);
-    }
+
+    checkAndSetBufferedMatchups();
   };
 
   const submitUserMatchupHandler = async (
@@ -247,7 +257,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     matchup!.downvotes = 0;
     submitMatchup(matchup!);
 
-    if (dailyMatchups.length > 0) {
+    if (matchup?.dailyMatchupsIndex) {
       let tempIndex = matchup!.dailyMatchupsIndex!;
       let updatesObj = {
         dailyMatchupsDate: matchup!.dailyMatchupsDate!,
@@ -289,9 +299,9 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     }
   }, [location]);
 
-  // useEffect(() => {
-  //   console.log(bufferedMatchups);
-  // }, [matchup]);
+  useEffect(() => {
+    console.log(bufferedMatchups);
+  }, [matchup]);
 
   return (
     <animated.div className={`Homeview`}>
@@ -308,28 +318,6 @@ const Homeview = ({ currentDisplay, style }: Props) => {
               src={bufferedMatchups[1]?.media2?.artImg2}
               alt='buffered bg img'
             />
-            {dailyMatchups.length > 0 ? (
-              <>
-                <img
-                  src={dailyMatchups[1]?.media1.artImg}
-                  alt={"buffered img"}
-                />
-                <img
-                  src={dailyMatchups[1]?.media2.artImg}
-                  alt={"buffered img"}
-                />
-                <img
-                  src={dailyMatchups[1]?.media1.artImg2}
-                  alt={"buffered bg img"}
-                />
-                <img
-                  src={dailyMatchups[1]?.media2.artImg2}
-                  alt={"buffered bg img"}
-                />
-              </>
-            ) : (
-              <></>
-            )}
           </div>
           <div className='card-ctr'>
             {navModalTransition((style, item) =>
@@ -390,7 +378,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
       ) : (
         <SignIn />
       )}
-      <p className='alpha'>ALPHA v0.25</p>
+      <p className='alpha'>ALPHA v0.30</p>
     </animated.div>
   );
 };

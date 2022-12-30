@@ -62,15 +62,10 @@
   .MatchupFeed {
     /* display */
     /* position */
-    width: 95%;
+    width: 90%;
     /* style */
   }
 }
 
 @media only screen and (min-width: 1024px) {
-  .MatchupFeed {
-    /* display */
-    /* position */
-    /* style */
-  }
 }

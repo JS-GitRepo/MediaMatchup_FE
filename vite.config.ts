@@ -13,4 +13,5 @@ export default defineConfig({
     svgrPlugin({ svgrOptions: { icon: true } }),
     VitePWA({ registerType: "autoUpdate", devOptions: { enabled: true } }),
   ],
+  base: "./",
 });

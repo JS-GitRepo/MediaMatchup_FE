@@ -47,33 +47,33 @@ const MatchupCard = ({
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const constructMedia = async () => {
-    setTitle1(matchup.media1.title);
-    setTitle2(matchup.media2.title);
-    setSubtitle1(matchup.media1.subtitle);
-    setSubtitle2(matchup.media2.subtitle);
-    setMediaCategory1(matchup.media1.category);
-    setMediaCategory2(matchup.media2.category);
-    setMainImg1(matchup.media1.artImg);
-    setMainImg2(matchup.media2.artImg);
+    setTitle1(matchup?.media1.title);
+    setTitle2(matchup?.media2.title);
+    setSubtitle1(matchup?.media1.subtitle);
+    setSubtitle2(matchup?.media2.subtitle);
+    setMediaCategory1(matchup?.media1.category);
+    setMediaCategory2(matchup?.media2.category);
+    setMainImg1(matchup?.media1.artImg);
+    setMainImg2(matchup?.media2.artImg);
     setbgImg1(
-      matchup.media1.artImg2 ? matchup.media1.artImg2 : matchup.media1.artImg
+      matchup?.media1.artImg2 ? matchup?.media1.artImg2 : matchup?.media1.artImg
     );
     setbgImg2(
-      matchup.media2.artImg2 ? matchup.media2.artImg2 : matchup.media2.artImg
+      matchup?.media2.artImg2 ? matchup?.media2.artImg2 : matchup?.media2.artImg
     );
     if (
-      matchup.media1.category === "Video Game" ||
-      matchup.media1.category === "Film" ||
-      matchup.media1.category === "Television"
+      matchup?.media1.category === "Video Game" ||
+      matchup?.media1.category === "Film" ||
+      matchup?.media1.category === "Television"
     ) {
-      setSubtitle1(matchup.media1.subtitle.substring(0, 4));
+      setSubtitle1(matchup?.media1.subtitle.substring(0, 4));
     }
     if (
-      matchup.media2.category === "Video Game" ||
-      matchup.media2.category === "Film" ||
-      matchup.media2.category === "Television"
+      matchup?.media2.category === "Video Game" ||
+      matchup?.media2.category === "Film" ||
+      matchup?.media2.category === "Television"
     ) {
-      setSubtitle2(matchup.media2.subtitle.substring(0, 4));
+      setSubtitle2(matchup?.media2.subtitle.substring(0, 4));
     }
   };
 
@@ -82,10 +82,10 @@ const MatchupCard = ({
     setImagesAreLoaded(false);
     setMatchupDefined(false);
     setLoadingImages([
-      matchup.media1?.artImg!,
-      matchup.media2.artImg!,
-      matchup.media1.artImg2!,
-      matchup.media2.artImg2!,
+      matchup?.media1?.artImg!,
+      matchup?.media2?.artImg!,
+      matchup?.media1?.artImg2!,
+      matchup?.media2?.artImg2!,
     ]);
     checkAndSetDailyIndex();
     constructMedia();
@@ -153,7 +153,7 @@ const MatchupCard = ({
 
   useEffect(() => {
     resetMatchup();
-  }, [matchup, matchup?.dailyMatchupsIndex!]);
+  }, [matchup]);
 
   useEffect(() => {
     if (bgImg1 && bgImg2) {

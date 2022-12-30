@@ -56,7 +56,7 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
-  bottom: 12%;
+  bottom: 15%;
   z-index: 3;
   /* style */
   width: 50px;
@@ -102,7 +102,7 @@
   display: flex;
   justify-content: center;
   position: absolute;
-  bottom: 1%;
+  bottom: 3%;
   width: 100%;
   z-index: 3;
 }
