@@ -74,7 +74,7 @@ const SignIn = () => {
       setStatusMsg("Try removing profanity!");
     } else if (!foundUser || foundUser?.handle?.length! < 1) {
       let updatedHandle = {
-        handle: handle,
+        handle: handle.toLowerCase(),
       };
       updateUserByID(userAccount!.uid as string, updatedHandle);
       updateAllMatchupsByUID(userAccount!.uid as string, updatedHandle);
@@ -107,7 +107,7 @@ const SignIn = () => {
                 type='text'
                 name='handle'
                 id='handle'
-                placeholder='myHandle64'
+                placeholder='myhandle64'
                 minLength={3}
                 maxLength={15}
                 pattern={"[A-Za-z0-9]+"}

@@ -57,10 +57,10 @@
   align-items: center;
   /* position */
   width: 200px;
-  margin: 20px;
-  padding: 20px 0px 0px 0px;
+  /* margin: 20px; */
+  padding: 0px;
   /* style */
-  border: 3px solid white;
+  /* border: 3px solid white; */
   border-radius: 20px;
 }
 

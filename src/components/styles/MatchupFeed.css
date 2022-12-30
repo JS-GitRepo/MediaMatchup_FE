@@ -17,6 +17,7 @@
   width: 100%;
   overflow: scroll;
   /* style */
+  /* backdrop-filter: brightness(200%) contrast(200%) saturate(500%); */
 }
 
 .MatchupFeed .loading-ctr {

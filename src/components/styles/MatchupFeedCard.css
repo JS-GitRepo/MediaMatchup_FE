@@ -21,8 +21,9 @@
   height: 230px;
   margin: 10px auto;
   padding: 10px 0px;
+  z-index: 1;
   /* style */
-  /* border: 2px solid rgba(255, 255, 255, 0.1); */
+  /* border: 5px solid rgba(26, 27, 29, 0.9); */
   border-radius: 20px;
   overflow: hidden;
 }
@@ -31,7 +32,7 @@
 .MatchupFeedCard a {
   font-family: LucidaConsole;
   font-weight: 400;
-  color: white;
+  color: rgb(255, 255, 255);
   font-size: 12px;
 }
 
@@ -48,8 +49,9 @@
   height: 110%;
   width: 100%;
   background-position: center;
+  object-fit: cover;
   /* style */
-  filter: hue-rotate(15deg) brightness(70%) contrast(120%) blur(3px)
+  filter: hue-rotate(15deg) brightness(85%) contrast(110%) blur(2.5px)
     saturate(80%);
   /* Forces GPU acceleration on iOS for blur performance */
   transform: translate3d(0, 0, 0);

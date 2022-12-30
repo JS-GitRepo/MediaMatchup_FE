@@ -4,6 +4,8 @@ import { Matchup } from "../models/Matchup";
 import MediaItem from "../models/MediaItem";
 import loading from "../media/loading.svg";
 import Loading from "./Loading";
+import { animated, config, useTransition } from "@react-spring/web";
+import AnimatedRoutes from "./AnimatedRoutes";
 
 interface Props {
   matchup: Matchup;
@@ -15,7 +17,6 @@ interface Props {
 const MatchupCard = ({
   matchup,
   onSubmitMatchup,
-  checkAndSetMatchups,
   setShowGenerateButton,
 }: Props) => {
   // Animation useStates
@@ -24,11 +25,15 @@ const MatchupCard = ({
   const [crown1Animation, setCrown1Animation] = useState<boolean>(false);
   const [crown2Animation, setCrown2Animation] = useState<boolean>(false);
   const [navAnimation, setNavAnimation] = useState<boolean>(false);
+  const matchupEnterAnim = useTransition(matchup, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    exitBeforeEnter: true,
+    config: { tension: 170, friction: 28 },
+  });
   // General matchup funcionality use states
-  const [isInitialRender, setIsInitialRender] = useState<boolean>(true);
   const [matchupDefined, setMatchupDefined] = useState<boolean>(false);
   const [dailyIndex, setDailyIndex] = useState<number>(-1);
-  const mediaDefinedCounter = useRef(0);
   //  Media and Matchup variable construction useStates
   const [title1, setTitle1] = useState<string>();
   const [title2, setTitle2] = useState<string>();
@@ -44,7 +49,6 @@ const MatchupCard = ({
   const [loadingImages, setLoadingImages] = useState<string[]>([]);
   const [imagesAreLoaded, setImagesAreLoaded] = useState<boolean>(false);
   const imageLoadedCounter = useRef(0);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const constructMedia = async () => {
     setTitle1(matchup?.media1.title);
@@ -148,10 +152,6 @@ const MatchupCard = ({
   };
 
   useEffect(() => {
-    setIsInitialRender(false);
-  }, []);
-
-  useEffect(() => {
     resetMatchup();
   }, [matchup]);
 
@@ -186,14 +186,16 @@ const MatchupCard = ({
     <div></div>;
   }
 
-  return (
+  return matchupEnterAnim((style, item) => (
     <>
       {!matchupDefined ? (
         <div className='MatchupCardLoading full-h-w'>
           <Loading adtlClassName={""} />
         </div>
       ) : (
-        <div className={`MatchupCard ${navAnimation ? "nav-animation" : ""}`}>
+        <animated.div
+          style={style}
+          className={`MatchupCard ${navAnimation ? "nav-animation" : ""}`}>
           {dailyHeaderJSX}
 
           {/* - - - - - Background "winner crown" animation behind each media item - - - - - */}
@@ -210,19 +212,19 @@ const MatchupCard = ({
             onClick={() =>
               winnerAnimation(1, matchup?.media1!, matchup?.dailyMatchupsIndex)
             }>
-            <div className='image-subcontainer'>
+            <animated.div className='image-subcontainer'>
               <img
                 className={`media1-main-img main-img`}
                 src={imagesAreLoaded ? mainImg1 : loading}
                 alt={`Main Image 1: ${title1}`}
                 onLoad={imageLoaded}
               />
-            </div>
-            <div className={`text-subcontainer prevent-select`}>
+            </animated.div>
+            <animated.div className={`text-subcontainer prevent-select`}>
               <p className='media-title'>{title1}</p>
               <p className='media-subtitle'>{subtitle1}</p>
               <p className='media-category'>{`( ${mediaCategory1} )`}</p>
-            </div>
+            </animated.div>
             <img
               className={`media1-bg-img bg-img`}
               src={imagesAreLoaded ? bgImg1 : ""}
@@ -247,19 +249,19 @@ const MatchupCard = ({
             onClick={() =>
               winnerAnimation(2, matchup?.media2!, matchup?.dailyMatchupsIndex)
             }>
-            <div className='image-subcontainer'>
+            <animated.div className='image-subcontainer'>
               <img
                 className={`media2-main-img main-img`}
                 src={imagesAreLoaded ? mainImg2 : loading}
                 alt={`Main Image 2: ${mainImg2}`}
                 onLoad={imageLoaded}
               />
-            </div>
-            <div className='text-subcontainer prevent-select'>
+            </animated.div>
+            <animated.div className='text-subcontainer prevent-select'>
               <p className='media-title'>{title2}</p>
               <p className='media-subtitle'>{subtitle2}</p>
               <p className='media-category'>{`( ${mediaCategory2} )`}</p>
-            </div>
+            </animated.div>
             <img
               className={`media2-bg-img bg-img`}
               src={imagesAreLoaded ? bgImg2 : ""}
@@ -267,10 +269,10 @@ const MatchupCard = ({
               // onLoad={imageLoaded}
             />
           </div>
-        </div>
+        </animated.div>
       )}
     </>
-  );
+  ));
 };
 
 export default MatchupCard;

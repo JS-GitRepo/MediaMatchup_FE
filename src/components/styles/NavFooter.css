@@ -14,12 +14,12 @@
   z-index: 3;
   /* style */
   background-color: rgba(26, 27, 29, 0.9);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(20px);
   /* Forces GPU acceleration on iOS for blur performance */
   transform: translate3d(0, 0, 0);
-  /* border-top: 2px white solid;
-  border-right: 2px white solid;
-  border-left: 2px white solid; */
+  /* border-top: 3px rgba(255, 255, 255) solid;
+  border-right: 3px rgba(255, 255, 255) solid;
+  border-left: 3px rgba(255, 255, 255) solid; */
   border-radius: 25px 25px 0px 0px;
 }
 
