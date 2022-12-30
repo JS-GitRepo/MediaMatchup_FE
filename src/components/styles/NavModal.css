@@ -10,8 +10,8 @@
   width: 100%;
   z-index: 5;
   /* style */
-  background-color: rgba(75, 75, 75, 0.4);
-  backdrop-filter: blur(20px) brightness(100%);
+  background-color: rgb(0, 0, 0, 0.15);
+  backdrop-filter: blur(12px) brightness(110%) contrast(110%);
   /* Forces GPU acceleration on iOS for blur performance */
   transform: translate3d(0, 0, 0);
 }

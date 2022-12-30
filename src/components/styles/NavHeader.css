@@ -12,13 +12,13 @@
   max-height: 80px;
   z-index: 3;
   /* style */
-  background-color: rgba(26, 27, 29, 0.9);
+  background-color: rgba(26, 27, 29, 0.75);
   backdrop-filter: blur(15px);
   /* Forces GPU acceleration on iOS for blur performance */
   transform: translate3d(0, 0, 0);
-  /* border-bottom: 1px white solid;
-  border-right: 1px white solid;
-  border-left: 1px white solid; */
+  /* border-bottom: 3px rgba(255, 255, 255) solid;
+  border-right: 3px rgba(255, 255, 255) solid;
+  border-left: 3px rgba(255, 255, 255) solid; */
   box-sizing: border-box;
   border-radius: 0px 0px 25px 25px;
 }

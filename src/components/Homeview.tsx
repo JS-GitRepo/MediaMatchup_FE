@@ -1,6 +1,6 @@
 import "./styles/Homeview.css";
 import { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SocialContext from "../context/SocialContext";
 import { Matchup } from "../models/Matchup";
 import MediaItem from "../models/MediaItem";
@@ -33,11 +33,12 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   // - - - General - - -
   const { userAuth, userAccount } = useContext(SocialContext);
   const [showGenerateButton, setShowGenerateButton] = useState(true);
-  let { nav } = useParams();
   const navigate = useNavigate();
   // - - - Matchups - - -
   const [dailyIsComplete, setDailyIsComplete] = useState<Boolean>(false);
   const [bufferedMatchups, setBufferedMatchups] = useState<Matchup[]>([]);
+  const [toggleGenerateBuffer, setToggleGenerateBuffer] =
+    useState<boolean>(false);
   const [matchup, setMatchup] = useState<Matchup>({
     media1: {
       title: "",
@@ -52,6 +53,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
       category: "",
     },
   });
+
   // - - - Animations - - -
   const location = useLocation();
   const [navModalIsActive, setNavModalIsActive] = useState<boolean>(false);
@@ -226,20 +228,19 @@ const Homeview = ({ currentDisplay, style }: Props) => {
   };
 
   const checkAndSetMatchups = async () => {
-    setToggleGenAnim(!toggleGenAnim);
+    checkAndSetBufferedMatchups();
     if (matchup?.dailyMatchupsIndex) {
       if (bufferedMatchups[0].dailyMatchupsIndex === 10) {
         setDailyIsComplete(true);
       }
     }
-
-    checkAndSetBufferedMatchups();
   };
 
   const submitUserMatchupHandler = async (
     winner: MediaItem,
     dailyMatchupIndex?: number
   ) => {
+    setToggleGenAnim(!toggleGenAnim);
     // Establishes the winner based on which div is clicked (passed up via props)
     if (winner === matchup?.media1) {
       matchup.media1.winner = true;
@@ -264,10 +265,18 @@ const Homeview = ({ currentDisplay, style }: Props) => {
         dailyMatchupsIndex: tempIndex,
       };
       // console.log(updatesObj);
-      await updateUserByID(userAuth!.uid as string, updatesObj);
+      updateUserByID(userAuth!.uid as string, updatesObj);
     }
     // console.log("Daily Matchups Status: ", dailyMatchups);
     checkAndSetMatchups();
+  };
+
+  const generateMatchupButtonHandler = () => {
+    if (!toggleGenerateBuffer) {
+      checkAndSetMatchups();
+      setToggleGenAnim(!toggleGenAnim);
+      setToggleGenerateBuffer(true);
+    }
   };
 
   const cardComponents = {
@@ -303,6 +312,11 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     console.log(bufferedMatchups);
   }, [matchup]);
 
+  useEffect(() => {
+    if (toggleGenerateBuffer)
+      setTimeout(() => setToggleGenerateBuffer(false), 600);
+  }, [toggleGenerateBuffer]);
+
   return (
     <animated.div className={`Homeview`}>
       {userAccount?.handle! ? (
@@ -333,7 +347,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
           {showGenerateButton ? (
             <button
               className='generate-matchup-btn'
-              onClick={checkAndSetMatchups}>
+              onClick={generateMatchupButtonHandler}>
               <animated.img
                 className='generate-matchup-img'
                 style={diceAnim}
@@ -378,7 +392,7 @@ const Homeview = ({ currentDisplay, style }: Props) => {
       ) : (
         <SignIn />
       )}
-      <p className='alpha'>ALPHA v0.30</p>
+      <p className='alpha'>ALPHA v0.31</p>
     </animated.div>
   );
 };
