@@ -1,3 +1,19 @@
+/* RESETS / GLOBAL */
+.SignIn p,
+.SignIn h1,
+.SignIn h2,
+.SignIn button {
+  margin: 0px;
+}
+
+.SignIn p,
+.SignIn h2,
+.SignIn label,
+.SignIn button {
+  letter-spacing: 1px;
+}
+
+/* GENERAL */
 .SignIn {
   /* display */
   display: flex;
@@ -13,11 +29,15 @@
 .SignIn h1 {
   letter-spacing: 7px;
   font-weight: 400;
+  font-size: 42px;
+  padding: 10px 0px;
+  margin-top: -10%;
 }
 
 .SignIn h2 {
   font-weight: 400;
-  margin: 10px;
+  font-size: 30px;
+  padding: 10px 10px 10px 10px;
 }
 
 .SignIn .content-ctr {
@@ -25,8 +45,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   /* position */
+  height: 250px;
   z-index: 1;
   /* style */
 }
@@ -40,14 +61,14 @@
   background-size: cover;
   object-fit: cover;
   /* style */
-  filter: hue-rotate(15deg) brightness(60%) contrast(100%) blur(6px);
+  filter: hue-rotate(15deg) brightness(50%) contrast(100%) blur(8px)
+    saturate(90%);
   /* Forces GPU acceleration on iOS for blur performance */
   transform: translate3d(0, 0, 0);
 }
 
 .SignIn .handle-label {
-  font-size: 20px;
-  margin-bottom: 5px;
+  font-size: 24px;
 }
 
 .SignIn .handle-ctr {
@@ -55,7 +76,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
   /* position */
+  height: 175px;
   width: 200px;
   /* margin: 20px; */
   padding: 0px;
@@ -74,9 +97,10 @@
 .SignIn .handle-form .handle-input {
   /* display */
   /* position */
-  height: 25px;
+  height: 30px;
   width: 140px;
   /* style */
+  font-size: 16px;
   text-align: center;
   border-radius: 5px;
   border-radius: 10px;
@@ -86,14 +110,14 @@
 .SignIn .handle-form button {
   /* display */
   /* position */
-  height: 30px;
-  width: 100px;
-  margin-top: 10px;
+  height: 40px;
+  width: 146px;
+  padding: 0px;
   /* style */
   border: 2.5px solid white;
   border-radius: 10px;
   font-family: "bangers";
-  font-size: 20px;
+  font-size: 24px;
   color: white;
   background-color: transparent;
 }
