@@ -8,6 +8,7 @@ import SocialContext from "../context/SocialContext";
 import { getUserByHandle, updateUserByID } from "../services/UserService";
 import { profanityCheck } from "../functions/utilityFunctions";
 import { updateAllMatchupsByUID } from "../services/MatchupService";
+import loading from "../media/loading.svg";
 
 interface SFA_Props {
   uiConfig: firebaseui.auth.Config;
@@ -94,7 +95,7 @@ const SignIn = () => {
       />
       <div className='content-ctr'>
         <h1>MediaMatchup</h1>
-        {auth.currentUser ? (
+        {auth.currentUser && userAccount ? (
           <form className={"handle-form"} onSubmit={submissionHandler}>
             <h2>{`Hello ${userAuth?.displayName?.split(" ", 1)}!`}</h2>
             <div className='handle-ctr'>
@@ -113,13 +114,26 @@ const SignIn = () => {
                 pattern={"[A-Za-z0-9]+"}
                 value={handle}
                 onChange={(e) => setHandle(e.target.value)}
-              />{" "}
+              />
               <button>Submit</button>
               <p className='status-msg'>{statusMsg}</p>
             </div>
           </form>
         ) : (
-          <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
+          <>
+            {auth.currentUser ? (
+              <img
+                className='loading-defined-matchup'
+                src={loading}
+                alt='Loading Media Matchup'
+              />
+            ) : (
+              <StyledFirebaseAuth
+                uiConfig={firebaseUIConfig}
+                firebaseAuth={auth}
+              />
+            )}
+          </>
         )}
       </div>
     </div>
