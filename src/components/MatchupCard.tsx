@@ -29,6 +29,12 @@ const MatchupCard = ({
     from: { opacity: 0 },
     enter: { opacity: 1 },
     exitBeforeEnter: true,
+    config: { tension: 70, friction: 25 },
+  });
+  const loadingEnterAnim = useTransition(matchup, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    exitBeforeEnter: true,
     config: { tension: 170, friction: 28 },
   });
   // General matchup funcionality use states
