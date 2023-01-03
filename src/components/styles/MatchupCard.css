@@ -35,7 +35,7 @@
   /* position */
   /* style */
   display: flex;
-  top: 5%;
+  top: 3%;
   width: 100%;
   position: absolute;
   align-items: center;
@@ -45,6 +45,7 @@
 }
 
 .MatchupCard .daily-header p {
+  margin: 0px;
   padding: 10px 20px;
   border: 2px solid rgb(255, 255, 255);
   border-radius: 10px;
@@ -96,7 +97,7 @@
   flex: 1;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   /* position */
   position: relative;
   max-width: 100%;
@@ -106,13 +107,13 @@
 .MatchupCard .image-subcontainer {
   /* display */
   display: flex;
+  flex: 1;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
-  flex: 3;
   /* position */
   width: 100%;
-  min-height: 55%;
+  min-height: 52%;
   /* max-height: 530px; */
   z-index: 1;
   /* style */
@@ -150,7 +151,7 @@
 }
 
 .MatchupCard .text-subcontainer {
-  flex: 3;
+  flex: 1;
   width: 90%;
   z-index: 1;
   font-size: 15px;

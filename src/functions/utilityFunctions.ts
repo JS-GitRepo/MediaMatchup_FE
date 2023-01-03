@@ -39,3 +39,18 @@ export const profanityCheck = (string: string) => {
   ]);
   return profanity.exists(string);
 };
+
+export const generateDateInfo = () => {
+  const currentDate: Date = new Date();
+  const detailedDate: number = Date.now();
+  const simpleDate: number = Date.UTC(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    currentDate.getDate(),
+    0,
+    0,
+    0,
+    0
+  );
+  return { currentDate, detailedDate, simpleDate };
+};

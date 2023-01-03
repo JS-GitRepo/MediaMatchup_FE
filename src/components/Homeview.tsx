@@ -12,15 +12,13 @@ import { submitMatchup } from "../services/MatchupService";
 import { getUserById, updateUserByID } from "../services/UserService";
 import MatchupCard from "./MatchupCard";
 import StatsCard from "./StatsCard";
-import shareIcon from "../media/navIcons/shareIcon.png";
-import commentsIcon from "../media/navIcons/commentsIcon.png";
-import generateIcon from "../media/navIcons/generateIcon.png";
-import navIcon from "../media/navIcons/navIcon.png";
-import GenerateMatchupIcon from "../media/navIcons/GenerateMatchupIcon.png";
 import NavModal from "./NavModal";
-import { animated, useSpring, useTransition } from "@react-spring/web";
+import { animated, useTransition } from "@react-spring/web";
 import SignIn from "./SignIn";
 import { generateMultipleMatchups } from "../functions/generateMatchups";
+import NavMenu from "./NavMenu";
+import { generateMatchupWorker } from "../functions/generateWorkers";
+import { generateDateInfo } from "../functions/utilityFunctions";
 
 interface Props {
   currentDisplay: string;
@@ -32,7 +30,6 @@ const Homeview = ({ currentDisplay, style }: Props) => {
 
   // - - - General - - -
   const { userAuth, userAccount } = useContext(SocialContext);
-  const [showGenerateButton, setShowGenerateButton] = useState(true);
   const navigate = useNavigate();
   // - - - Matchups - - -
   const [dailyIsComplete, setDailyIsComplete] = useState<Boolean>(false);
@@ -53,9 +50,9 @@ const Homeview = ({ currentDisplay, style }: Props) => {
       category: "",
     },
   });
+  const [showGenerateButton, setShowGenerateButton] = useState(true);
 
   // - - - Animations - - -
-  const location = useLocation();
   const [navModalIsActive, setNavModalIsActive] = useState<boolean>(false);
   const [toggleGenAnim, setToggleGenAnim] = useState<boolean>(false);
   const navModalTransition = useTransition(navModalIsActive, {
@@ -64,59 +61,9 @@ const Homeview = ({ currentDisplay, style }: Props) => {
     leave: { transform: "translateY(110%)" },
     exitBeforeEnter: false,
   });
-  const [generateAnim] = useSpring(
-    () => ({
-      from: {
-        transform: "rotate(0deg)",
-      },
-      to: {
-        transform: "rotate(180deg)",
-      },
-      reset: true,
-      config: { mass: 1, tension: 170, friction: 26 },
-    }),
-    [toggleGenAnim]
-  );
-  const [diceAnim] = useSpring(
-    () => ({
-      from: {
-        transform: "rotate(0deg)",
-      },
-      to: {
-        transform: "rotate(-10deg)",
-      },
-      reset: true,
-      config: { mass: 1, tension: 170, friction: 26 },
-    }),
-    [toggleGenAnim]
-  );
+  const location = useLocation();
 
   // = = = = = =  GENERATOR FUNCTIONS = = = = = =
-  const generateMatchupWorker = () => {
-    let matchupWorker = new Worker(
-      new URL("../webworkers/generateMatchupWorker.ts", import.meta.url),
-      {
-        type: "module",
-      }
-    );
-    matchupWorker.postMessage("");
-    return matchupWorker;
-  };
-
-  const generateDateInfo = () => {
-    const currentDate: Date = new Date();
-    const detailedDate: number = Date.now();
-    const simpleDate: number = Date.UTC(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate(),
-      0,
-      0,
-      0,
-      0
-    );
-    return { currentDate, detailedDate, simpleDate };
-  };
 
   // >>>>>>>>>>>>>>>>>>>>> 'CHECK AND SET' FUNCTIONS <<<<<<<<<<<<<<<<<<<<<
   const checkAndSetBufferedMatchups = async (): Promise<void> => {
@@ -344,50 +291,12 @@ const Homeview = ({ currentDisplay, style }: Props) => {
             {cardComponents.matchupCard}
           </div>
 
-          {showGenerateButton ? (
-            <button
-              className='generate-matchup-btn'
-              onClick={generateMatchupButtonHandler}>
-              <animated.img
-                className='generate-matchup-img'
-                style={diceAnim}
-                src={generateIcon}
-                alt='generate-matchup-img'
-              />
-              <animated.img
-                className='refresh-anim'
-                style={generateAnim}
-                src={GenerateMatchupIcon}
-                alt='generate'
-              />
-            </button>
-          ) : (
-            ""
-          )}
-
-          <div className='nav-menu'>
-            <ul>
-              <li>
-                <button>
-                  <img className='shareIcon' src={shareIcon} alt='share' />
-                </button>
-              </li>
-              <li>
-                <button>
-                  <img
-                    className='commentsIcon'
-                    src={commentsIcon}
-                    alt='comments'
-                  />
-                </button>
-              </li>
-              <li>
-                <button onClick={navMenuTransition}>
-                  <img className='navIcon' src={navIcon} alt='nav menu' />
-                </button>
-              </li>
-            </ul>
-          </div>
+          <NavMenu
+            navMenuTransition={navMenuTransition}
+            generateMatchupButtonHandler={generateMatchupButtonHandler}
+            showGenerateButton={showGenerateButton}
+            toggleGenAnim={toggleGenAnim}
+          />
         </>
       ) : (
         <SignIn />
