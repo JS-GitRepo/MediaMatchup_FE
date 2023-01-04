@@ -8,6 +8,14 @@ export const truncateStringTail = (string: string, charCount: number) => {
   }
 };
 
+export const truncateStringStart = (string: string, charCount: number) => {
+  if (string.length > charCount) {
+    return string.substring(0, charCount) + "...";
+  } else {
+    return string;
+  }
+};
+
 export const profanityCheck = (string: string) => {
   profanity.removeWords([
     "butt",

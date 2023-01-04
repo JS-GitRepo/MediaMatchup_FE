@@ -6,6 +6,7 @@ import loading from "../media/loading.svg";
 import Loading from "./Loading";
 import { animated, config, useTransition } from "@react-spring/web";
 import AnimatedRoutes from "./AnimatedRoutes";
+import { truncateStringStart } from "../functions/utilityFunctions";
 
 interface Props {
   matchup: Matchup;
@@ -57,8 +58,18 @@ const MatchupCard = ({
   const imageLoadedCounter = useRef(0);
 
   const constructMedia = async () => {
-    setTitle1(matchup?.media1.title);
-    setTitle2(matchup?.media2.title);
+    let tempTitle1 = matchup?.media1.title as String;
+    let tempTitle2 = matchup?.media2.title as String;
+    setTitle1(
+      tempTitle1.length >= 40
+        ? truncateStringStart(matchup?.media1.title!, 60)
+        : matchup?.media1.title
+    );
+    setTitle2(
+      tempTitle2.length >= 40
+        ? truncateStringStart(matchup?.media2.title!, 60)
+        : matchup?.media2.title
+    );
     setSubtitle1(matchup?.media1.subtitle);
     setSubtitle2(matchup?.media2.subtitle);
     setMediaCategory1(matchup?.media1.category);
