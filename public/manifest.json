@@ -52,7 +52,7 @@
       "purpose": "any"
     }
   ],
-  "start_url": ".",
+  "start_url": "./",
   "lang": "en",
   "display": "standalone",
   "theme_color": "#000000",
